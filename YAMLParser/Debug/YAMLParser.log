@@ -1,0 +1,6 @@
+﻿YAMLParser.obj : error LNK2019: unresolved external symbol "public: __thiscall YAML::Emitter::Emitter(void)" (??0Emitter@YAML@@QAE@XZ) referenced in function _main
+YAMLParser.obj : error LNK2019: unresolved external symbol "public: __thiscall YAML::Emitter::~Emitter(void)" (??1Emitter@YAML@@QAE@XZ) referenced in function _main
+YAMLParser.obj : error LNK2019: unresolved external symbol "public: char const * __thiscall YAML::Emitter::c_str(void)const " (?c_str@Emitter@YAML@@QBEPBDXZ) referenced in function _main
+YAMLParser.obj : error LNK2019: unresolved external symbol "public: class YAML::Emitter & __thiscall YAML::Emitter::Write(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?Write@Emitter@YAML@@QAEAAV12@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) referenced in function "class YAML::Emitter & __cdecl YAML::operator<<(class YAML::Emitter &,char const *)" (??6YAML@@YAAAVEmitter@0@AAV10@PBD@Z)
+C:\yaml-cpp\build\Debug\libyaml-cppmdd.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+C:\Users\oskar\source\repos\YAMLParser\Debug\YAMLParser.exe : fatal error LNK1120: 4 unresolved externals
