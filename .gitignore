@@ -35,4 +35,8 @@
 Debug/*
 x64/*
 .vs/*
+YAMLParser/Debug/*
+YAMLParser/x64/*
+YAMLParser/.vs/*
 YAMLParser.sln
+CppProperties.json
