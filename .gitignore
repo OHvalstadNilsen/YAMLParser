@@ -39,3 +39,10 @@ YAMLParser/Debug/*
 YAMLParser/x64/*
 YAMLParser/.vs/*
 CppProperties.json
+
+# Input example files
+YAMLParser/Test3.usf
+
+# Output from YAMLParser (this program)
+YAMLParser/output.yaml
+YAMLParser/joint_model_sample.usf
