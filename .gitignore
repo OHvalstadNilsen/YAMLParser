@@ -47,3 +47,4 @@ YAMLParser/Joint_model.usf
 
 # Output from YAMLParser (this program)
 YAMLParser/output.yaml
+YAMLParser/output_oo.yaml
