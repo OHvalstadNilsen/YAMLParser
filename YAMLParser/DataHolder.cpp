@@ -5,6 +5,7 @@
 #include <iostream>
 
 const std::vector<std::string> comment_signs = { "'", "#", "*", "%", "!" }; //USFOS comment signs
+
 DataHolder::DataHolder()
 {
 }
