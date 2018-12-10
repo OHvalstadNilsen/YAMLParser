@@ -18,8 +18,12 @@ public:
 	//	"UNITVEC", "ECCENT", "MISOIEP", "NODELOAD", "GRAVITY", "NODTRANS" };
 
 	//Format definitions, i.e. templates defining the attrubutes comprised in each data type
+	// Nodal data:
 	std::vector<std::string> node_template = { "id", "x", "y", "z", "ix", "iy", "iz", "irx", "iry", "irz", "rotID" };
 	std::vector<std::string> nodtrans_template = { "rotID", "Xx", "Yy", "Zz", "Yx", "Yy", "Yz", "Zx", "Zy", "Zz" };
+	std::vector<std::string> coordsys_template = { "rotID", "Xx", "Xy", "Xz", "Yx", "Yy", "Yz", "Zx", "Zy", "Zz" };
+	std::vector<std::string> pcoordsys_template = { "rotID", "Ox", "Oy", "Oz", "Zx", "Zy", "Zz", "Xx", "Xy", "Xz" };
+	//std::vector<std::string> trannodes_template = { "rotID", "nod1", "nod2", ...};
 	std::vector<std::string> beam_template = { "elemID", "node1", "node2", "material", "geoID", "vecID", "ecc1", "ecc2" };
 	std::vector<std::string> trishell_template = { "elemID", "node1", "node2", "node3", "material", "geoID", "vecID", "ecc1", "ecc2" };
 	std::vector<std::string> pipe_template = { "geoID", "d_outer", "thickness", "shearY", "shearZ" };
@@ -32,6 +36,7 @@ public:
 	std::vector<std::string> gravity_template = { "loadCaseID", "aX", "aY", "aZ" };
 	//TODO: ADD THE REMAINING DATA TYPES (Remember also adding to data_types).
 
+	//Mapping the templates to its corresponding data type:
 	std::map<std::string, std::vector<std::string>> data_types_m; // map<data_type, data_type_template>.
 
 	//Extract all keys from map<std::string, std::vector<std::string>>

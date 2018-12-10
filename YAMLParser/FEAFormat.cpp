@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "FEAFormat.h"
 
-//Constructor
+//Constructor populating the mapping of data types with their corresponding template.
 FEAFormat::FEAFormat()
 {
 	/*
@@ -9,8 +9,12 @@ FEAFormat::FEAFormat()
 		Key: data_type
 		Value: data_type_template.
 	*/
-
+	//Nodal data
 	data_types_m["NODE"] = node_template;
+	data_types_m["NODTRANS"] = nodtrans_template;
+	data_types_m["COORDSYS"] = coordsys_template;
+	data_types_m["PCOORDSYS"] = pcoordsys_template;
+	//data_types_m["TRANNODES"] = trannodes_template;
 	data_types_m["BEAM"] = beam_template;
 	data_types_m["TRISHELL"] = trishell_template;
 	data_types_m["PIPE"] = pipe_template;
@@ -21,7 +25,6 @@ FEAFormat::FEAFormat()
 	data_types_m["MISOIEP"] = misoiep_template;
 	data_types_m["NODELOAD"] = nodeload_template;
 	data_types_m["GRAVITY"] = gravity_template;
-	data_types_m["NODTRANS"] = nodtrans_template;
 }
 
 //Extract all keys in a map on the form <std::string, std::vector<std::string>>
