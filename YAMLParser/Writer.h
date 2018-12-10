@@ -10,15 +10,12 @@ class Writer
 public:
 	Writer(DataHolder data, std::string filename, int yamlStyleFlag);
 	~Writer();
-	//FIXME: En av disse er overflødig. Fjern den.
+
 	void writeToYamlFile(std::string filename);
-	void writeToYamlFile2(std::string filename);
 
 	enum YamlStyle { BLOCK, FLOW };
 
 private:
 	std::string parseElementData(std::vector<std::string> v_t, std::vector<std::string> templ);
-	std::string parseElementData_idInElementKey(std::vector<std::string> v_t, std::vector<std::string> templ);
-	std::string parseElementData_asDatatypeLists(std::vector<std::string> v_t, std::vector<std::string> templ);
 };
 
