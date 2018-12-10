@@ -12,7 +12,7 @@ public:
 	std::vector<std::string> comment_signs;
 
 	std::vector<std::string> tokens; //contains the tokens generated from the input file
-	std::vector<std::vector<std::string>> tokens2D; //Two-dimensional vector containing significant tokens with their respective sub-tokens.
+	std::vector<std::vector<std::string>> tokens2D; //Two-dimensional vector containing lines from the input with their respective sub-tokens.
 	
 	void readInput(std::string filename);
 	void printTokens2D();

@@ -15,7 +15,9 @@ DataHolder::DataHolder(std::string filename) {
 }
 
 void DataHolder::tokenizeString(std::string s) {
-	// Splits the string on space (' ') and adds each token to the global vector tokens.
+	/*
+	
+	*/
 	std::stringstream s_stream(s);
 	std::string token;
 
@@ -27,6 +29,12 @@ void DataHolder::tokenizeString(std::string s) {
 }
 
 void DataHolder::tokenizeString2D(std::string s) {
+	/*
+	Splits the input string s on space (' ') and appends each token to the global array tokens2D.
+	Each non-empty token is appended to the vector lineTokens.
+	When the whole input string is tokenized and appended to lineTokens, then lineTokens is appended to tokens2D.
+	If the input string s is empty, nothing is appended to tokens2D.
+	*/
 	std::stringstream s_stream(s);
 	std::string token;
 	std::vector<std::string> lineTokens;
@@ -45,7 +53,9 @@ void DataHolder::tokenizeString2D(std::string s) {
 }
 
 void DataHolder::readInput(std::string filename) {
-	// Reads input file and prints its content.
+	/*
+	Reads input file and prints its content and runs tokenize2D on each line.
+	*/ 
 
 	std::ifstream ifs(filename);
 	if (ifs.is_open()) {
@@ -67,7 +77,12 @@ void DataHolder::readInput(std::string filename) {
 	ifs.close();
 }
 
+
+// ---------- Functions for printing to terminal ----------
 void DataHolder::printTokens() {
+	/*
+	Prints the content of the tokens vector.
+	*/
 	std::cout << "Content of tokens: \n" << std::endl;
 	for (int i = 0; i < tokens.size(); i++) {
 		std::cout << '[' << tokens[i] << "]" << std::endl;
@@ -75,6 +90,9 @@ void DataHolder::printTokens() {
 }
 
 void DataHolder::printTokens2D() {
+	/*
+	Prints the content of the vector tokens2D.
+	*/
 	std::cout << "Content of tokens2D: \n" << std::endl;
 	for (int i = 0; i < tokens2D.size(); i++) {
 		std::cout << "Tokens2D index " << i << ":" << std::endl;
@@ -85,7 +103,7 @@ void DataHolder::printTokens2D() {
 	}
 }
 
-
+//Destructor
 DataHolder::~DataHolder()
 {
 }
