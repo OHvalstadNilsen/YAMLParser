@@ -15,7 +15,5 @@ public:
 
 	enum YamlStyle { BLOCK, FLOW };
 
-private:
-	std::string parseElementData(std::vector<std::string> v_t, std::vector<std::string> templ);
 };
 

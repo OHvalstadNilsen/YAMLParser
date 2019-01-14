@@ -34,26 +34,6 @@ bool contains(std::vector<std::string> vec, std::string el) {
 	return it != end(vec);
 }
 
-//TODO: Remove this method; its functionality is embedded in writeToYamlFile.
-std::string Writer::parseElementData(std::vector<std::string> v_t, std::vector<std::string> templ) {
-	//Writes the input nodal data on the YAML block style.
-	YAML::Emitter emitter;
-
-	// Set emitter format according to the value of yamlStyle (given as user input)
-	YAML_STYLE == BLOCK ? emitter.SetSeqFormat(YAML::Block) : emitter.SetSeqFormat(YAML::Flow);
-
-	emitter << YAML::BeginMap << YAML::Key << v_t[0];
-	emitter << YAML::Value << YAML::BeginSeq;
-	for (int i = 0; i < v_t.size() - 1; i++) {
-		emitter << YAML::BeginMap << YAML::Key << templ[i];
-		emitter << YAML::Value << v_t[i + 1] << YAML::EndMap;
-	}
-	emitter << YAML::EndSeq;
-	emitter << YAML::EndMap;
-
-	return emitter.c_str();
-}
-
 void Writer::writeToYamlFile(std::string filename) {
 	/*
 	Writes output to the file defined by filename, according to parameters set in constructor.
