@@ -47,3 +47,6 @@ YAMLParser/Joint_model.usf
 
 # Output from YAMLParser (this program)
 YAMLParser/output*
+
+# Examples folder
+YAMLParser/examples/
