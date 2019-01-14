@@ -24,11 +24,15 @@ public:
 	std::vector<std::string> coordsys_template = { "rotID", "Xx", "Xy", "Xz", "Yx", "Yy", "Yz", "Zx", "Zy", "Zz" };
 	std::vector<std::string> pcoordsys_template = { "rotID", "Ox", "Oy", "Oz", "Zx", "Zy", "Zz", "Xx", "Xy", "Xz" };
 	//std::vector<std::string> trannodes_template = { "rotID", "nod1", "nod2", ...};
+	// Element data:
 	std::vector<std::string> beam_template = { "elemID", "node1", "node2", "material", "geoID", "vecID", "ecc1", "ecc2" };
 	std::vector<std::string> trishell_template = { "elemID", "node1", "node2", "node3", "material", "geoID", "vecID", "ecc1", "ecc2" };
+	std::vector<std::string> quadshell_template = { "elemID", "node1", "node2", "node3", "material", "geoID", "coordID", "ecc1", "ecc2", "ecc3", "ecc4" };
+	// Cross-sectinal data
 	std::vector<std::string> pipe_template = { "geoID", "d_outer", "thickness", "shearY", "shearZ" };
 	std::vector<std::string> ihprofile_template = { "geoID", "height", "T_web", "W_top", "T_top", "W_bot", "T_bot", "shearY", "shearZ" };
 	std::vector<std::string> plthick_template = { "geoID", "thickness" };
+	// Misc data
 	std::vector<std::string> cfemvector_template = { "vecID", "x", "y", "z" }; //template for UNITVEC, ZVECTOR and YVECTOR in CFEM.
 	std::vector<std::string> eccent_template = { "eccID", "eX", "eY", "eZ" };
 	std::vector<std::string> misoiep_template = { "matID", "E-module", "poisson", "yield", "density", "thermalExpansion" };

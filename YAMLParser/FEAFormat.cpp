@@ -17,6 +17,7 @@ FEAFormat::FEAFormat()
 	//data_types_m["TRANNODES"] = trannodes_template;
 	data_types_m["BEAM"] = beam_template;
 	data_types_m["TRISHELL"] = trishell_template;
+	data_types_m["QUADSHEL"] = quadshell_template;
 	data_types_m["PIPE"] = pipe_template;
 	data_types_m["IHPROFILE"] = ihprofile_template;
 	data_types_m["PLTHICK"] = plthick_template;
