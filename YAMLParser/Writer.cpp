@@ -64,7 +64,7 @@ void Writer::writeToYamlFile(std::string filename) {
 		emitter << YAML::BeginMap << YAML::Key << "CONSTRUCTION" << YAML::Value;
 		emitter << YAML::BeginSeq;
 		// Set emitter format according to the value of yamlStyle (given as user input to the constructor)
-		YAML_STYLE == BLOCK ? emitter.SetSeqFormat(YAML::Block) : emitter.SetSeqFormat(YAML::Flow);
+		YAML_STYLE == BLOCK ? emitter.SetMapFormat(YAML::Block) : emitter.SetMapFormat(YAML::Flow);
 
 		std::string data_type;
 		std::vector<std::string> currentTemplate;
@@ -94,14 +94,14 @@ void Writer::writeToYamlFile(std::string filename) {
 					}
 				}
 				//Translate to FEAFormat
-				emitter << YAML::BeginMap << YAML::Key << data_type;
-				emitter << YAML::Value << YAML::BeginSeq;
+				emitter << YAML::BeginMap << YAML::Key << data_type; //Data type map
+				emitter << YAML::Value << YAML::BeginMap; //AttributeMap
 				for (int l = 0; l < data.tokens2D[i].size() - 1; l++) {
-					emitter << YAML::BeginMap << YAML::Key << currentTemplate[l];
-					emitter << YAML::Value << data.tokens2D[i][l + 1] << YAML::EndMap;
+					emitter << YAML::Key << currentTemplate[l];
+					emitter << YAML::Value << data.tokens2D[i][l + 1];
 				}
-				emitter << YAML::EndSeq;
-				emitter << YAML::EndMap;
+				emitter << YAML::EndMap; //Attribute map
+				emitter << YAML::EndMap; //Data type map
 				
 			}
 		}
