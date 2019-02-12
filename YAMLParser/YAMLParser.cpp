@@ -12,65 +12,13 @@ void runParser() {
 	std::string filename;
 	std::cout << "Enter file path: ";
 	std::cin >> filename;
-	Parser *parser = new Parser(filename);
-	
-	YAML::Node root = YAML::LoadFile(filename);
-	YAML::Node construction = root["CONSTRUCTION"];
-	YAML::Node node;
-
-	for (int iterator = 0; iterator < construction.size(); ++iterator) {
-		node = construction[iterator];
-		std::string key;
-
-		YAML::const_iterator it = node.begin(); //Used to access the key using it.first. //TODO: Better way to do this?
-		key = it->first.as<std::string>();
-		if (key == "NODE") {
-			node = construction[iterator][key];
-			parser->parseNode(node);
-		}
+	try {
+		Parser *parser = new Parser(filename);
+		parser->parse();
 	}
-
-	//------------------------------------
-	/*
-	if (!node.IsDefined()) {
-		std::cout << "node is undefined" << std::endl;
+	catch(std::runtime_error &e){
+		std::cout << e.what() << std::endl;
 	}
-	else if (node.IsMap()) {
-		std::cout << "node is a map" << std::endl;
-		for (auto it = node.begin(); it != node.end(); ++it) {
-			YAML::Node key = it->first;
-			YAML::Node value = it->second;
-			if (key.Type() == YAML::NodeType::Scalar) {
-				std::cout << "Key is a scalar" << std::endl;
-				std::cout << "Key: " << key.as<std::string>() << std::endl;
-			}
-			if (value.Type() == YAML::NodeType::Sequence) {
-				std::cout << "Value is a seq" << std::endl;
-			}
-		}
-	}
-	else if (node.IsNull()) {
-		std::cout << "node is Null";
-	}
-	else if (node.IsScalar()) {
-		std::cout << "node is a scalar";
-	}
-	else if (node.IsSequence()) {
-		std::cout << "node is a sequence" << std::endl;
-		YAML::Node childnode = node[0];
-		if (childnode.IsMap()) {
-			 std::cout << "node[0] is a map" << std::endl;
-			 std::cout << node[1]["x"].as<std::string>() << std::endl;
-			}
-	}
-	// For testing purposes
-	std::string id = node[0]["id"].as<std::string>();
-	double x = node[1]["x"].as<double>();
-	double y = node[2]["y"].as<double>();
-	double z = node[3]["z"].as<double>();
-	
-	std::cout << "Parameters: " << id <<", "<< x << ", " << y << ", " << z << std::endl;
-	*/
 }
 
 void runConverter() {
