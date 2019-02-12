@@ -33,6 +33,15 @@
     <ClInclude Include="FENode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FEBeam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FETrishell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FETypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -57,6 +66,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FENode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FEBeam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FETrishell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
