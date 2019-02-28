@@ -2,8 +2,10 @@
 #include "Parser.h"
 #include "yaml-cpp\yaml.h"
 #include "FEAFormat.h"
-#include <iostream>
 #include "FETypes.h"
+
+#include <iostream>
+#include <fstream>
 
 FEAFormat feaformat;
 
@@ -25,6 +27,7 @@ Parser::~Parser()
 {
 }
 
+//TODO: Can this be removed?
 YAML::Node Parser::extractConstructionNode(YAML::Node rootNode) {
 	if (!rootNode["CONSTRUCTION"]) {
 		throw std::runtime_error("Parser error: Could not find \"CONSTRUCTION\" node.");
@@ -32,36 +35,77 @@ YAML::Node Parser::extractConstructionNode(YAML::Node rootNode) {
 	return rootNode["CONTRUCTION"];
 }
 
-void Parser::parseNode(YAML::Node yamlNode) {
+void Parser::logErrorMsg(std::runtime_error e) {
+	std::ofstream ofs("ErrorLog.txt", std::fstream::app);
+	ofs << e.what() << std::endl;
+	ofs.close();
+}
+
+void Parser::parseNode(YAML::Node& yamlNode) {
 	try {
 		//Initialize a FENode from the YAML::Node
 		FENode *feNode = new FENode(yamlNode);
-		feNode->PrintNode();
+		feNode->printAttributes();
 	}
 	catch(std::runtime_error &e){
 		std::cout << e.what() << std::endl;
+		logErrorMsg(e);
 	}
 }
 
-void Parser::parseBeam(YAML::Node yamlNode) {
+void Parser::parseBeam(YAML::Node& yamlNode) {
 	try {
-		//Initialize a FENode from the YAML::Node
+		//Initialize a FEBeam from the YAML::Node
 		FEBeam *feBeam = new FEBeam(yamlNode);
-		feBeam->PrintBeam();
+		feBeam->printAttributes();
 	}
 	catch (std::runtime_error &e) {
 		std::cout << e.what() << std::endl;
+		logErrorMsg(e);
 	}
 }
 
-void Parser::parseTrishell(YAML::Node yamlNode) {
+void Parser::parseTrishell(YAML::Node& yamlNode) {
 	try {
-		//Initialize a FENode from the YAML::Node
+		//Initialize a FETrishell from the YAML::Node
 		FETrishell *feTrishell = new FETrishell(yamlNode);
-		feTrishell->PrintTrishell();
+		feTrishell->printAttributes();
 	}
 	catch (std::runtime_error &e) {
 		std::cout << e.what() << std::endl;
+		logErrorMsg(e);
+	}
+}
+
+void Parser::ParseGenericFEMElement(YAML::Node& yamlNode) {
+	/* This method is a classifier.
+	 * Parses a generic FEM element, identified by the literal string FEMElement
+	 */
+	
+	//Extract 'type' string and tranform it to lower case:
+	std::string type = yamlNode["type"].as<std::string>();
+	std::transform(type.begin(), type.end(), type.begin(), ::tolower);
+	
+	//Pass the YAML node on to the correct parser method:
+	if (type == "beam" && yamlNode["nodes"].size() == 2) {
+		parseBeam(yamlNode);
+	}
+	
+	else if (type == "trishell" && yamlNode["nodes"].size() == 3) {
+		parseTrishell(yamlNode);
+	}
+	
+}
+
+void Parser::ParserIsoMaterial(YAML::Node& yamlNode) {
+	try {
+		//Initialize a IsoMaterial from the YAML::Node
+		FEIsoMaterial *feIsoMaterial = new FEIsoMaterial(yamlNode);
+		feIsoMaterial->printAttributes();
+	}
+	catch (std::runtime_error &e) {
+		std::cout << e.what() << std::endl;
+		logErrorMsg(e);
 	}
 }
 
@@ -83,6 +127,14 @@ void Parser::parse() {
 		if (key == "TRISHELL") {
 			nextNode = construction[iterator][key];
 			parseTrishell(nextNode);
+		}
+		if (key == "FEMELEMENT") {
+			nextNode = construction[iterator][key];
+			ParseGenericFEMElement(nextNode);
+		}
+		if (key == "ISOMATERIAL") {
+			nextNode = construction[iterator][key];
+			ParserIsoMaterial(nextNode);
 		}
 	}
 }

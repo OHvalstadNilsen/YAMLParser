@@ -166,9 +166,11 @@
     <ClInclude Include="DataHolder.h" />
     <ClInclude Include="FEAFormat.h" />
     <ClInclude Include="FEBeam.h" />
+    <ClInclude Include="FEIsoMaterial.h" />
     <ClInclude Include="FENode.h" />
     <ClInclude Include="FETrishell.h" />
     <ClInclude Include="FETypes.h" />
+    <ClInclude Include="GenericFE.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Writer.h" />
@@ -177,6 +179,7 @@
     <ClCompile Include="DataHolder.cpp" />
     <ClCompile Include="FEAFormat.cpp" />
     <ClCompile Include="FEBeam.cpp" />
+    <ClCompile Include="FEIsoMaterial.cpp" />
     <ClCompile Include="FENode.cpp" />
     <ClCompile Include="FETrishell.cpp" />
     <ClCompile Include="Parser.cpp" />

@@ -3,7 +3,6 @@
 #include <iostream>
 #include <exception>
 
-
 FENode::FENode(int id, double x, double y, double z, int ix, int iy, int iz, int irx, int iry, int irz, int rotID) 
 {
 	this->id = id;
@@ -31,12 +30,32 @@ FENode::~FENode()
 {
 }
 
-bool FENode::setMandatoryValues(YAML::Node yamlNode) {
+bool FENode::setMandatoryValues(YAML::Node& yamlNode) {
 	/* Assign the mandatory values (id, x, y, and z).
 	 * If the values are defined in the node, assign them and return true.
 	 * Else, return false.
 	*/
-	if (yamlNode["id"] && yamlNode["x"] && yamlNode["y"] && yamlNode["z"]) {
+	if (yamlNode["id"]) {
+		this->id = yamlNode["id"].as<int>();
+		return setCoordinates(yamlNode);
+	}
+	return false;
+}
+
+bool FENode::setCoordinates(YAML::Node yamlNode) {
+	//For coordinate data on the form "xyz: [x, y, z]"
+	if (yamlNode["xyz"]) {
+		this->x = yamlNode["xyz"][0].as<double>();
+		this->y = yamlNode["xyz"][1].as<double>();
+		this->z = yamlNode["xyz"][2].as<double>();
+		return true;
+	}
+	/*For coordinate data on the form
+	 x: x
+	 y: y 
+	 z: z
+	*/
+	else if (yamlNode["x"] && yamlNode["y"] && yamlNode["z"]) {
 		this->id = yamlNode["id"].as<int>();
 		this->x = yamlNode["x"].as<double>();
 		this->y = yamlNode["y"].as<double>();
@@ -46,7 +65,7 @@ bool FENode::setMandatoryValues(YAML::Node yamlNode) {
 	return false;
 }
 
-void FENode::setOptionalValues(YAML::Node yamlNode) {
+void FENode::setOptionalValues(YAML::Node& yamlNode) {
 	/* Assign the optional values (boundary conditions and rotID).
 	 * If the value is defined in the YAML node, assign that value.
 	 * Else, assign the default value.
@@ -70,7 +89,7 @@ std::vector<std::string> FENode::extractYamlKeys(YAML::Node yamlNode) {
 	return retval;
 }
 
-void FENode::PrintNode() {
+void FENode::printAttributes() {
 	std::cout << "FENode:   id: " << id << ", x: " << x << ", y: " << y 
 			  << ", z: " << z << ", ix: " << ix << ", iy: " << iy <<", iz: " << iz 
 			  << ", irx: " << irx << ", iry: " << iry << ", irz: " << irz << ", rotID: " << rotID << std::endl;
