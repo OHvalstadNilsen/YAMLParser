@@ -1,0 +1,53 @@
+#include "pch.h"
+#include "FEIsoMaterial.h"
+#include <iostream>
+
+FEIsoMaterial::FEIsoMaterial(YAML::Node& yamlNode) {
+	if (!setMandatoryValues(yamlNode)) {
+		throw std::runtime_error("Error: Mandatory attributes missing.");
+	}
+	setOptionalValues(yamlNode);
+}
+
+FEIsoMaterial::~FEIsoMaterial() {}
+
+bool FEIsoMaterial::setMandatoryValues(YAML::Node& yamlNode) {
+	/* Assign the mandatory values (id, type, Emod, poisson, yield).
+	 * If the values are defined in the node, assign them and return true.
+	 * Else, return false.
+	*/
+	if (yamlNode["id"] && yamlNode["type"] && yamlNode["Emod"]
+		&& yamlNode["poisson"]) {
+		this->id = yamlNode["id"].as<int>();
+		this->type = yamlNode["type"].as<std::string>();
+		this->Emod = yamlNode["Emod"].as<double>();
+		this->poisson = yamlNode["poisson"].as<double>();
+		
+		/*The yield attribute is only defined for plastic materials.
+		  For elastic materials, the yield attribute holds a dummy variable.*/
+		if (type == "plastic" && !yamlNode["yield"]) {
+			return false;
+		}
+		this->yield = (type == "plastic") ? yamlNode["yield"].as<double>() : -1;
+		
+		return true;
+	}
+	return false;
+}
+
+void FEIsoMaterial::setOptionalValues(YAML::Node& yamlNode) {
+	/*Assign the optional values (density, thermX).
+	* If the value is defined in the YAML node, assign that value.
+	* Else, assign the default value.
+	*/
+	
+	//TODO: Decide which value to assign when the density is not defined
+	this->density = (yamlNode["density"]) ? yamlNode["density"].as<double>() : -1;
+	this->thermX = (yamlNode["thermX"]) ? yamlNode["thermX"].as<double>() : 0;
+}
+
+void FEIsoMaterial::printAttributes() {
+	std::cout << "IsoMaterial:   id: " << id << ", type: " << type << ", Emod: " << Emod
+		<< ", poisson: " << poisson << ", yield: " << yield << ", density: " << density
+		<< ", thermX: " << thermX << std::endl;
+}
