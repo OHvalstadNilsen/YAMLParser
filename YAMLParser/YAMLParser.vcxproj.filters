@@ -48,6 +48,9 @@
     <ClInclude Include="FEIsoMaterial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FEQuadshell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -81,6 +84,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FEIsoMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FEQuadshell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

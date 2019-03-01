@@ -77,6 +77,18 @@ void Parser::parseTrishell(YAML::Node& yamlNode) {
 	}
 }
 
+void Parser::parseQuadshell(YAML::Node& yamlNode) {
+	try {
+		//Initialize a FETrishell from the YAML::Node
+		FEQuadshell *feQuadshell = new FEQuadshell(yamlNode);
+		feQuadshell->printAttributes();
+	}
+	catch (std::runtime_error &e) {
+		std::cout << e.what() << std::endl;
+		logErrorMsg(e);
+	}
+}
+
 void Parser::ParseGenericFEMElement(YAML::Node& yamlNode) {
 	/* This method is a classifier.
 	 * Parses a generic FEM element, identified by the literal string FEMElement
@@ -91,8 +103,11 @@ void Parser::ParseGenericFEMElement(YAML::Node& yamlNode) {
 		parseBeam(yamlNode);
 	}
 	
-	else if (type == "trishell" && yamlNode["nodes"].size() == 3) {
+	else if (type == "trishell") {
 		parseTrishell(yamlNode);
+	}
+	else if (type == "quadshel") {
+		parseQuadshell(yamlNode);
 	}
 	
 }
@@ -127,6 +142,10 @@ void Parser::parse() {
 		if (key == "TRISHELL") {
 			nextNode = construction[iterator][key];
 			parseTrishell(nextNode);
+		}
+		if (key == "QUADSHEL") {
+			nextNode = construction[iterator][key];
+			parseQuadshell(nextNode);
 		}
 		if (key == "FEMELEMENT") {
 			nextNode = construction[iterator][key];

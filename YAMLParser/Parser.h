@@ -25,6 +25,7 @@ public:
 	//Element data:
 	void parseBeam(YAML::Node& yamlNode);
 	void parseTrishell(YAML::Node& yamlNode);
+	void parseQuadshell(YAML::Node & yamlNode);
 	void ParseGenericFEMElement(YAML::Node& yamlNode);
 	
 	//Material data:
