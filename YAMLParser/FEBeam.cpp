@@ -5,7 +5,7 @@
 
 FEBeam::FEBeam(YAML::Node yamlNode) {
 	if (!setMandatoryValues(yamlNode)) {
-		throw std::runtime_error("Error: Mandatory attributes missing.");
+		throw std::runtime_error("Beam error: Mandatory attributes missing.");
 	}
 	setOptionalValues(yamlNode);
 }

@@ -5,7 +5,7 @@
 
 FETrishell::FETrishell(YAML::Node yamlNode) {
 	if (!setMandatoryValues(yamlNode)) {
-		throw std::runtime_error("Error: Mandatory attributes missing.");
+		throw std::runtime_error("Trishell error: Mandatory attributes missing.");
 	}
 	setOptionalValues(yamlNode);
 }
@@ -47,7 +47,7 @@ bool FETrishell::setNodes(YAML::Node yamlNode) {
 	 * If the nodes are given on the form
 	 * nodes: [ID for node1, ID for node2, ...]
 	 */
-	if (yamlNode["nodes"]) {
+	if (yamlNode["nodes"].size() == 3) {
 		this->node1 = yamlNode["nodes"][0].as<int>();
 		this->node2 = yamlNode["nodes"][1].as<int>();
 		this->node3 = yamlNode["nodes"][2].as<int>();
