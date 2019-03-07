@@ -46,7 +46,7 @@ bool FEBeam::setNodes(YAML::Node yamlNode) {
 	 * If the nodes are given on the form
 	 * nodes: [ID for node1, ID for node2]
 	 */
-	if (yamlNode["nodes"]) {
+	if (yamlNode["nodes"].size() == 2) {
 		this->node1 = yamlNode["nodes"][0].as<int>();
 		this->node2 = yamlNode["nodes"][1].as<int>();
 		return true;
