@@ -51,6 +51,18 @@
     <ClInclude Include="FEQuadshell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Construction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Identifiable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FEPipe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GenericCrossSection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -87,6 +99,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FEQuadshell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Construction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Identifiable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FEPipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GenericCrossSection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

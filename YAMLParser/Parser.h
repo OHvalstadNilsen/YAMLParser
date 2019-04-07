@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include "yaml-cpp/yaml.h"
+#include "Construction.h"
+#include "FETypes.h"
 
 class Parser
 {
@@ -9,8 +11,9 @@ public:
 	~Parser();
 
 	YAML::Node root;
-	YAML::Node construction;
+	YAML::Node constructionNode;
 	YAML::Node nextNode;
+	Construction* construction;
 
 	YAML::Node extractConstructionNode(YAML::Node rootNode);
 	void logErrorMsg(std::runtime_error e);
@@ -20,16 +23,19 @@ public:
 	*/
 
 	//Nodal data:
-	void parseNode(YAML::Node& yamlNode);
+	void parseNode(YAML::Node& yamlNode, std::string type);
 	
 	//Element data:
-	void parseBeam(YAML::Node& yamlNode);
-	void parseTrishell(YAML::Node& yamlNode);
-	void parseQuadshell(YAML::Node & yamlNode);
+	void parseBeam(YAML::Node& yamlNode, std::string type);
+	void parseTrishell(YAML::Node& yamlNode, std::string type);
+	void parseQuadshell(YAML::Node & yamlNode, std::string type);
 	void ParseGenericFEMElement(YAML::Node& yamlNode);
 	
 	//Material data:
-	void ParserIsoMaterial(YAML::Node & yamlNode);
+	void ParseIsoMaterial(YAML::Node & yamlNode, std::string type);
+
+	//Cross-sectional data:
+	void ParsePipe(YAML::Node & yamlNode, std::string type);
 	
 
 	/* parse() is the parser main method which iterates over the input YAML::Node list. 

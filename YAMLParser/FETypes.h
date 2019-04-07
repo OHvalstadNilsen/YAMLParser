@@ -7,8 +7,27 @@
 * element types.
 */
 
+#include <array>
+#include <string>
+
 #include "FENode.h"
 #include "FEBeam.h"
 #include "FETrishell.h"
 #include "FEQuadshell.h"
 #include "FEIsoMaterial.h"
+#include "FEPipe.h"
+
+/*
+class FETypes {
+public:
+	std::string types[] = {
+		"node",
+		"beam",
+		"trishell",
+		"quadshell",
+		"isomaterial"
+	};
+	
+};
+
+*/

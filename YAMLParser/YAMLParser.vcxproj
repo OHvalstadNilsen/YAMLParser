@@ -163,27 +163,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Construction.h" />
     <ClInclude Include="DataHolder.h" />
     <ClInclude Include="FEAFormat.h" />
     <ClInclude Include="FEBeam.h" />
     <ClInclude Include="FEIsoMaterial.h" />
     <ClInclude Include="FENode.h" />
+    <ClInclude Include="FEPipe.h" />
     <ClInclude Include="FEQuadshell.h" />
     <ClInclude Include="FETrishell.h" />
     <ClInclude Include="FETypes.h" />
+    <ClInclude Include="GenericCrossSection.h" />
     <ClInclude Include="GenericFE.h" />
+    <ClInclude Include="Identifiable.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Writer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Construction.cpp" />
     <ClCompile Include="DataHolder.cpp" />
     <ClCompile Include="FEAFormat.cpp" />
     <ClCompile Include="FEBeam.cpp" />
     <ClCompile Include="FEIsoMaterial.cpp" />
     <ClCompile Include="FENode.cpp" />
+    <ClCompile Include="FEPipe.cpp" />
     <ClCompile Include="FEQuadshell.cpp" />
     <ClCompile Include="FETrishell.cpp" />
+    <ClCompile Include="GenericCrossSection.cpp" />
+    <ClCompile Include="Identifiable.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

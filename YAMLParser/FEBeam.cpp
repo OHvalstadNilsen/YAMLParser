@@ -2,18 +2,34 @@
 #include "FEBeam.h"
 #include <iostream>
 
-
 FEBeam::FEBeam(YAML::Node yamlNode) {
 	if (!setMandatoryValues(yamlNode)) {
 		throw std::runtime_error("Beam error: Mandatory attributes missing.");
 	}
 	setOptionalValues(yamlNode);
+	this->type = BEAM;
+}
+
+FEBeam::FEBeam(int id, FENode* n1, FENode* n2, FEIsoMaterial* mat, GenericCrossSection* crossSection) {
+	//Set fields inherited from Identifiable
+	setID(id);
+	this->type = BEAM;
+	
+	this->pNode1 = n1;
+	this->pNode2 = n2;
+	this->pMaterial = mat;
+	this->pCrossSection = crossSection;
 }
 
 
 FEBeam::~FEBeam()
 {
 }
+
+//Getters for FEType
+Identifiable::Type FEBeam::getType() { return this->type; }
+std::string FEBeam::getTypeAsString(){ return "BEAM"; }
+
 
 bool FEBeam::setMandatoryValues(YAML::Node& yamlNode) {
 	/* Assign the mandatory values (elemID, node1, node2, material and geoID).
@@ -22,7 +38,9 @@ bool FEBeam::setMandatoryValues(YAML::Node& yamlNode) {
 	*/
 	bool isValid = false;
 	if (yamlNode["elemID"] && yamlNode["material"] && yamlNode["geoID"]) {
-		this->id = yamlNode["elemID"].as<int>();
+		int id = yamlNode["elemID"].as<int>();
+		setID(id); //Sets the ID attribute in the base class 'Identifiable'
+
 		this->material = yamlNode["material"].as<int>();
 		this->geoID = yamlNode["geoID"].as<int>();
 		isValid = setNodes(yamlNode);
@@ -41,7 +59,7 @@ void FEBeam::setOptionalValues(YAML::Node& yamlNode) {
 	this->eccentricity2 = (yamlNode["ecc2"]) ? yamlNode["ecc2"].as<int>() : 0;
 }
 
-bool FEBeam::setNodes(YAML::Node yamlNode) {
+bool FEBeam::setNodes(YAML::Node& yamlNode) {
 	/*
 	 * If the nodes are given on the form
 	 * nodes: [ID for node1, ID for node2]
@@ -65,7 +83,16 @@ bool FEBeam::setNodes(YAML::Node yamlNode) {
 }
 
 void FEBeam::printAttributes() {
-	std::cout << "FEBeam:   id: " << id << ", node1: " << node1 << ", node2: " << node2
+	std::cout << "FEBeam:   id: " << getID() << ", node1: " << node1 << ", node2: " << node2
 		<< ", material: " << material << ", geoID: " << geoID << ", vecID: " << vecID
 		<< ", ecc1: " << eccentricity1 << ", ecc2: " << eccentricity2 << std::endl;
+}
+
+void FEBeam::printAttributes2() {
+	std::cout << "FEBeam:    id: " << getID() 
+		<< ", node1: " << std::to_string(pNode1->getID()) 
+		<< ", node2: " << std::to_string(pNode2->getID()) 
+		<< ", material: " << std::to_string(pMaterial->getID()) 
+		<< ", geoID: " << pCrossSection->getID()
+		<< std::endl;
 }
