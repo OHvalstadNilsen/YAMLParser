@@ -2,19 +2,22 @@
 
 #include "yaml-cpp/yaml.h"
 #include "GenericFE.h"
+#include "Identifiable.h"
 
-class FETrishell : GenericFE
+class FETrishell : public Identifiable, GenericFE
 {
 public:
 	FETrishell(YAML::Node yamlNode);
 	~FETrishell();
+	
+	virtual std::string getTypeAsString() override;
 
-	bool setMandatoryValues(YAML::Node& yamlNode);
-	void setOptionalValues(YAML::Node& yamlNode);
 	bool setNodes(YAML::Node yamlNode);
+	void setOptionalValues(YAML::Node& yamlNode);
+	bool setMandatoryValues(YAML::Node& yamlNode);
 	void printAttributes();
 
-	int id, node1, node2, node3, material, geoID, coordID;
+	int node1, node2, node3, material, geoID, coordID;
 	int eccentricity1, eccentricity2, eccentricity3;
 	
 	/*TODO: Implement with instances of FE classes, as shown beneath:

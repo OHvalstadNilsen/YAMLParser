@@ -15,6 +15,8 @@ FETrishell::~FETrishell()
 {
 }
 
+std::string FETrishell::getTypeAsString() {	return "TRISHELL"; }
+
 bool FETrishell::setMandatoryValues(YAML::Node& yamlNode) {
 	/* Assign the mandatory values (elemID, node1, node2, node3, material and geoID).
 	* If the values are defined in the node, assign them and return true.
@@ -22,7 +24,9 @@ bool FETrishell::setMandatoryValues(YAML::Node& yamlNode) {
 	*/
 	bool isValid = false;
 	if (yamlNode["elemID"] && yamlNode["material"] && yamlNode["geoID"]) {
-		this->id = yamlNode["elemID"].as<int>();
+		int id = yamlNode["elemID"].as<int>();
+		setID(id);
+
 		this->material = yamlNode["material"].as<int>();
 		this->geoID = yamlNode["geoID"].as<int>();
 		isValid = setNodes(yamlNode);
@@ -69,7 +73,7 @@ bool FETrishell::setNodes(YAML::Node yamlNode) {
 }
 
 void FETrishell::printAttributes() {
-	std::cout << "FETrishell:   id: " << id << ", node1: " << node1 << ", node2: " << node2
+	std::cout << "FETrishell:   id: " << getID() << ", node1: " << node1 << ", node2: " << node2
 		<<", node3: " << node3 << ", material: " << material << ", geoID: " << geoID 
 		<< ", coordID: " << coordID << ", ecc1: " << eccentricity1 
 		<< ", ecc2: " << eccentricity2 << ", ecc3: " << eccentricity3 << std::endl;

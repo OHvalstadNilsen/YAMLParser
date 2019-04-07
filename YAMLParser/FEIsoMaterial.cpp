@@ -11,6 +11,10 @@ FEIsoMaterial::FEIsoMaterial(YAML::Node& yamlNode) {
 
 FEIsoMaterial::~FEIsoMaterial() {}
 
+std::string FEIsoMaterial::getTypeAsString() {
+	return "ISOMATERIAL";
+}
+
 bool FEIsoMaterial::setMandatoryValues(YAML::Node& yamlNode) {
 	/* Assign the mandatory values (id, type, Emod, poisson, yield).
 	 * If the values are defined in the node, assign them and return true.
@@ -18,7 +22,9 @@ bool FEIsoMaterial::setMandatoryValues(YAML::Node& yamlNode) {
 	*/
 	if (yamlNode["id"] && yamlNode["type"] && yamlNode["Emod"]
 		&& yamlNode["poisson"]) {
-		this->id = yamlNode["id"].as<int>();
+		int id = yamlNode["id"].as<int>();
+		setID(id);
+
 		this->type = yamlNode["type"].as<std::string>();
 		this->Emod = yamlNode["Emod"].as<double>();
 		this->poisson = yamlNode["poisson"].as<double>();
@@ -47,7 +53,7 @@ void FEIsoMaterial::setOptionalValues(YAML::Node& yamlNode) {
 }
 
 void FEIsoMaterial::printAttributes() {
-	std::cout << "IsoMaterial:   id: " << id << ", type: " << type << ", Emod: " << Emod
+	std::cout << "IsoMaterial:   id: " << getID() << ", type: " << type << ", Emod: " << Emod
 		<< ", poisson: " << poisson << ", yield: " << yield << ", density: " << density
 		<< ", thermX: " << thermX << std::endl;
 }

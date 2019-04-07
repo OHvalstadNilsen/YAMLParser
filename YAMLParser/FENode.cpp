@@ -3,9 +3,10 @@
 #include <iostream>
 #include <exception>
 
-FENode::FENode(int id, double x, double y, double z, int ix, int iy, int iz, int irx, int iry, int irz, int rotID) 
+FENode::FENode(int ID, double x, double y, double z, int ix, int iy, int iz, int irx, int iry, int irz, int rotID) 
 {
-	this->id = id;
+	int id = ID;
+	setID(id);
 	this->x = x;
 	this->y = y;
 	this->z = z;
@@ -18,13 +19,18 @@ FENode::FENode(int id, double x, double y, double z, int ix, int iy, int iz, int
 	this->rotID = rotID;
 }
 
+//Getters for type
+Identifiable::Type FENode::getType() { return this->type; }
+std::string FENode::getTypeAsString() {	return "NODE"; }
+
+
 FENode::FENode(YAML::Node yamlNode) {
 	if (!setMandatoryValues(yamlNode)) {
 		throw std::runtime_error("Error: Mandatory attributes missing.");
 	}
 	setOptionalValues(yamlNode);
+	this->type = NODE;
 }
-
 
 FENode::~FENode()
 {
@@ -36,7 +42,8 @@ bool FENode::setMandatoryValues(YAML::Node& yamlNode) {
 	 * Else, return false.
 	*/
 	if (yamlNode["id"]) {
-		this->id = yamlNode["id"].as<int>();
+		int id = yamlNode["id"].as<int>();
+		setID(id); //Sets the ID attribute in the base class 'Identifiable'
 		return setCoordinates(yamlNode);
 	}
 	return false;
@@ -56,7 +63,6 @@ bool FENode::setCoordinates(YAML::Node yamlNode) {
 	 z: z
 	*/
 	else if (yamlNode["x"] && yamlNode["y"] && yamlNode["z"]) {
-		this->id = yamlNode["id"].as<int>();
 		this->x = yamlNode["x"].as<double>();
 		this->y = yamlNode["y"].as<double>();
 		this->z = yamlNode["z"].as<double>();
@@ -90,7 +96,7 @@ std::vector<std::string> FENode::extractYamlKeys(YAML::Node yamlNode) {
 }
 
 void FENode::printAttributes() {
-	std::cout << "FENode:   id: " << id << ", x: " << x << ", y: " << y 
+	std::cout << "FENode:   id: " << getID() << ", x: " << x << ", y: " << y
 			  << ", z: " << z << ", ix: " << ix << ", iy: " << iy <<", iz: " << iz 
 			  << ", irx: " << irx << ", iry: " << iry << ", irz: " << irz << ", rotID: " << rotID << std::endl;
 }

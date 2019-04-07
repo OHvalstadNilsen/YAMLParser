@@ -14,6 +14,8 @@ FEQuadshell::~FEQuadshell()
 {
 }
 
+std::string FEQuadshell::getTypeAsString() { return "QUADSHEL"; }
+
 bool FEQuadshell::setMandatoryValues(YAML::Node & yamlNode) {
 	/* Assign the mandatory values (elemID, node1, node2, node3, node4, 
 	* material and geoID).
@@ -22,7 +24,9 @@ bool FEQuadshell::setMandatoryValues(YAML::Node & yamlNode) {
 	*/
 	bool isValid = false;
 	if (yamlNode["elemID"] && yamlNode["material"] && yamlNode["geoID"]) {
-		this->id = yamlNode["elemID"].as<int>();
+		int id = yamlNode["elemID"].as<int>();
+		setID(id);
+
 		this->material = yamlNode["material"].as<int>();
 		this->geoID = yamlNode["geoID"].as<int>();
 		isValid = setNodes(yamlNode);
@@ -74,7 +78,7 @@ bool FEQuadshell::setNodes(YAML::Node& yamlNode) {
 }
 
 void FEQuadshell::printAttributes() {
-	std::cout << "FEQuadshell:   id: " << id << ", node1: " << node1 << ", node2: " << node2
+	std::cout << "FEQuadshell:   id: " << getID() << ", node1: " << node1 << ", node2: " << node2
 		<< ", node3: " << node3 << ", node4: " << node4 << ", material: " << material 
 		<< ", geoID: " << geoID << ", coordID: " << coordID << ", ecc1: " << ecc1
 		<< ", ecc2: " << ecc2 << ", ecc3: " << ecc3 << ", ecc4: " << ecc4 << std::endl;
