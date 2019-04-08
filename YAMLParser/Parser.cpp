@@ -210,17 +210,39 @@ void Parser::ParsePipe(YAML::Node& yamlNode, std::string type) {
 	}
 }
 
-void Parser::parse() {
+void Parser::parseDepenencyLevelNull() {
 	for (int iterator = 0; iterator < constructionNode.size(); ++iterator) {
-		nextNode = constructionNode[iterator];
-		std::string key;
+		YAML::const_iterator it = constructionNode[iterator].begin();
+		std::string key = it->first.as<std::string>();
+		
+		if (key == "ISOMATERIAL") {
+			nextNode = constructionNode[iterator][key];
+			ParseIsoMaterial(nextNode, key);
+		}
+		if (key == "PIPE") {
+			nextNode = constructionNode[iterator][key];
+			ParsePipe(nextNode, key);
+		}
+	}
+}
 
-		YAML::const_iterator it = nextNode.begin(); //Used to access the key using it.first. TODO: Better way to do this?
-		key = it->first.as<std::string>();
+void Parser::parseDepenencyLevelOne() {
+	for (int iterator = 0; iterator < constructionNode.size(); ++iterator) {
+		YAML::const_iterator it = constructionNode[iterator].begin();
+		std::string key = it->first.as<std::string>();
+
 		if (key == "NODE") {
 			nextNode = constructionNode[iterator][key];
 			parseNode(nextNode, key);
 		}
+	}
+}
+
+void Parser::parseDepenencyLevelTwo() {
+	for (int iterator = 0; iterator < constructionNode.size(); ++iterator) {
+		YAML::const_iterator it = constructionNode[iterator].begin();
+		std::string key = it->first.as<std::string>();
+
 		if (key == "BEAM") {
 			nextNode = constructionNode[iterator][key];
 			parseBeam(nextNode, key);
@@ -237,14 +259,14 @@ void Parser::parse() {
 			nextNode = constructionNode[iterator][key];
 			ParseGenericFEMElement(nextNode);
 		}
-		if (key == "ISOMATERIAL") {
-			nextNode = constructionNode[iterator][key];
-			ParseIsoMaterial(nextNode, key);
-		}
-		if (key == "PIPE") {
-			nextNode = constructionNode[iterator][key];
-			ParsePipe(nextNode, key);
-		}
 	}
+}
+
+void Parser::parse() {
+	parseDepenencyLevelNull();
+	parseDepenencyLevelOne();
+	parseDepenencyLevelTwo();
+	
+	//Print used while debugging:
 	std::cout << "Size of elementList: " << construction->elementList.size() << std::endl;
 }

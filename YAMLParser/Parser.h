@@ -36,6 +36,12 @@ public:
 
 	//Cross-sectional data:
 	void ParsePipe(YAML::Node & yamlNode, std::string type);
+
+	void parseDepenencyLevelNull();
+
+	void parseDepenencyLevelOne();
+
+	void parseDepenencyLevelTwo();
 	
 
 	/* parse() is the parser main method which iterates over the input YAML::Node list. 
