@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "yaml-cpp/yaml.h"
-#include "Construction.h"
+#include "Structure.h"
 #include "FETypes.h"
 
 class Parser
@@ -11,11 +11,11 @@ public:
 	~Parser();
 
 	YAML::Node root;
-	YAML::Node constructionNode;
+	YAML::Node structureNode;
 	YAML::Node nextNode;
-	Construction* construction;
+	Structure* structure;
 
-	YAML::Node extractConstructionNode(YAML::Node rootNode);
+	YAML::Node extractStructureNode(YAML::Node rootNode);
 	void logErrorMsg(std::runtime_error e);
 
 

@@ -163,7 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Construction.h" />
+    <ClInclude Include="Structure.h" />
     <ClInclude Include="DataHolder.h" />
     <ClInclude Include="FEAFormat.h" />
     <ClInclude Include="FEBeam.h" />
@@ -184,7 +184,7 @@
     <ClInclude Include="Writer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Construction.cpp" />
+    <ClCompile Include="Structure.cpp" />
     <ClCompile Include="DataHolder.cpp" />
     <ClCompile Include="FEAFormat.cpp" />
     <ClCompile Include="FEBeam.cpp" />

@@ -6,11 +6,11 @@
 #include <map>
 #include <iostream>
 
-class Construction
+class Structure
 {
 public:
-	Construction();
-	~Construction();
+	Structure();
+	~Structure();
 
 	bool checkElementExistence(int id, std::string& type);
 
