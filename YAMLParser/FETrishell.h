@@ -3,11 +3,23 @@
 #include "yaml-cpp/yaml.h"
 #include "GenericFE.h"
 #include "Identifiable.h"
+#include "FETypes.h"
 
-class FETrishell : public Identifiable, GenericFE
+//Forward declarations
+class FECoordSys;
+class FEIsoMaterial;
+class GenericCrossSection;
+class FEEccentricity;
+
+class FETrishell : 
+	public Identifiable, 
+	public GenericFE
 {
 public:
 	FETrishell(YAML::Node yamlNode);
+	FETrishell(int id, FECoordSys* coord, FENode* n1, FENode* n2, FENode* n3, 
+		FEIsoMaterial* mat, GenericCrossSection* crossSection,
+		FEEccentricity* ecc1, FEEccentricity* ecc2, FEEccentricity* ecc3);
 	~FETrishell();
 	
 	virtual std::string getTypeAsString() override;
@@ -20,12 +32,12 @@ public:
 	int node1, node2, node3, material, geoID, coordID;
 	int eccentricity1, eccentricity2, eccentricity3;
 	
-	/*TODO: Implement with instances of FE classes, as shown beneath:
-
-	FENode node1, node2, node3;
-	FEMaterial material;
-	FEEccentricity eccentricity1, eccentricity2, eccentricity3;
-	*/
-	
+	FENode *pNode1, *pNode2, *pNode3;
+	FECoordSys *pCoordSys;
+	GenericCrossSection *pCrossSection;
+	FEIsoMaterial* pMaterial;
+	//TODO: Implement geoID attribute
+	//-->
+	FEEccentricity *pEcc1, *pEcc2, *pEcc3;
 };
 

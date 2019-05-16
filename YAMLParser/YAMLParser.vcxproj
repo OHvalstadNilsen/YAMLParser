@@ -167,6 +167,8 @@
     <ClInclude Include="DataHolder.h" />
     <ClInclude Include="FEAFormat.h" />
     <ClInclude Include="FEBeam.h" />
+    <ClInclude Include="FECoordSys.h" />
+    <ClInclude Include="FEEccentricity.h" />
     <ClInclude Include="FEIsoMaterial.h" />
     <ClInclude Include="FENode.h" />
     <ClInclude Include="FEPipe.h" />
@@ -178,6 +180,7 @@
     <ClInclude Include="Identifiable.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PLThick.h" />
     <ClInclude Include="Writer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +188,8 @@
     <ClCompile Include="DataHolder.cpp" />
     <ClCompile Include="FEAFormat.cpp" />
     <ClCompile Include="FEBeam.cpp" />
+    <ClCompile Include="FECoordSys.cpp" />
+    <ClCompile Include="FEEccentricity.cpp" />
     <ClCompile Include="FEIsoMaterial.cpp" />
     <ClCompile Include="FENode.cpp" />
     <ClCompile Include="FEPipe.cpp" />
@@ -199,6 +204,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PLThick.cpp" />
     <ClCompile Include="Writer.cpp" />
     <ClCompile Include="YAMLConverter.cpp" />
     <ClCompile Include="YAMLParser.cpp" />

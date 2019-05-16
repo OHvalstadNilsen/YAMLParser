@@ -10,24 +10,13 @@
 #include <array>
 #include <string>
 
+#include "FECoordSys.h"
+#include "PLThick.h"
 #include "FENode.h"
 #include "FEBeam.h"
 #include "FETrishell.h"
 #include "FEQuadshell.h"
+#include "FEEccentricity.h"
 #include "FEIsoMaterial.h"
+#include "GenericCrossSection.h"
 #include "FEPipe.h"
-
-/*
-class FETypes {
-public:
-	std::string types[] = {
-		"node",
-		"beam",
-		"trishell",
-		"quadshell",
-		"isomaterial"
-	};
-	
-};
-
-*/

@@ -8,6 +8,7 @@ class FEIsoMaterial : public Identifiable, public GenericFE
 {
 public:
 	FEIsoMaterial(YAML::Node& yamlNode);
+	FEIsoMaterial(int id, std::string type, double Emod, double poiss, double density, double thermX);
 	~FEIsoMaterial();
 
 	virtual std::string getTypeAsString() override;

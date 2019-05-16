@@ -63,6 +63,15 @@
     <ClInclude Include="GenericCrossSection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FEEccentricity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FECoordSys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PLThick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -111,6 +120,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GenericCrossSection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FEEccentricity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FECoordSys.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PLThick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

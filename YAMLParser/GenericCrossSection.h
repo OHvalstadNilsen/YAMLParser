@@ -5,6 +5,7 @@ class GenericCrossSection :
 {
 public:
 	GenericCrossSection();
+	GenericCrossSection(int id);
 	~GenericCrossSection();
 };
 

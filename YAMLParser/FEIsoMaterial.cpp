@@ -9,6 +9,16 @@ FEIsoMaterial::FEIsoMaterial(YAML::Node& yamlNode) {
 	setOptionalValues(yamlNode);
 }
 
+FEIsoMaterial::FEIsoMaterial(int id, std::string type, double Emod, double poiss, double density, double thermX) {
+	//Constructor non-dependent on a YAML::Node
+	setID(id);
+	this->type = type;
+	this->Emod = Emod;
+	this->poisson = poiss;
+	this->density = density;
+	this->thermX = thermX;
+}
+
 FEIsoMaterial::~FEIsoMaterial() {}
 
 std::string FEIsoMaterial::getTypeAsString() {

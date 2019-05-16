@@ -12,21 +12,48 @@ public:
 	Construction();
 	~Construction();
 
-	bool checkExistence(int id, std::string type);
-	
-	bool checkExistence2(Identifiable element); //Possibly superfluous
+	bool checkElementExistence(int id, std::string& type);
 
+	//Check object existence
+	bool checkCoordSysExistence(int id);
+	bool checkCrossSectionExistence(int id, std::string& type);
+	bool checkMaterialExistence(int id);
+	bool checkNodeExistence(int id);
+
+
+	//Fetch data objects
+	FECoordSys * fetchCoordSys(int id);
 	Identifiable* fetchObject(int id, std::string type);
+	GenericCrossSection* fetchCrossSection(int id);
+	FEIsoMaterial* fetchMaterial(int id); //TODO: Change to generic material type
 
-	bool addNode(FENode& node);
-	bool addBeam(FEBeam& beam);
+	FENode * fetchNode(int id);
+
+	//Add data objects
+	bool addNode(FENode* node);
 	bool addElement(Identifiable* element);
+	bool addCoordSys(FECoordSys * coordSys);
+	bool addCrossSection(GenericCrossSection * crossSection);
+	bool addMaterial(FEIsoMaterial * material); //TODO: Change to generic material type
+	
+	bool checkExistence2(Identifiable element);
+
+	//Containers for instantiated data objects
+	std::vector<FECoordSys*> coordSysList;
+	std::map<int, FECoordSys*> coordSysMap;
+
+	std::vector<GenericCrossSection*> crossSectionList;
+	std::map<int, GenericCrossSection*> crossSectionMap;
+	
+	//TODO: Change to generic material type
+	std::vector<FEIsoMaterial*> materialList;
+	std::map<int, FEIsoMaterial*> materialMap;
+
+	std::vector<FENode*> nodeList;
+	std::map<int, FENode*> nodeMap;
 
 	std::vector<Identifiable*> elementList;
-	std::vector<FENode> nodeList;
-	std::vector<FEBeam> beamList;
-	std::vector<FEIsoMaterial> isoMaterialList;
-	// and so on ...
+	std::map<int, Identifiable*> elementMap;
 };
 
 //FIXME: Probably unnecessary code. Not in use in checkExistence.

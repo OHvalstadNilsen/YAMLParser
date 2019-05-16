@@ -9,6 +9,26 @@ FEQuadshell::FEQuadshell(YAML::Node& yamlNode) {
 	setOptionalValues(yamlNode);
 }
 
+FEQuadshell::FEQuadshell(int id, FECoordSys* coordSys, FENode* n1, FENode* n2, FENode* n3, FENode* n4,
+	FEIsoMaterial* mat, GenericCrossSection* crossSection,
+	FEEccentricity* ecc1, FEEccentricity* ecc2, FEEccentricity* ecc3, FEEccentricity* ecc4){
+	//Set fields inherited from Identifiable
+	setID(id);
+	this->type = QUADSHEL;
+	
+	this->pCoordSys = coordSys;
+	this->pNode1 = n1;
+	this->pNode2 = n2;
+	this->pNode3 = n3;
+	this->pNode4 = n4;
+	this->pMaterial = mat;
+	this->pCrossSection = crossSection;
+	this->pEcc1 = ecc1;
+	this->pEcc2 = ecc2;
+	this->pEcc3 = ecc3;
+	this->pEcc4 = ecc4;
+}
+
 
 FEQuadshell::~FEQuadshell()
 {
@@ -78,9 +98,18 @@ bool FEQuadshell::setNodes(YAML::Node& yamlNode) {
 }
 
 void FEQuadshell::printAttributes() {
-	std::cout << "FEQuadshell:   id: " << getID() << ", node1: " << node1 << ", node2: " << node2
-		<< ", node3: " << node3 << ", node4: " << node4 << ", material: " << material 
-		<< ", geoID: " << geoID << ", coordID: " << coordID << ", ecc1: " << ecc1
-		<< ", ecc2: " << ecc2 << ", ecc3: " << ecc3 << ", ecc4: " << ecc4 << std::endl;
+	std::cout << "FEQuadshell:   "
+		<< "id: " << getID()
+		<< ", coordSys: " << std::to_string(pCoordSys->getID())
+		<< ", node1: " << std::to_string(pNode1->getID())
+		<< ", node2: " << std::to_string(pNode2->getID())
+		<< ", node3: " << std::to_string(pNode3->getID())
+		<< ", node4: " << std::to_string(pNode4->getID())
+		<< ", material: " << std::to_string(pMaterial->getID())
+		<< ", ecc1: " << std::to_string(pEcc1->getID())
+		<< ", ecc2: " << std::to_string(pEcc2->getID())
+		<< ", ecc3: " << std::to_string(pEcc3->getID())
+		<< ", ecc4: " << std::to_string(pEcc4->getID())
+		<< std::endl;
 }
 
