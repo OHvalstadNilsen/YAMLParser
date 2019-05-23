@@ -20,3 +20,4 @@
 #include "FEIsoMaterial.h"
 #include "GenericCrossSection.h"
 #include "FEPipe.h"
+#include "FENodeLoad.h"

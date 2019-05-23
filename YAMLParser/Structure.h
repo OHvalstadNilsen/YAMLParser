@@ -19,6 +19,7 @@ public:
 	bool checkCrossSectionExistence(int id, std::string& type);
 	bool checkMaterialExistence(int id);
 	bool checkNodeExistence(int id);
+	bool checkNodeLoadExistence(int id);
 
 
 	//Fetch data objects
@@ -26,8 +27,8 @@ public:
 	Identifiable* fetchObject(int id, std::string type);
 	GenericCrossSection* fetchCrossSection(int id);
 	FEIsoMaterial* fetchMaterial(int id); //TODO: Change to generic material type
-
-	FENode * fetchNode(int id);
+	FENode* fetchNode(int id);
+	FENodeLoad* fetchNodeLoad(int id);
 
 	//Add data objects
 	bool addNode(FENode* node);
@@ -35,7 +36,8 @@ public:
 	bool addCoordSys(FECoordSys * coordSys);
 	bool addCrossSection(GenericCrossSection * crossSection);
 	bool addMaterial(FEIsoMaterial * material); //TODO: Change to generic material type
-	
+	bool addNodeLoad(FENodeLoad * nodeLoad);
+
 	bool checkExistence2(Identifiable element);
 
 	//Containers for instantiated data objects
@@ -54,6 +56,9 @@ public:
 
 	std::vector<Identifiable*> elementList;
 	std::map<int, Identifiable*> elementMap;
+
+	std::vector<FENodeLoad*> nodeLoadList;
+	std::map<int, FENodeLoad*> nodeLoadMap;
 };
 
 //FIXME: Probably unnecessary code. Not in use in checkExistence.

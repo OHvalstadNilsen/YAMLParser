@@ -26,7 +26,7 @@ std::string FENode::getTypeAsString() {	return "NODE"; }
 
 FENode::FENode(YAML::Node yamlNode) {
 	if (!setMandatoryValues(yamlNode)) {
-		throw std::runtime_error("Error: Mandatory attributes missing.");
+		throw std::runtime_error("Node error: Mandatory attributes missing.");
 	}
 	setOptionalValues(yamlNode);
 	this->type = NODE;

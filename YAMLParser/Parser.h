@@ -39,8 +39,10 @@ public:
 
 	//Cross-sectional data:
 	void ParsePipe(YAML::Node & yamlNode, std::string type);
-
 	void parsePLThick(YAML::Node & yamlNode);
+
+	//Load data
+	void parseNodeLoad(YAML::Node & yamlNode);
 
 
 	void parseDepenencyLevelNull();

@@ -84,6 +84,13 @@ bool Structure::checkNodeExistence(int id) {
 	return false;
 }
 
+bool Structure::checkNodeLoadExistence(int id) {
+	if (nodeLoadMap.find(id) != nodeLoadMap.end()) {
+		return true;
+	}
+	return false;
+}
+
 
 //Fetch data objects
 template <typename T>
@@ -139,6 +146,14 @@ FENode* Structure::fetchNode(int id) {
 		+ std::to_string(id) + " does not exist in Structure.\n");
 }
 
+FENodeLoad* Structure::fetchNodeLoad(int id) {
+	if (nodeLoadMap.find(id) != nodeLoadMap.end()) {
+		return nodeLoadMap[id];
+	}
+	throw std::runtime_error("Error: A NODELOAD with id "
+		+ std::to_string(id) + " does not exist in Structure.\n");
+}
+
 //Add data objects
 bool Structure::addCoordSys(FECoordSys* coordSys) {
 	this->coordSysList.push_back(coordSys);
@@ -167,5 +182,11 @@ bool Structure::addNode(FENode* node) {
 bool Structure::addElement(Identifiable* element) {
 	this->elementList.push_back(element);
 	this->elementMap[element->getID()] = element;
+	return true;
+}
+
+bool Structure::addNodeLoad(FENodeLoad * nodeLoad) {
+	this->nodeLoadList.push_back(nodeLoad);
+	this->nodeLoadMap[nodeLoad->getID()] = nodeLoad;
 	return true;
 }

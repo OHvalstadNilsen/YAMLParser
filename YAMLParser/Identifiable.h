@@ -26,7 +26,9 @@ public:
 		//Element data
 		BEAM, TRISHELL, QUADSHEL, UNITVEC, ECCENT,
 		//Cross-sectional data
-		PIPE, BOX, IHPROFIL, LSECTION, TSECTION
+		PIPE, BOX, IHPROFIL, LSECTION, TSECTION,
+		//Load data
+		NODELOAD
 	};
 	
 	//Vector containing string values that correspond to the enums in Type:

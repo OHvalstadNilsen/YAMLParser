@@ -393,6 +393,45 @@ void Parser::parsePLThick(YAML::Node& yamlNode) {
 	}
 }
 
+void Parser::parseNodeLoad(YAML::Node& yamlNode) {
+	try {
+		bool exists = structure->checkNodeLoadExistence(yamlNode["loadID"].as<int>());
+		if (exists) {
+			throw std::runtime_error("Error: A NODELOAD element with id "
+				+ yamlNode["loadID"].as<std::string>() + " already exists.");
+		}
+		else {
+			//Initialize a FENodeLoad from the YAML::Node
+			std::map<std::string, Identifiable*> depElements;
+
+			//Set node in which the load is acting
+			bool nodeExists = structure->checkNodeExistence(yamlNode["nodeID"].as<int>());
+			if (nodeExists) {
+				depElements["node"] = structure->fetchNode(yamlNode["nodeID"].as<int>());
+			}
+			else {
+				throw std::runtime_error("NodeLoad error: A NODE with id "
+					+ yamlNode["nodeID"].as<std::string>() + " does not exist in Structure.");
+			}
+			// Set eccentricity
+			depElements["ecc"] = yamlNode["ecc"] ? structure->fetchObject(yamlNode["ecc"].as<int>(), "ECCENT")
+				: structure->fetchObject(-1, "ECCENT");
+
+			FENodeLoad *feNodeLoad = new FENodeLoad(
+				yamlNode, 
+				(FENode*) depElements["node"], 
+				(FEEccentricity*) depElements["ecc"]);
+			
+			structure->addNodeLoad(feNodeLoad);
+			feNodeLoad->printAttributes();
+		}
+	}
+	catch (std::runtime_error &e){
+		std::cout << e.what() << std::endl;
+		logErrorMsg(e);
+	}
+}
+
 void Parser::parseDepenencyLevelNull() {
 	for (int iterator = 0; iterator < structureNode.size(); ++iterator) {
 		YAML::const_iterator it = structureNode[iterator].begin();
@@ -449,6 +488,10 @@ void Parser::parseDepenencyLevelTwo() {
 		if (key == "FEMELEMENT") {
 			nextNode = structureNode[iterator][key];
 			ParseGenericFEMElement(nextNode);
+		}
+		if (key == "NODELOAD") {
+			nextNode = structureNode[iterator][key];
+			parseNodeLoad(nextNode);
 		}
 	}
 }
