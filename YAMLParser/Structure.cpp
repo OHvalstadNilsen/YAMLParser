@@ -18,24 +18,13 @@ Structure::Structure() {
 	this->addCrossSection(defCrossSection);
 }
 
-Structure::~Structure()
-{
+Structure::~Structure() {
 }
 
-bool Structure::checkExistence2(Identifiable element) {
-	//works!
-	//for (std::vector<Identifiable>::iterator it = elementList.begin(); it != elementList.end(); ++it) {
-	//	if ((*it).getID() == element.getID() && (*it).getType() == element.getType()) {
-	//		/*fixme:
-	//		* problem with this error message:
-	//		* element.gettypeasstring() is called on an identifiable, hence it will do a function
-	//		* call to that method instead of the (correct) child method.
-	//		*/
-	//		throw std::runtime_error("error: a " + element.getTypeAsString() + " element with id " + std::to_string(element.getID()) + " already exists.");
-	//	}
-	//}
-	return false; //doesn't exist!
-}
+//------------ Check data object existence ------------
+/*These functions return true if the data object with the requested ID 
+* exists in Structure. Otherwise, they return false.
+*/
 
 bool Structure::checkCoordSysExistence(int id) {
 	if (coordSysMap.find(id) != coordSysMap.end()) {
@@ -45,11 +34,6 @@ bool Structure::checkCoordSysExistence(int id) {
 }
 
 bool Structure::checkElementExistence(int id, std::string& type) {
-	/*for (std::vector<Identifiable*>::iterator it = elementList.begin(); it != elementList.end(); ++it) {
-		if ((*it)->getID() == id && (*it)->getTypeAsString() == type) {
-			return true;
-		}
-	}*/
 	if (elementMap.find(id) != elementMap.end()
 		&& elementMap[id]->getTypeAsString() == type) {
 		return true;
@@ -58,28 +42,23 @@ bool Structure::checkElementExistence(int id, std::string& type) {
 }
 
 bool Structure::checkCrossSectionExistence(int id, std::string& type) {
-	for (std::vector<GenericCrossSection*>::iterator it = crossSectionList.begin(); it != crossSectionList.end(); ++it) {
-		if ((*it)->getID() == id && (*it)->getTypeAsString() == type) {
-			return true;
-		}
+	if (crossSectionMap.find(id) != crossSectionMap.end()
+		&& crossSectionMap[id]->getTypeAsString() == type) {
+		return true;
 	}
 	return false;
 }
 
 bool Structure::checkMaterialExistence(int id) {
-	for (std::vector<FEIsoMaterial*>::iterator it = materialList.begin(); it != materialList.end(); ++it) {
-		if ((*it)->getID() == id) {
-			return true;
-		}
+	if (materialMap.find(id) != materialMap.end()) {
+		return true;
 	}
 	return false;
 }
 
 bool Structure::checkNodeExistence(int id) {
-	for (std::vector<FENode*>::iterator it = nodeList.begin(); it != nodeList.end(); ++it) {
-		if((*it)->getID() == id){
-			return true;
-		}
+	if (nodeMap.find(id) != nodeMap.end()) {
+		return true;
 	}
 	return false;
 }
@@ -91,17 +70,11 @@ bool Structure::checkNodeLoadExistence(int id) {
 	return false;
 }
 
+// ------------ Fetch data objects ------------
 
-//Fetch data objects
-template <typename T>
-T* fetchObject(int id, std::vector<T*> li) {
-	for (int i = 0; i < li.size(); i++) {
-		if (li[i]->getID() == id) {
-			return li[i];
-		}
-	}
-	return nullptr;
-}
+/*These functions return the requested data object if it exists
+* in Structure. Otherwise, they throw an error.
+*/
 
 FECoordSys* Structure::fetchCoordSys(int id) {
 	if (coordSysMap.find(id) != coordSysMap.end()) {
@@ -112,12 +85,10 @@ FECoordSys* Structure::fetchCoordSys(int id) {
 }
 
 Identifiable* Structure::fetchObject(int id, std::string type) {
-	for (int i = 0; i < elementList.size(); i++) {
-		if (elementList[i]->getID() == id && elementList[i]->getTypeAsString() == type) {
-			return elementList[i];
-		}
+	if (elementMap.find(id) != elementMap.end() 
+		&& elementMap[id]->getTypeAsString() == type) {
+		return elementMap[id];
 	}
-	//If no corresponding element exists, this error is thrown 
 	throw std::runtime_error("Error: A " + type + " element with id " 
 		+ std::to_string(id) + " does not exist in Structure.\n");
 }
@@ -154,7 +125,12 @@ FENodeLoad* Structure::fetchNodeLoad(int id) {
 		+ std::to_string(id) + " does not exist in Structure.\n");
 }
 
-//Add data objects
+//------------ Add data objects ------------
+
+/*These functions add the data object specified in the input 
+* argument to the corresponding list and map of data objects.
+*/
+
 bool Structure::addCoordSys(FECoordSys* coordSys) {
 	this->coordSysList.push_back(coordSys);
 	this->coordSysMap[coordSys->getID()] = coordSys;
