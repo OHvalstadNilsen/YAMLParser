@@ -3,10 +3,11 @@
 #include <iostream>
 
 
-FENodeLoad::FENodeLoad(YAML::Node& yamlNode, FENode *n, FEEccentricity *ecc) {
+FENodeLoad::FENodeLoad(int nodeLoadId, YAML::Node& yamlNode, FENode *n, FEEccentricity *ecc) {
 	if (!setIndependentValues(yamlNode)) {
 		throw std::runtime_error("NodeLoad error: Mandatory attributes missing.");
 	}
+	setID(nodeLoadId);
 	this->pNode = n;
 	this->pEcc = ecc;
 	this->type = NODELOAD;
@@ -28,11 +29,9 @@ bool FENodeLoad::setMandatoryValues(YAML::Node & yamlNode)
 }
 
 bool FENodeLoad::setIndependentValues(YAML::Node& yamlNode) {
-	if (yamlNode["loadID"]) {
-		int id = yamlNode["loadID"].as<int>();
-		setID(id);
-	
-		
+	if (yamlNode["loadCaseID"]) {
+		this->loadCaseId = yamlNode["loadCaseID"].as<int>();
+				
 		//These values may be omitted. In that case they are assigned to zero.
 		this->fx = yamlNode["fx"] ? yamlNode["fx"].as<double>() : 0.0;
 		this->fy = yamlNode["fy"] ? yamlNode["fy"].as<double>() : 0.0;
@@ -51,6 +50,7 @@ void FENodeLoad::setOptionalValues(YAML::Node & yamlNode)
 
 void FENodeLoad::printAttributes() {
 	std::cout << "FENodeLoad:    id: " << getID()
+		<< ", loadCaseId: " << loadCaseId
 		<< ", node: " << std::to_string(pNode->getID())
 		<< ", fx: " << fx
 		<< ", fy: " << fy

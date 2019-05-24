@@ -9,7 +9,7 @@ class FENodeLoad :
 	public GenericFE
 {
 public:
-	FENodeLoad(YAML::Node& yamlNode, FENode *n, FEEccentricity *ecc);
+	FENodeLoad(int nodeLoadId, YAML::Node& yamlNode, FENode *n, FEEccentricity *ecc);
 	~FENodeLoad();
 
 	Identifiable::Type getType();
@@ -23,6 +23,7 @@ public:
 
 	bool setIndependentValues(YAML::Node & yamlNode);
 
+	int loadCaseId;
 	FENode *pNode;
 	double fx, fy, fz;
 	double mx, my, mz;
