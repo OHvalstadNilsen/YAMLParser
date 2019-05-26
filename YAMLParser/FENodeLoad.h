@@ -21,7 +21,7 @@ public:
 	virtual void setOptionalValues(YAML::Node & yamlNode) override;
 	virtual void printAttributes() override;
 
-	bool setIndependentValues(YAML::Node & yamlNode);
+	bool assignIndependentAttributes(YAML::Node & yamlNode);
 
 	int loadCaseId;
 	FENode *pNode;

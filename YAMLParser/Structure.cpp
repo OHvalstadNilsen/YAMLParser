@@ -3,7 +3,7 @@
 #include <iostream>
 #include <exception>
 
-Structure::Structure() {
+Structure::Structure(int structureID) {
 	//Create default objects to assign when fields are omitted
 	FECoordSys* defCoordSys = new FECoordSys(-1, 1, 0, 0, 0, 1, 0, 0, 0, 1);
 	this->addCoordSys(defCoordSys);
@@ -165,4 +165,21 @@ bool Structure::addNodeLoad(FENodeLoad * nodeLoad) {
 	this->nodeLoadList.push_back(nodeLoad);
 	this->nodeLoadMap[nodeLoad->getID()] = nodeLoad;
 	return true;
+}
+
+//TODO: Not finished!
+void Structure::printData() {
+	for (FECoordSys* coordSys : coordSysList){
+		coordSys->printAttributes();
+	}
+	for (GenericCrossSection* crossSection : crossSectionList) {
+		
+	}
+	for (FENode* node : nodeList) {
+		node->printAttributes();
+	}
+	for (Identifiable* element : elementList) {
+		//TODO: Add print function to Identifiable
+	}
+	
 }

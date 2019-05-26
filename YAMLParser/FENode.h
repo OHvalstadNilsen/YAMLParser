@@ -18,7 +18,7 @@ public:
 
 	bool setMandatoryValues(YAML::Node& yamlNode);
 
-	bool setCoordinates(YAML::Node yamlNode);
+	bool setCoordinates(YAML::Node& yamlNode);
 
 	void setOptionalValues(YAML::Node& yamlNode);
 

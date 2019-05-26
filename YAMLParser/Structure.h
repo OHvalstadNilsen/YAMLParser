@@ -9,7 +9,7 @@
 class Structure
 {
 public:
-	Structure();
+	Structure(int structureID);
 	~Structure();
 
 	bool checkElementExistence(int id, std::string& type);
@@ -38,6 +38,9 @@ public:
 	bool addMaterial(FEIsoMaterial * material); //TODO: Change to generic material type
 	bool addNodeLoad(FENodeLoad * nodeLoad);
 
+	//Identifier for the structure
+	int structureID;
+
 	//Containers for instantiated data objects
 	std::vector<FECoordSys*> coordSysList;
 	std::map<int, FECoordSys*> coordSysMap;
@@ -57,6 +60,9 @@ public:
 
 	std::vector<FENodeLoad*> nodeLoadList;
 	std::map<int, FENodeLoad*> nodeLoadMap;
+
+	//Print content data elements to console
+	void printData();
 };
 
 //FIXME: Delete this (unnecessary code). Not in use in checkExistence.

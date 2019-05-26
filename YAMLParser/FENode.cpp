@@ -49,7 +49,7 @@ bool FENode::setMandatoryValues(YAML::Node& yamlNode) {
 	return false;
 }
 
-bool FENode::setCoordinates(YAML::Node yamlNode) {
+bool FENode::setCoordinates(YAML::Node& yamlNode) {
 	//For coordinate data on the form "xyz: [x, y, z]"
 	if (yamlNode["xyz"]) {
 		this->x = yamlNode["xyz"][0].as<double>();

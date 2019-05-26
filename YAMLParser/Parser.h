@@ -10,19 +10,18 @@ public:
 	Parser(std::string filename);
 	~Parser();
 
-	YAML::Node root;
-	YAML::Node structureNode;
-	YAML::Node nextNode;
-	Structure* structure;
+	YAML::Node root;			//YAML root node.
+	YAML::Node structureNode;	//FEA format structure node.
+	YAML::Node nextNode;		//Next node to parse.
+	Structure* structure;		//Structure to which the data types	
+								//are added.
 
-	YAML::Node extractStructureNode(YAML::Node rootNode);
+	//Error logger
 	void logErrorMsg(std::runtime_error e);
 
-
 	/*The following functions are parse functions for the FEM 
-	* element types supported by the parser.
+	* data types supported by the parser.
 	*/
-
 	//Nodal data:
 	void parseCoordSys(YAML::Node & yamlNode, std::string type);
 	void parseNode(YAML::Node& yamlNode, std::string type);
@@ -44,7 +43,9 @@ public:
 	//Load data
 	void parseNodeLoad(YAML::Node & yamlNode);
 
-
+	/*Execute the data type parsing methods in order
+	* according to their level of dependency.
+	*/
 	void parseDepenencyLevelNull();
 	void parseDepenencyLevelOne();
 	void parseDepenencyLevelTwo();

@@ -4,7 +4,7 @@
 
 
 FENodeLoad::FENodeLoad(int nodeLoadId, YAML::Node& yamlNode, FENode *n, FEEccentricity *ecc) {
-	if (!setIndependentValues(yamlNode)) {
+	if (!assignIndependentAttributes(yamlNode)) {
 		throw std::runtime_error("NodeLoad error: Mandatory attributes missing.");
 	}
 	setID(nodeLoadId);
@@ -28,7 +28,8 @@ bool FENodeLoad::setMandatoryValues(YAML::Node & yamlNode)
 	return false;
 }
 
-bool FENodeLoad::setIndependentValues(YAML::Node& yamlNode) {
+bool FENodeLoad::assignIndependentAttributes(YAML::Node& yamlNode) {
+	//Check presence of mandatory attributes
 	if (yamlNode["loadCaseID"]) {
 		this->loadCaseId = yamlNode["loadCaseID"].as<int>();
 				
