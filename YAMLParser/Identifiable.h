@@ -22,9 +22,11 @@ public:
 	enum Type {
 		NULLTYPE,
 		//Nodal data
-		NODE,
+		NODE, COORDSYS,
 		//Element data
 		BEAM, TRISHELL, QUADSHEL, UNITVEC, ECCENT,
+		//Material data
+		ISOMATERIAL,
 		//Cross-sectional data
 		PIPE, BOX, IHPROFIL, LSECTION, TSECTION,
 		//Load data

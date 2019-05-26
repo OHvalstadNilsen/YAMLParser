@@ -12,10 +12,10 @@ public:
 	~FEIsoMaterial();
 
 	virtual std::string getTypeAsString() override;
-	bool setMandatoryValues(YAML::Node& yamlNode);
-	void setOptionalValues(YAML::Node& yamlNode);
+	bool assignIndependentAttributes(YAML::Node& yamlNode) override;
 	void printAttributes();
 
+	//Data fields
 	std::string type;
 	double Emod, poisson, yield, density, thermX;
 };

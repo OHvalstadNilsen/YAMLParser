@@ -4,15 +4,14 @@
 
 
 FEEccentricity::FEEccentricity(YAML::Node& yamlNode) {
-	if (!setMandatoryValues(yamlNode)) {
+	if (!assignIndependentAttributes(yamlNode)) {
 		throw std::runtime_error("Eccentricity error: Mandatory attributes missing.");
 	}
-	setOptionalValues(yamlNode);
 	this->type = ECCENT;
 }
 
 FEEccentricity::FEEccentricity(int id, double eX, double eY, double eZ) {
-	//Constructor non-dependent on a YAML::Node.
+	//Constructor independent on a YAML::Node.
 	setID(id);
 	this->eX = eX;
 	this->eY = eY;
@@ -28,7 +27,7 @@ Identifiable::Type FEEccentricity::getType() { return this->type; }
 std::string FEEccentricity::getTypeAsString() { return "ECCENT"; }
 
 
-bool FEEccentricity::setMandatoryValues(YAML::Node & yamlNode)
+bool FEEccentricity::assignIndependentAttributes(YAML::Node & yamlNode)
 {
 	/* Assign the mandatory values (eccID, eX, eY, eZ).
 	* If the values are defined in the node, assign them and return true.
@@ -45,12 +44,9 @@ bool FEEccentricity::setMandatoryValues(YAML::Node & yamlNode)
 	return false;
 }
 
-void FEEccentricity::setOptionalValues(YAML::Node & yamlNode)
-{
-	//VOID: No optional values
-}
-
 void FEEccentricity::printAttributes()	{
-	std::cout << "Eccentricity:    id: " << getID() << ", eX: " << eX
-		<< ", eY: " << eY << ", eZ: " << eZ << std::endl;
+	std::cout << "Eccentricity:    id: " << getID() 
+		<< ", eX: " << eX
+		<< ", eY: " << eY 
+		<< ", eZ: " << eZ << std::endl;
 }

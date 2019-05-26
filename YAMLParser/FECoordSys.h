@@ -19,17 +19,17 @@ public:
 	virtual ~FECoordSys();
 
 	// Inherited via GenericFE
+	virtual bool assignIndependentAttributes(YAML::Node & yamlNode) override;
 	virtual void printAttributes() override;
-	virtual bool setMandatoryValues(YAML::Node & yamlNode) override;
-	virtual void setOptionalValues(YAML::Node & yamlNode) override;
-	void BuildFromPoints(YAML::Node yamlNode);
 
-	void normalizeMatrix();
+	void BuildFromPoints(YAML::Node yamlNode);
 
 	std::vector<double> computeOrthogonalVector(double Xx, double Xy, double Xz, 
 												double Zx, double Zy, double Zz);
 
-	//Matrix containing the direction vectors (X, Y, Z)
-	double M[3][3];
+	void normalizeMatrix();
+	
+	//Data fields
+	double M[3][3]; //Matrix containing the direction vectors (X, Y, Z)
 };
 

@@ -3,11 +3,11 @@
 #include <iostream>
 
 FECoordSys::FECoordSys(YAML::Node& yamlNode) {
-	if (!setMandatoryValues(yamlNode)) {
+	if (!assignIndependentAttributes(yamlNode)) {
 		throw std::runtime_error("CoordSys error: Mandatory attributes missing.");
 	}
-	setOptionalValues(yamlNode);
 	normalizeMatrix();
+	this->type = COORDSYS;
 }
 
 FECoordSys::FECoordSys(int id, double Xx, double Xy, double Xz,
@@ -29,7 +29,7 @@ FECoordSys::FECoordSys(int id, double Xx, double Xy, double Xz,
 
 FECoordSys::~FECoordSys() {}
 
-bool FECoordSys::setMandatoryValues(YAML::Node & yamlNode) {
+bool FECoordSys::assignIndependentAttributes(YAML::Node & yamlNode) {
 	if (!yamlNode["rotID"]) return false;
 	setID(yamlNode["rotID"].as<int>());
 
@@ -85,14 +85,20 @@ void FECoordSys::BuildFromPoints(YAML::Node yamlNode) {
 	M[1][2] = orthoVec[2];
 }
 
-void FECoordSys::setOptionalValues(YAML::Node & yamlNode) {
-	//No optional values
+std::vector<double> FECoordSys::computeOrthogonalVector(double Xx, double Xy, double Xz, 
+														double Zx, double Zy, double Zz) {
+	//Compute the vector cross product of the two input vectors
+	std::vector<double> orthoVec;
+	orthoVec.push_back(-((Xy * Zz) - (Xz * Zy)));
+	orthoVec.push_back(-((Xz * Zx) - (Xx * Zz)));
+	orthoVec.push_back(-((Xx * Zy) - (Xy * Zx)));
+	return orthoVec;
 }
 
 void FECoordSys::normalizeMatrix() {
 	for (int i = 0; i < 3; i++) {
 		double length = sqrt((M[i][0] * M[i][0]) + (M[i][1] * M[i][1]) + (M[i][2] * M[i][2]));
-		
+
 		if (length == 0) {
 			throw std::runtime_error("CoordSys error: Cannot normalize null vector");
 		}
@@ -103,16 +109,6 @@ void FECoordSys::normalizeMatrix() {
 			}
 		}
 	}
-}
-
-std::vector<double> FECoordSys::computeOrthogonalVector(double Xx, double Xy, double Xz, 
-														double Zx, double Zy, double Zz) {
-	//Compute the vector cross product of the two input vectors
-	std::vector<double> orthoVec;
-	orthoVec.push_back(-((Xy * Zz) - (Xz * Zy)));
-	orthoVec.push_back(-((Xz * Zx) - (Xx * Zz)));
-	orthoVec.push_back(-((Xx * Zy) - (Xy * Zx)));
-	return orthoVec;
 }
 
 void FECoordSys::printAttributes() {

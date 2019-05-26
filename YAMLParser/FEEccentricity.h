@@ -17,10 +17,10 @@ public:
 	virtual std::string getTypeAsString() override;
 
 	// Inherited via GenericFE
-	virtual bool setMandatoryValues(YAML::Node & yamlNode) override;
-	virtual void setOptionalValues(YAML::Node & yamlNode) override;
+	virtual bool assignIndependentAttributes(YAML::Node & yamlNode) override;
 	virtual void printAttributes() override;
 	
+	//Data fields
 	double eX, eY, eZ;
 };
 

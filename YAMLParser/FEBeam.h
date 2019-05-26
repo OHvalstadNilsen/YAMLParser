@@ -11,25 +11,23 @@
 class FEIsoMaterial;
 class FEEccentricity;
 
-class FEBeam : public Identifiable, GenericFE
+class FEBeam : 
+	public Identifiable, 
+	public GenericFE
 {
 public:
-	FEBeam(YAML::Node yamlNode);
+	//Constructors
 	FEBeam(int id, FENode* node1, FENode* node2, FEIsoMaterial* mat, 
 		GenericCrossSection* crossSection, FEEccentricity* ecc1, FEEccentricity* ecc2, FECoordSys* rotID);
 	~FEBeam();
 
+	//Functions
 	Identifiable::Type getType();
 	virtual std::string getTypeAsString() override;
-	bool setMandatoryValues(YAML::Node& yamlNode);
-	void setOptionalValues(YAML::Node& yamlNode);
-	bool setNodes(YAML::Node& yamlNode);
+	bool assignIndependentAttributes(YAML::Node& yamlNode) override;
 	void printAttributes();
-
-	//int node1, node2, material, geoID, vecID, eccentricity1, eccentricity2;
-
-	std::map<std::string, Identifiable> memberElements;
-
+	
+	//Data fields
 	const FENode *pNode1, *pNode2;
 	const FEIsoMaterial *pMaterial;
 	const GenericCrossSection *pCrossSection;

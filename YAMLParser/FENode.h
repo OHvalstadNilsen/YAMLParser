@@ -16,16 +16,15 @@ public:
 	Identifiable::Type getType();
 	virtual std::string getTypeAsString() override;
 
-	bool setMandatoryValues(YAML::Node& yamlNode);
+	bool assignIndependentAttributes(YAML::Node& yamlNode) override;
 
 	bool setCoordinates(YAML::Node& yamlNode);
-
-	void setOptionalValues(YAML::Node& yamlNode);
 
 	std::vector<std::string> extractYamlKeys(YAML::Node yamlNode);
 
 	void printAttributes();
 
+	//Data fields
 	int rotID;
 	double x, y, z;
 	int ix, iy, iz, irx, iry, irz;

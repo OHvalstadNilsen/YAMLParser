@@ -16,23 +16,17 @@ class FEQuadshell :
 	public GenericFE
 {
 public:
-	FEQuadshell(YAML::Node& yamlNode);
 	FEQuadshell(int id, FECoordSys* coordSys, FENode* n1, FENode* n2, FENode* n3, FENode* n4,
 		FEIsoMaterial* mat, GenericCrossSection* crossSection,
 		FEEccentricity* ecc1, FEEccentricity* ecc2, FEEccentricity* ecc3, FEEccentricity* ecc4);
-
 	~FEQuadshell();
+	//Inherited from GenericFE
 	virtual std::string getTypeAsString() override;
 
-	bool setMandatoryValues(YAML::Node& yamlNode);
-	void setOptionalValues(YAML::Node& yamlNode);
-	bool setNodes(YAML::Node & yamlNode);
+	bool assignIndependentAttributes(YAML::Node& yamlNode) override;
 	void printAttributes();
 
-	int node1, node2, node3, node4, material, geoID;
-	int coordID, ecc1, ecc2, ecc3, ecc4;
-
-	//Attributes
+	//Data fields
 	FENode *pNode1, *pNode2, *pNode3, *pNode4;
 	GenericCrossSection* pCrossSection;
 	FEIsoMaterial *pMaterial;

@@ -16,7 +16,6 @@ class FETrishell :
 	public GenericFE
 {
 public:
-	FETrishell(YAML::Node yamlNode);
 	FETrishell(int id, FECoordSys* coord, FENode* n1, FENode* n2, FENode* n3, 
 		FEIsoMaterial* mat, GenericCrossSection* crossSection,
 		FEEccentricity* ecc1, FEEccentricity* ecc2, FEEccentricity* ecc3);
@@ -24,14 +23,11 @@ public:
 	
 	virtual std::string getTypeAsString() override;
 
-	bool setNodes(YAML::Node yamlNode);
-	void setOptionalValues(YAML::Node& yamlNode);
-	bool setMandatoryValues(YAML::Node& yamlNode);
+	//Inherited from GenericFE
+	bool assignIndependentAttributes(YAML::Node& yamlNode) override;
 	void printAttributes();
-
-	int node1, node2, node3, material, geoID, coordID;
-	int eccentricity1, eccentricity2, eccentricity3;
 	
+	//Data fields
 	FENode *pNode1, *pNode2, *pNode3;
 	FECoordSys *pCoordSys;
 	GenericCrossSection *pCrossSection;

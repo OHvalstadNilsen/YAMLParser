@@ -17,8 +17,7 @@ public:
 
 	// Inherited via GenericFE
 	virtual void printAttributes() override;
-	virtual bool setMandatoryValues(YAML::Node & yamlNode) override;
-	virtual void setOptionalValues(YAML::Node & yamlNode) override;
+	virtual bool assignIndependentAttributes(YAML::Node & yamlNode) override;
 	
 	double outerDiameter, thickness, shearY, shearZ;
 };

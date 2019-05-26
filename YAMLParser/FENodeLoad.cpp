@@ -23,11 +23,6 @@ Identifiable::Type FENodeLoad::getType() { return this->type; }
 std::string FENodeLoad::getTypeAsString() { return "NODELOAD"; }
 
 
-bool FENodeLoad::setMandatoryValues(YAML::Node & yamlNode)
-{
-	return false;
-}
-
 bool FENodeLoad::assignIndependentAttributes(YAML::Node& yamlNode) {
 	//Check presence of mandatory attributes
 	if (yamlNode["loadCaseID"]) {
@@ -43,10 +38,6 @@ bool FENodeLoad::assignIndependentAttributes(YAML::Node& yamlNode) {
 		return true;
 	}
 	return false;
-}
-
-void FENodeLoad::setOptionalValues(YAML::Node & yamlNode)
-{
 }
 
 void FENodeLoad::printAttributes() {
