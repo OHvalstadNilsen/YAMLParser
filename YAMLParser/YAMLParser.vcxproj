@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FELoadComb.h" />
     <ClInclude Include="FENodeLoad.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="DataHolder.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Writer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FELoadComb.cpp" />
     <ClCompile Include="FENodeLoad.cpp" />
     <ClCompile Include="Structure.cpp" />
     <ClCompile Include="DataHolder.cpp" />

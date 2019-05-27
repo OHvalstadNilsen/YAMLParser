@@ -11,9 +11,6 @@ public:
 	//Console print for debugging:
 	virtual void printAttributes() = 0;
 	
-	//External userdefined element ID:
-	int id;
-	
 protected:
 	//Setters for attrubute values:
 	virtual bool assignIndependentAttributes(YAML::Node& yamlNode) = 0;
