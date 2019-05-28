@@ -10,11 +10,10 @@ public:
 	Parser(std::string filename);
 	~Parser();
 
-	YAML::Node root;			//YAML root node.
-	YAML::Node structureNode;	//FEA format structure node.
-	YAML::Node nextNode;		//Next node to parse.
-	Structure* structure;		//Structure to which the data types	
-								//are added.
+	YAML::Node root;			///< YAML root node.
+	YAML::Node structureNode;	///< FEA format structure node.
+	YAML::Node nextNode;		///< Next node to parse.
+	Structure* structure;		///< Ptr to Structure object to which the data types are added.
 
 	//Error logger
 	void logErrorMsg(std::runtime_error e);

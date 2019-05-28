@@ -1,5 +1,4 @@
-#pragma once
-/*This is a collective header file for all
+/**This is a collective header file for all
 * FEM element types defined in the parser.
 * 
 * Including this file in other .h or .cpp 
@@ -7,6 +6,7 @@
 * element types.
 */
 
+#pragma once
 #include <array>
 #include <string>
 

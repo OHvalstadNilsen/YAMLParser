@@ -1,3 +1,7 @@
+/** \brief
+* This is the base class for all types with an external identifier attribute.
+* Used when reference to an arbitrary identifiable type is required.
+*/
 #pragma once
 #include <string>
 #include <vector>
@@ -9,12 +13,12 @@
 class Identifiable
 {
 protected:
-	//The externally defined identification number
-	int id;
+	int id; ///< Externally defined identification number
 
 public:
 	virtual ~Identifiable();
-	/*The FEM element type.
+	
+	/**The FEM element type.
 	* Used to avoid problems with elements of different
 	* types having the same id number.
 	* E.g. both a BEAM and a NODE can have id = 1.
@@ -33,6 +37,7 @@ public:
 		NODELOAD, LOADCOMB
 	};
 	
+	//---------- Functions ----------
 	//Vector containing string values that correspond to the enums in Type:
 	std::vector<std::string> s_Types = {
 	"NULLTYPE",
@@ -44,11 +49,16 @@ public:
 	"PIPE", "BOX", "LSECTION", "TSECTION"
 	};
 
-	Type type;
+	/**Function returning the type of the element. <br>
+	* Used to specify element types for operatins such as comparison.
+	*/
 	virtual Identifiable::Type getType();
-	//Function used to throw informative error messages:
+	/**Function returning the type as a string. <br>
+	* Used to throw informative error messages*/
 	virtual std::string getTypeAsString();
 	
-	int getID() const;
-	void setID(int id);
+	//---------- Data fields ----------
+	Type type;				///< The FEM element type (see enum definition)
+	int getID() const;		///< Getter for the externally defined identification number
+	void setID(int id);		///< Setter for the externally defined identification number
 };
