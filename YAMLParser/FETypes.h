@@ -21,3 +21,4 @@
 #include "GenericCrossSection.h"
 #include "FEPipe.h"
 #include "FENodeLoad.h"
+#include "FELoadComb.h"

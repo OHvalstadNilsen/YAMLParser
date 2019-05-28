@@ -30,7 +30,7 @@ public:
 		//Cross-sectional data
 		PIPE, BOX, IHPROFIL, LSECTION, TSECTION,
 		//Load data
-		NODELOAD
+		NODELOAD, LOADCOMB
 	};
 	
 	//Vector containing string values that correspond to the enums in Type:

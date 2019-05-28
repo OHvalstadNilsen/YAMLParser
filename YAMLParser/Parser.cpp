@@ -425,6 +425,39 @@ void Parser::parseNodeLoad(YAML::Node& yamlNode) {
 	}
 }
 
+void Parser::parseLoadComb(YAML::Node& yamlNode) {
+	try {
+		bool exists = structure->checkLoadCombExistence(yamlNode["loadCombId"].as<int>());
+		if (exists) {
+			throw std::runtime_error("LoadComb error: A LoadComb object with id "
+				+ yamlNode["nodeID"].as<std::string>() + " does not exist in Structure.");
+		}
+		else if (!(yamlNode["loadCombId"] && yamlNode["factors"].size() > 0)) {
+				throw std::runtime_error("LoadComb error: Mandatory attributes missing");
+			}
+		else {
+			int loadCombId = yamlNode["loadCombId"].as<int>();
+			std::map<int, double> loadCaseId_to_factor; //map<loadCaseId, scaling factor>
+			for (YAML::const_iterator it = yamlNode["factors"].begin(); it != yamlNode["factors"].end(); it++) {
+				loadCaseId_to_factor[it->first.as<int>()] = it->second.as<double>();
+			}
+			
+			//Instantiate FELoadComb
+			FELoadComb *feLoadComb = new FELoadComb(
+				loadCombId,
+				loadCaseId_to_factor
+			);
+
+			structure->addLoadComb(feLoadComb);
+			feLoadComb->printAttributes();
+		}
+	}
+	catch (std::runtime_error &e){
+		std::cout << e.what() << std::endl;
+		logErrorMsg(e);
+	}
+}
+
 void Parser::parseDepenencyLevelNull() {
 	for (int iterator = 0; iterator < structureNode.size(); ++iterator) {
 		YAML::const_iterator it = structureNode[iterator].begin();
@@ -457,6 +490,10 @@ void Parser::parseDepenencyLevelOne() {
 		if (key == "NODE") {
 			nextNode = structureNode[iterator][key];
 			parseNode(nextNode, key);
+		}
+		if (key == "LOADCOMB") {
+			nextNode = structureNode[iterator][key];
+			parseLoadComb(nextNode);
 		}
 	}
 }

@@ -70,6 +70,13 @@ bool Structure::checkNodeLoadExistence(int id) {
 	return false;
 }
 
+bool Structure::checkLoadCombExistence(int id) {
+	if (loadCombMap.find(id) != loadCombMap.end()) {
+		return true;
+	}
+	return false;
+}
+
 // ------------ Fetch data objects ------------
 
 /*These functions return the requested data object if it exists
@@ -125,6 +132,15 @@ FENodeLoad* Structure::fetchNodeLoad(int id) {
 		+ std::to_string(id) + " does not exist in Structure.\n");
 }
 
+FELoadComb * Structure::fetchLoadComb(int id)
+{
+	if (loadCombMap.find(id) != loadCombMap.end()) {
+		return loadCombMap[id];
+	}
+	throw std::runtime_error("Error: A LOADCOMB with id "
+		+ std::to_string(id) + " does not exist in Structure.\n");
+}
+
 //------------ Add data objects ------------
 
 /*These functions add the data object specified in the input 
@@ -165,6 +181,13 @@ bool Structure::addNodeLoad(FENodeLoad * nodeLoad) {
 	this->nodeLoadList.push_back(nodeLoad);
 	this->nodeLoadMap[nodeLoad->getID()] = nodeLoad;
 	return true;
+}
+
+bool Structure::addLoadComb(FELoadComb * loadComb)
+{
+	this->loadCombList.push_back(loadComb);
+	this->loadCombMap[loadComb->getID()] = loadComb;
+	return false;
 }
 
 //TODO: Not finished!

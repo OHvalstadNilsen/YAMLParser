@@ -42,6 +42,7 @@ public:
 
 	//Load data
 	void parseNodeLoad(YAML::Node & yamlNode);
+	void parseLoadComb(YAML::Node & yamlNode);
 
 	/*Execute the data type parsing methods in order
 	* according to their level of dependency.

@@ -20,6 +20,7 @@ public:
 	bool checkMaterialExistence(int id);
 	bool checkNodeExistence(int id);
 	bool checkNodeLoadExistence(int id);
+	bool checkLoadCombExistence(int id);
 
 
 	//Fetch data objects
@@ -29,6 +30,7 @@ public:
 	FEIsoMaterial* fetchMaterial(int id); //TODO: Change to generic material type
 	FENode* fetchNode(int id);
 	FENodeLoad* fetchNodeLoad(int id);
+	FELoadComb* fetchLoadComb(int id);
 
 	//Add data objects
 	bool addNode(FENode* node);
@@ -37,6 +39,7 @@ public:
 	bool addCrossSection(GenericCrossSection * crossSection);
 	bool addMaterial(FEIsoMaterial * material); //TODO: Change to generic material type
 	bool addNodeLoad(FENodeLoad * nodeLoad);
+	bool addLoadComb(FELoadComb* loadComb);
 
 	//Identifier for the structure
 	int structureID;
@@ -60,6 +63,9 @@ public:
 
 	std::vector<FENodeLoad*> nodeLoadList;
 	std::map<int, FENodeLoad*> nodeLoadMap;
+
+	std::vector<FELoadComb*> loadCombList;
+	std::map<int, FELoadComb*> loadCombMap;
 
 	//Print content data elements to console
 	void printData();
