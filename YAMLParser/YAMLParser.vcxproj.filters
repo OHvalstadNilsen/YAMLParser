@@ -92,9 +92,6 @@
     <ClCompile Include="Writer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="YAMLConverter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="YAMLParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -210,7 +210,6 @@
     </ClCompile>
     <ClCompile Include="PLThick.cpp" />
     <ClCompile Include="Writer.cpp" />
-    <ClCompile Include="YAMLConverter.cpp" />
     <ClCompile Include="YAMLParser.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
