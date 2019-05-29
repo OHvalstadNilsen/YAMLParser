@@ -91,7 +91,7 @@ FECoordSys* Structure::fetchCoordSys(int id) {
 		+ std::to_string(id) + " does not exist in Structure.\n");
 }
 
-Identifiable* Structure::fetchObject(int id, std::string type) {
+GenericFE* Structure::fetchObject(int id, std::string type) {
 	if (elementMap.find(id) != elementMap.end() 
 		&& elementMap[id]->getTypeAsString() == type) {
 		return elementMap[id];
@@ -171,7 +171,7 @@ bool Structure::addNode(FENode* node) {
 	return true;
 }
 
-bool Structure::addElement(Identifiable* element) {
+bool Structure::addElement(GenericFE* element) {
 	this->elementList.push_back(element);
 	this->elementMap[element->getID()] = element;
 	return true;

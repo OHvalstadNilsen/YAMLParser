@@ -42,7 +42,7 @@ public:
 	/**Fetch a specific coordinate system instance*/
 	FECoordSys * fetchCoordSys(int id);
 	/**Fetch a specific FE element instance instance*/
-	Identifiable* fetchObject(int id, std::string type);
+	GenericFE* fetchObject(int id, std::string type);
 	/**Fetch a specific cross-section instance*/
 	GenericCrossSection* fetchCrossSection(int id);
 	/**Fetch a specific material instance*/
@@ -58,7 +58,7 @@ public:
 	/**Add a new node instance to the corresponding map and vector containers*/
 	bool addNode(FENode* node);
 	/**Add a new FE element instance to the corresponding map and vector containers*/
-	bool addElement(Identifiable* element);
+	bool addElement(GenericFE* element);
 	/**Add a new coordinate system instance to the corresponding map and vector containers*/
 	bool addCoordSys(FECoordSys * coordSys);
 	/**Add a new croos-section instance to the corresponding map and vector containers*/
@@ -88,8 +88,8 @@ public:
 	std::vector<FENode*> nodeList;							///< List of ptrs to nodes
 	std::map<int, FENode*> nodeMap;							///< Map from ID to corresponding node instance ptr
 
-	std::vector<Identifiable*> elementList;					///< List of ptrs to Identifiables (used to generalize FE elements)
-	std::map<int, Identifiable*> elementMap;				///< Map from ID to corresponding Identifiable ptr for a specific FE element
+	std::vector<GenericFE*> elementList;					///< List of ptrs to Identifiables (used to generalize FE elements)
+	std::map<int, GenericFE*> elementMap;				///< Map from ID to corresponding Identifiable ptr for a specific FE element
 
 	std::vector<FENodeLoad*> nodeLoadList;					///< List of ptrs to node load instances
 	std::map<int, FENodeLoad*> nodeLoadMap;					///< Map from ID to corresponding node load instance ptr
