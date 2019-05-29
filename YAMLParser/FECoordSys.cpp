@@ -100,7 +100,7 @@ void FECoordSys::normalizeMatrix() {
 		double length = sqrt((M[i][0] * M[i][0]) + (M[i][1] * M[i][1]) + (M[i][2] * M[i][2]));
 
 		if (length == 0) {
-			throw std::runtime_error("CoordSys error: Cannot normalize null vector");
+			throw std::runtime_error("CoordSys error: Cannot normalize zero vector");
 		}
 		else {
 			//Update the vector to unit length
