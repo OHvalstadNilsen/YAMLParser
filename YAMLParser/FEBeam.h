@@ -14,8 +14,7 @@
 class FEIsoMaterial;
 class FEEccentricity;
 
-class FEBeam : 
-	public Identifiable, 
+class FEBeam :  
 	public GenericFE
 {
 public:
@@ -34,6 +33,8 @@ public:
 	* The only independent attributes for the BEAM record is the id, but this attribute
 	* is not assigned in this function. Rather, the id is passed as an integer in the constructor
 	* because passing an integer is more effective than passing a YAML::Node.
+	*
+	*This method is implemented to ensure consistency with the base class.
 	*/
 	bool assignIndependentAttributes(YAML::Node& yamlNode) override;
 	

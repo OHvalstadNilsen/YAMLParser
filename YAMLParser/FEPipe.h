@@ -7,8 +7,8 @@
 #include "GenericFE.h"
 #include "yaml-cpp/yaml.h"
 class FEPipe :
-	public GenericCrossSection,
-	public GenericFE
+	public GenericCrossSection
+	//public GenericFE
 {
 public:
 	FEPipe(YAML::Node yamlNode);

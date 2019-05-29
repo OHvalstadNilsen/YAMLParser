@@ -32,7 +32,7 @@ public:
 		//Material data
 		ISOMATERIAL,
 		//Cross-sectional data
-		PIPE, BOX, IHPROFIL, LSECTION, TSECTION,
+		PIPE, BOX, IHPROFIL, LSECTION, TSECTION, CROSS_SECTION_DUMMY,
 		//Load data
 		NODELOAD, LOADCOMB
 	};

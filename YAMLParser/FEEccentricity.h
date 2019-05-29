@@ -10,7 +10,6 @@
 #include "GenericFE.h"
 
 class FEEccentricity :
-	public Identifiable,
 	public GenericFE
 {
 public:

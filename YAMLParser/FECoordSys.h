@@ -10,7 +10,6 @@
 #include <vector>
 
 class FECoordSys :
-	public Identifiable,
 	public GenericFE
 {
 public:

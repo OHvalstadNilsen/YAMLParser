@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CrossSectionDummy.h" />
     <ClInclude Include="FELoadComb.h" />
     <ClInclude Include="FENodeLoad.h" />
     <ClInclude Include="Structure.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Writer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CrossSectionDummy.cpp" />
     <ClCompile Include="FELoadComb.cpp" />
     <ClCompile Include="FENodeLoad.cpp" />
     <ClCompile Include="Structure.cpp" />

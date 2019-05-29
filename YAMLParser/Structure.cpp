@@ -14,7 +14,7 @@ Structure::Structure(int structureID) {
 	FEIsoMaterial* defMaterial = new FEIsoMaterial(-1, "elastic", 1.0, 1.0, 1.0, 1.0);
 	this->addMaterial(defMaterial);
 
-	GenericCrossSection* defCrossSection = new GenericCrossSection(-1);
+	GenericCrossSection* defCrossSection = new CrossSectionDummy();
 	this->addCrossSection(defCrossSection);
 }
 

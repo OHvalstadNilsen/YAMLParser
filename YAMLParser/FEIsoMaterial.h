@@ -9,7 +9,6 @@
 #include "Identifiable.h"
 
 class FEIsoMaterial : 
-	public Identifiable, 
 	public GenericFE
 {
 public:

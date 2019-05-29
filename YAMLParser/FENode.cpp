@@ -3,22 +3,6 @@
 #include <iostream>
 #include <exception>
 
-//FENode::FENode(int ID, double x, double y, double z, int ix, int iy, int iz, int irx, int iry, int irz, int rotID) 
-//{
-//	int id = ID;
-//	setID(id);
-//	this->x = x;
-//	this->y = y;
-//	this->z = z;
-//	this->ix = ix;
-//	this->iy = iy;
-//	this->iz = iz;
-//	this->irx = irx;
-//	this->iry = iry;
-//	this->irz = irz;
-//	//this->rotID = rotID;
-//}
-
 FENode::FENode(YAML::Node& yamlNode, FECoordSys * rot) {
 	if (!assignIndependentAttributes(yamlNode)) {
 		throw std::runtime_error("Node error: Mandatory attributes missing.");

@@ -16,7 +16,6 @@ class GenericCrossSection;
 class FEEccentricity;
 
 class FEQuadshell : 
-	public Identifiable, 
 	public GenericFE
 {
 public:

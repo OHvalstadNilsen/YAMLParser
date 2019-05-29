@@ -10,7 +10,6 @@
 #include <map>
 
 class FELoadComb :
-	public Identifiable,
 	public GenericFE
 {
 public:

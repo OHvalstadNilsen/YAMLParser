@@ -19,6 +19,7 @@
 #include "FEEccentricity.h"
 #include "FEIsoMaterial.h"
 #include "GenericCrossSection.h"
+#include "CrossSectionDummy.h"
 #include "FEPipe.h"
 #include "FENodeLoad.h"
 #include "FELoadComb.h"

@@ -9,7 +9,6 @@
 #include "FETypes.h"
 
 class FENodeLoad :
-	public Identifiable,
 	public GenericFE
 {
 public:

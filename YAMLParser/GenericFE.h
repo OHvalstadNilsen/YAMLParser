@@ -6,13 +6,11 @@
 */
 #pragma once
 #include "yaml-cpp/yaml.h"
+#include "Identifiable.h"
 
-class GenericFE {
-	/*Interface defining the minimum content of a 
-	* FEM element object.
-	*
-	* All FEM element objects are based on this interface
-	*/
+class GenericFE :
+	public Identifiable
+{
 public:
 	/**Print attributes to console*/
 	virtual void printAttributes() = 0;
