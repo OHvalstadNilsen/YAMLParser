@@ -16,20 +16,21 @@ FENode::FENode(int ID, double x, double y, double z, int ix, int iy, int iz, int
 	this->irx = irx;
 	this->iry = iry;
 	this->irz = irz;
-	this->rotID = rotID;
+	//this->rotID = rotID;
+}
+
+FENode::FENode(YAML::Node& yamlNode, FECoordSys * rot) {
+	if (!assignIndependentAttributes(yamlNode)) {
+		throw std::runtime_error("Node error: Mandatory attributes missing.");
+	}
+	this->type = NODE;
+	this-> pRotID = rot;
 }
 
 //Getters for type
 Identifiable::Type FENode::getType() { return this->type; }
 std::string FENode::getTypeAsString() {	return "NODE"; }
 
-
-FENode::FENode(YAML::Node yamlNode) {
-	if (!assignIndependentAttributes(yamlNode)) {
-		throw std::runtime_error("Node error: Mandatory attributes missing.");
-	}
-	this->type = NODE;
-}
 
 FENode::~FENode()
 {
@@ -53,7 +54,6 @@ bool FENode::assignIndependentAttributes(YAML::Node& yamlNode) {
 		this->irx = (yamlNode["irx"]) ? yamlNode["irx"].as<int>() : 0;
 		this->iry = (yamlNode["iry"]) ? yamlNode["iry"].as<int>() : 0;
 		this->irz = (yamlNode["irz"]) ? yamlNode["irz"].as<int>() : 0;
-		this->rotID = (yamlNode["rotID"]) ? yamlNode["rotID"].as<int>() : 0;
 	}
 	return false;
 }
@@ -91,15 +91,15 @@ std::vector<std::string> FENode::extractYamlKeys(YAML::Node yamlNode) {
 }
 
 void FENode::printAttributes() {
-	std::cout << "FENode:   id: " << getID() 
-		<< ", x: " << x 
+	std::cout << "FENode:   id: " << getID()
+		<< ", x: " << x
 		<< ", y: " << y
-		<< ", z: " << z 
-		<< ", ix: " << ix 
-		<< ", iy: " << iy 
-		<<", iz: " << iz 
-		<< ", irx: " << irx 
-		<< ", iry: " << iry 
-		<< ", irz: " << irz 
-		<< ", rotID: " << rotID << std::endl;
+		<< ", z: " << z
+		<< ", ix: " << ix
+		<< ", iy: " << iy
+		<< ", iz: " << iz
+		<< ", irx: " << irx
+		<< ", iry: " << iry
+		<< ", irz: " << irz
+		<< ", rotID: " << std::to_string(pRotID->getID()) << std::endl;
 }

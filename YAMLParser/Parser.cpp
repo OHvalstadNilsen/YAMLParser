@@ -61,10 +61,25 @@ void Parser::parseNode(YAML::Node& yamlNode, std::string type) {
 				+ yamlNode["id"].as<std::string>() + " already exists.");
 		}
 		else {
+			FECoordSys* rot;
+			//Check if rotID is specified and, if so, if the corresponding coordinate system exists.
+			if (yamlNode["rotID"]) {
+				bool rotExists = structure->checkCoordSysExistence(yamlNode["rotID"].as<int>());
+				if (!rotExists) {
+					throw std::runtime_error("Error: A coordinate system with id "
+						+ yamlNode["rotID"].as<std::string>() + "does not exist in structure.");
+				}
+				//Assign ptr to coordinate system
+				rot = structure->fetchCoordSys(yamlNode["rotID"].as<int>());
+			}
+			else {
+				//Assign default coordinate system if rotID is not specified.
+				rot = structure->fetchCoordSys(-1);
+			}
 			//Instantiate FENode
-			FENode *feNode = new FENode(yamlNode);
+			FENode *feNode = new FENode(yamlNode, rot);
 			structure->addNode(feNode);
-			feNode->printAttributes();
+			feNode->printAttributes();	
 		}
 	}
 	catch(std::runtime_error &e){
