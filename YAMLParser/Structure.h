@@ -1,5 +1,12 @@
-#pragma once
+/** \brief  This class represents the entire FE structure
+*			in which the FE data instances are members.
+*			The FE data types are grouped and stored in a list 
+*			and a map for each data instance.
+*
+* \bug		printData() is not implemented yet!
+*/
 
+#pragma once
 #include "yaml-cpp/yaml.h"
 #include "FETypes.h"
 #include <vector>
@@ -12,92 +19,84 @@ public:
 	Structure(int structureID);
 	~Structure();
 
-	bool checkElementExistence(int id, std::string& type);
 
-	//Check object existence
+	//---------- Functions -----------
+	//---- Check object existence ----
+	/**Check if a specific FE element instance exists in the structure*/
+	bool checkElementExistence(int id, std::string& type);
+	/**Check if a specific coordinate system instance exists in the structure*/
 	bool checkCoordSysExistence(int id);
+	/**Check if a specific cross-section instance exists in the structure*/
 	bool checkCrossSectionExistence(int id, std::string& type);
+	/**Check if a specific material instance exists in the structure*/
 	bool checkMaterialExistence(int id);
+	/**Check if a specific node instance exists in the structure*/
 	bool checkNodeExistence(int id);
+	/**Check if a specific node load instance exists in the structure*/
 	bool checkNodeLoadExistence(int id);
+	/**Check if a specific load combination instance exists in the structure*/
 	bool checkLoadCombExistence(int id);
 
 
-	//Fetch data objects
+	//----- Fetch data objects -----
+	/**Fetch a specific coordinate system instance*/
 	FECoordSys * fetchCoordSys(int id);
+	/**Fetch a specific FE element instance instance*/
 	Identifiable* fetchObject(int id, std::string type);
+	/**Fetch a specific cross-section instance*/
 	GenericCrossSection* fetchCrossSection(int id);
+	/**Fetch a specific material instance*/
 	FEIsoMaterial* fetchMaterial(int id); //TODO: Change to generic material type
+	/**Fetch a specific node instance*/
 	FENode* fetchNode(int id);
+	/**Fetch a specific node load instance*/
 	FENodeLoad* fetchNodeLoad(int id);
+	/**Fetch a specific load combination instance*/
 	FELoadComb* fetchLoadComb(int id);
 
-	//Add data objects
+	//------ Add data objects ------
+	/**Add a new node instance to the corresponding map and vector containers*/
 	bool addNode(FENode* node);
+	/**Add a new FE element instance to the corresponding map and vector containers*/
 	bool addElement(Identifiable* element);
+	/**Add a new coordinate system instance to the corresponding map and vector containers*/
 	bool addCoordSys(FECoordSys * coordSys);
+	/**Add a new croos-section instance to the corresponding map and vector containers*/
 	bool addCrossSection(GenericCrossSection * crossSection);
+	/**Add a new material instance to the corresponding map and vector containers*/
 	bool addMaterial(FEIsoMaterial * material); //TODO: Change to generic material type
+	/**Add a new node load instance to the corresponding map and vector containers*/
 	bool addNodeLoad(FENodeLoad * nodeLoad);
+	/**Add a new load combination instance to the corresponding map and vector containers*/
 	bool addLoadComb(FELoadComb* loadComb);
 
-	//Identifier for the structure
-	int structureID;
 
-	//Containers for instantiated data objects
-	std::vector<FECoordSys*> coordSysList;
-	std::map<int, FECoordSys*> coordSysMap;
+	//---------- Data fields ----------
+	int structureID; ///< Identifier for the structure
 
-	std::vector<GenericCrossSection*> crossSectionList;
-	std::map<int, GenericCrossSection*> crossSectionMap;
+	//-- Containers for instantiated data objects --
+	std::vector<FECoordSys*> coordSysList;					///< List of ptrs to coordSys instances
+	std::map<int, FECoordSys*> coordSysMap;					///< Map from ID to corresponding coordSys instance ptr
+
+	std::vector<GenericCrossSection*> crossSectionList;		///< List of ptrs to cross-section instances
+	std::map<int, GenericCrossSection*> crossSectionMap;	///< Map from ID to corresponding croos-section instance
 	
 	//TODO: Change to generic material type
-	std::vector<FEIsoMaterial*> materialList;
-	std::map<int, FEIsoMaterial*> materialMap;
+	std::vector<FEIsoMaterial*> materialList;				///< List of ptrs to material instances
+	std::map<int, FEIsoMaterial*> materialMap;				///< Map from ID to corresponding material instance ptr
 
-	std::vector<FENode*> nodeList;
-	std::map<int, FENode*> nodeMap;
+	std::vector<FENode*> nodeList;							///< List of ptrs to nodes
+	std::map<int, FENode*> nodeMap;							///< Map from ID to corresponding node instance ptr
 
-	std::vector<Identifiable*> elementList;
-	std::map<int, Identifiable*> elementMap;
+	std::vector<Identifiable*> elementList;					///< List of ptrs to Identifiables (used to generalize FE elements)
+	std::map<int, Identifiable*> elementMap;				///< Map from ID to corresponding Identifiable ptr for a specific FE element
 
-	std::vector<FENodeLoad*> nodeLoadList;
-	std::map<int, FENodeLoad*> nodeLoadMap;
+	std::vector<FENodeLoad*> nodeLoadList;					///< List of ptrs to node load instances
+	std::map<int, FENodeLoad*> nodeLoadMap;					///< Map from ID to corresponding node load instance ptr
 
-	std::vector<FELoadComb*> loadCombList;
-	std::map<int, FELoadComb*> loadCombMap;
+	std::vector<FELoadComb*> loadCombList;					///< List of ptrs to load combination instances
+	std::map<int, FELoadComb*> loadCombMap;					///< Map from ID to corresponding load combination instance ptr
 
 	//Print content data elements to console
 	void printData();
 };
-
-//FIXME: Delete this (unnecessary code). Not in use in checkExistence.
-//struct check_id {
-//	check_id(const int& id) {}
-//	bool operator()(Identifiable el) { //FIXME: bool operator()(const Identifiable& el){ ?
-//		return el.getID() == id;
-//	}
-//private:
-//	int id;
-//};
-//
-//struct check_type {
-//	check_type(const Identifiable::Type& t) {}
-//	bool operator()(Identifiable el) {
-//		return el.getType() == t;
-//	}
-//private:
-//	Identifiable::Type t;
-//};
-//
-//struct check_existence {
-//	check_existence(const int& id, const Identifiable::Type& t) {}
-//	bool operator() (Identifiable el) const {
-//		//FIXME: id has wrong value!
-//		std::cout << el.getID() << " should be equal to " << id << std::endl;
-//		return (el.getID() == id) && (el.getType() == t);
-//	}
-//private:
-//	int id;
-//	Identifiable::Type t;
-//};
