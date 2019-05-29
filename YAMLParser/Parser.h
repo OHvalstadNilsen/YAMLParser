@@ -31,8 +31,9 @@ public:
 	//----- Nodal data -----
 	void parseCoordSys(YAML::Node & yamlNode, std::string type);	 ///< Instantiate a FECoordSys object from the YAML::Node
 	void parseNode(YAML::Node& yamlNode, std::string type);			 ///< Instantiate a FENode object from the YAML::Node
-	
+
 	//----- Element data -----
+	void parseVector(YAML::Node & yamlNode, std::string type);		///< Instantiate a FEVector object from the YAML::Node
 	void parseBeam(YAML::Node& yamlNode, std::string type);			///< Instantiate a FEBeam object from the YAML::Node
 	void parseTrishell(YAML::Node& yamlNode, std::string type);		///< Instantiate a FETrishell object from the YAML::Node
 	void parseQuadshell(YAML::Node & yamlNode, std::string type);	///< Instantiate a FEQuadshell object from the YAML::Node

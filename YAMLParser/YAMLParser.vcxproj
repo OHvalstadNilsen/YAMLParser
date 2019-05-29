@@ -166,6 +166,7 @@
     <ClInclude Include="CrossSectionDummy.h" />
     <ClInclude Include="FELoadComb.h" />
     <ClInclude Include="FENodeLoad.h" />
+    <ClInclude Include="FEVector.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="DataHolder.h" />
     <ClInclude Include="FEAFormat.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="CrossSectionDummy.cpp" />
     <ClCompile Include="FELoadComb.cpp" />
     <ClCompile Include="FENodeLoad.cpp" />
+    <ClCompile Include="FEVector.cpp" />
     <ClCompile Include="Structure.cpp" />
     <ClCompile Include="DataHolder.cpp" />
     <ClCompile Include="FEAFormat.cpp" />

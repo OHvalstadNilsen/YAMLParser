@@ -81,6 +81,9 @@
     <ClInclude Include="CrossSectionDummy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FEVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -144,6 +147,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CrossSectionDummy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FEVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

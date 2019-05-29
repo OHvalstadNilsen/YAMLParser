@@ -28,7 +28,7 @@ public:
 		//Nodal data
 		NODE, COORDSYS,
 		//Element data
-		BEAM, TRISHELL, QUADSHEL, UNITVEC, ECCENT,
+		BEAM, TRISHELL, QUADSHEL, VECTOR, ECCENT,
 		//Material data
 		ISOMATERIAL,
 		//Cross-sectional data

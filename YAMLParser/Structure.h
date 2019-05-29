@@ -23,7 +23,7 @@ public:
 	//---------- Functions -----------
 	//---- Check object existence ----
 	/**Check if a specific FE element instance exists in the structure*/
-	bool checkElementExistence(int id, std::string& type);
+	bool checkElementExistence(int id, std::string type);
 	/**Check if a specific coordinate system instance exists in the structure*/
 	bool checkCoordSysExistence(int id);
 	/**Check if a specific cross-section instance exists in the structure*/

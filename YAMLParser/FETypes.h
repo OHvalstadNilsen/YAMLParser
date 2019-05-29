@@ -13,6 +13,7 @@
 #include "FECoordSys.h"
 #include "PLThick.h"
 #include "FENode.h"
+#include "FEVector.h"
 #include "FEBeam.h"
 #include "FETrishell.h"
 #include "FEQuadshell.h"

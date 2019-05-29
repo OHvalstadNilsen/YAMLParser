@@ -88,6 +88,28 @@ void Parser::parseNode(YAML::Node& yamlNode, std::string type) {
 	}
 }
 
+void Parser::parseVector(YAML::Node& yamlNode, std::string type) {
+	try {
+		bool exists = structure->checkElementExistence(yamlNode["vecID"].as<int>(), "VECTOR");
+		if (exists) {
+			throw std::runtime_error("Error: A vector with id "
+				+ yamlNode["vecID"].as<std::string>() + " already exists.");
+		}
+		else {
+			FEVector* feVector = new FEVector(
+			yamlNode,
+			type
+			);
+			structure->addElement(feVector);
+			feVector->printAttributes();
+		}
+	}
+	catch (std::runtime_error &e) {
+		std::cout << e.what() << std::endl;
+		logErrorMsg(e);
+	}
+}
+
 void Parser::parseBeam(YAML::Node& yamlNode, std::string type) {
 	try {
 		bool exists = structure->checkElementExistence(yamlNode["elemID"].as<int>(), type);
@@ -494,6 +516,10 @@ void Parser::parseDepenencyLevelNull() {
 			nextNode = structureNode[iterator][key];
 			ParsePipe(nextNode, key);
 		}
+		if (key == "UNITVEC" || key == "ZVECTOR" || key == "YVECTOR") {
+			nextNode = structureNode[iterator][key];
+			parseVector(nextNode, key);
+		}
 	}
 }
 
@@ -556,5 +582,5 @@ void Parser::parse() {
 	std::cout << "Total number of objects: "
 		<< structure->elementList.size() + structure->nodeList.size()
 		+ structure->materialList.size() + structure->crossSectionList.size() 
-		+ structure->nodeLoadList.size() << std::endl;
+		+ structure->nodeLoadList.size() + structure->loadCombList.size() << std::endl;
 }

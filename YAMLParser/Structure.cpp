@@ -33,7 +33,7 @@ bool Structure::checkCoordSysExistence(int id) {
 	return false;
 }
 
-bool Structure::checkElementExistence(int id, std::string& type) {
+bool Structure::checkElementExistence(int id, std::string type) {
 	if (elementMap.find(id) != elementMap.end()
 		&& elementMap[id]->getTypeAsString() == type) {
 		return true;
