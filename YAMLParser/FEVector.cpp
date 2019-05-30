@@ -11,6 +11,12 @@ FEVector::FEVector(YAML::Node& yamlNode, std::string vecType) {
 	this->type = VECTOR;
 }
 
+FEVector::FEVector(int id, double x, double y, double z) {
+	setID(id);
+	vec[0] = x;
+	vec[1] = y;
+	vec[2] = z;
+}
 
 FEVector::~FEVector() {
 }

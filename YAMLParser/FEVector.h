@@ -10,6 +10,8 @@ class FEVector :
 {
 public:
 	FEVector(YAML::Node& yamlNode, std::string vecType);
+	/**YAML-independent constructor*/
+	FEVector(int id, double x, double y, double z);
 	~FEVector();
 
 
