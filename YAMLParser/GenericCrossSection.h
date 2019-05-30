@@ -3,6 +3,8 @@
 *
 * This is the least common multiple for cross-section classes, used when
 * reference to a arbitrary cross-section element is required.
+*
+* This class is abstract.
 */
 #pragma once
 #include "yaml-cpp/yaml.h"
@@ -12,12 +14,11 @@ class GenericCrossSection :
 	public Identifiable
 {
 public:
-	GenericCrossSection();
-	GenericCrossSection(int id);
-	~GenericCrossSection();
+	/**Print attributes to console*/
 	virtual void printAttributes() = 0;
 
 protected:
+	/**Setter for independent (dependency level null) attributes*/
 	virtual bool assignIndependentAttributes(YAML::Node & yamlNode) = 0;
 };
 

@@ -128,9 +128,6 @@
     <ClCompile Include="FEPipe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GenericCrossSection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FEEccentricity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

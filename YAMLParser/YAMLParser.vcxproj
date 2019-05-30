@@ -204,7 +204,6 @@
     <ClCompile Include="FEPipe.cpp" />
     <ClCompile Include="FEQuadshell.cpp" />
     <ClCompile Include="FETrishell.cpp" />
-    <ClCompile Include="GenericCrossSection.cpp" />
     <ClCompile Include="Identifiable.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="pch.cpp">
