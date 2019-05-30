@@ -6,7 +6,6 @@
 #include <vector>
 #include <string>
 #include "yaml-cpp/yaml.h"
-#include "GenericFE.h"
 #include "Identifiable.h"
 #include "FECoordSys.h"
 
@@ -14,7 +13,7 @@
 class FECoordSys;
 
 class FENode : 
-	public GenericFE
+	public Identifiable
 {
 public:
 	FENode(YAML::Node& yamlNode, FECoordSys* rot);
@@ -26,7 +25,7 @@ public:
 
 	/**Assigns NODE attributes with dependency level null, 
 	* i.e. attributes which can be obtained directly from the YAML representation*/
-	bool assignIndependentAttributes(YAML::Node& yamlNode) override;
+	bool assignIndependentAttributes(YAML::Node& yamlNode);
 
 	/**Sets the coordinates for the node, from the attribute fields in yamlNode*/
 	bool setCoordinates(YAML::Node& yamlNode);
