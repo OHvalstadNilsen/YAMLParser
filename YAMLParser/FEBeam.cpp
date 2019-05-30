@@ -3,7 +3,7 @@
 #include <iostream>
 
 FEBeam::FEBeam(int id, FENode* n1, FENode* n2, FEIsoMaterial* mat,
-	GenericCrossSection* crossSection, FEEccentricity* ecc1, FEEccentricity* ecc2, FECoordSys* rotID) {
+	GenericCrossSection* crossSection, FEEccentricity* ecc1, FEEccentricity* ecc2, FEVector* vec) {
 	setID(id);
 	this->pNode1 = n1;
 	this->pNode2 = n2;
@@ -11,7 +11,7 @@ FEBeam::FEBeam(int id, FENode* n1, FENode* n2, FEIsoMaterial* mat,
 	this->pCrossSection = crossSection;
 	this->pEcc1 = ecc1;
 	this->pEcc2 = ecc2;
-	this->pCoordSys = rotID;
+	this->pVec = vec;
 	this->type = BEAM;
 }
 

@@ -22,7 +22,7 @@ public:
 	* the function argument list.
 	*/
 	FEBeam(int id, FENode* node1, FENode* node2, FEIsoMaterial* mat, 
-		GenericCrossSection* crossSection, FEEccentricity* ecc1, FEEccentricity* ecc2, FECoordSys* rotID);
+		GenericCrossSection* crossSection, FEEccentricity* ecc1, FEEccentricity* ecc2, FEVector* vec);
 	~FEBeam();
 
 	//---------- Functions ----------
@@ -47,7 +47,6 @@ public:
 	const GenericCrossSection *pCrossSection;	///< Ptr to object holding the cross-sectional data
 	const FEEccentricity *pEcc1;				///< Ptr to eccentricity information for node 1
 	const FEEccentricity *pEcc2;				///< Ptr to eccentricity information for node 2
-	//TODO: Replace coordsys with vector defining direction
-	const FECoordSys *pCoordSys;				///< Ptr to object holding a local coordinate system
+	const FEVector* pVec;						///< Ptr to FEVector object specifying the beam's orientation
 };
 
