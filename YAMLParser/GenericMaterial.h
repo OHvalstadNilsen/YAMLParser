@@ -1,4 +1,6 @@
-/**This is the base class for all materials.
+/** \brief
+*	This is the base class for all materials classes.
+*
 * This is the least common multiple for material classes, 
 * used when reference to an arbitrary FE type is required.
 *

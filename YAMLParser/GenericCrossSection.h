@@ -1,4 +1,6 @@
-/**This is the base class for all cross-sections.
+/** \brief
+*	This is the base class for all cross-section classes.
+*
 * This is the least common multiple for cross-section classes, used when
 * reference to a arbitrary cross-section element is required.
 */

@@ -1,4 +1,6 @@
-/**This is the base class for all finite elements.
+/** \brief 
+*	This is the base class for all element classes.
+*
 * This is the least common multiple for FE classes, 
 * used when reference to an arbitrary FE type is required.
 *
