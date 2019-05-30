@@ -11,6 +11,9 @@ Structure::Structure(int structureID) {
 	FEEccentricity* defEcc = new FEEccentricity(-1, 0.0, 0.0, 0.0);
 	this->addElement(defEcc);
 
+	FEVector* defVec = new FEVector(-1, 1.0, 0.0, 0.0);
+	this->addElement(defVec);
+
 	FEIsoMaterial* defMaterial = new FEIsoMaterial(-1, "elastic", 1.0, 1.0, 1.0, 1.0);
 	this->addMaterial(defMaterial);
 
@@ -34,11 +37,24 @@ bool Structure::checkCoordSysExistence(int id) {
 }
 
 bool Structure::checkElementExistence(int id, std::string type) {
-	if (elementMap.find(id) != elementMap.end()
+	std::vector<GenericFE*>::iterator it;
+	for (it = elementList.begin(); it != elementList.end(); ++it) {
+		if ((*it)->getID() == id && (*it)->getTypeAsString() == type) {
+			return true;
+		}
+	}
+	return false;
+
+	/* ---------------------------------------------------------
+	*The following code has better performance as it traverses a map instead of a list.
+	* However, it produces the wrong output due to key uniqueness.
+	*/
+	
+	/*if (elementMap.find(id) != elementMap.end()
 		&& elementMap[id]->getTypeAsString() == type) {
 		return true;
 	}
-	return false;
+	return false;*/
 }
 
 bool Structure::checkCrossSectionExistence(int id, std::string& type) {
@@ -92,10 +108,19 @@ FECoordSys* Structure::fetchCoordSys(int id) {
 }
 
 GenericFE* Structure::fetchObject(int id, std::string type) {
-	if (elementMap.find(id) != elementMap.end() 
+	for (int i = 0; i < elementList.size(); i++) {
+		if (elementList[i]->getID() == id && elementList[i]->getTypeAsString() == type) {
+			return elementList[i];
+		}
+	}
+
+	/*The following code has better performance as it traverses a map instead of a list.
+	* However, it produces the wrong output due to key uniqueness.
+	*/
+	/*if (elementMap.find(id) != elementMap.end() 
 		&& elementMap[id]->getTypeAsString() == type) {
 		return elementMap[id];
-	}
+	}*/
 	throw std::runtime_error("Error: A " + type + " element with id " 
 		+ std::to_string(id) + " does not exist in Structure.\n");
 }
@@ -190,19 +215,26 @@ bool Structure::addLoadComb(FELoadComb * loadComb)
 	return false;
 }
 
-//TODO: Not finished!
 void Structure::printData() {
 	for (FECoordSys* coordSys : coordSysList){
 		coordSys->printAttributes();
 	}
 	for (GenericCrossSection* crossSection : crossSectionList) {
-		
+		crossSection->printAttributes();
+	}
+	for (FEIsoMaterial* mat : materialList) {
+		mat->printAttributes();
 	}
 	for (FENode* node : nodeList) {
 		node->printAttributes();
 	}
-	for (Identifiable* element : elementList) {
-		//TODO: Add print function to Identifiable
+	for (GenericFE* element : elementList) {
+		element->printAttributes();
 	}
-	
+	for (FENodeLoad* nl : nodeLoadList) {
+		nl->printAttributes();
+	}
+	for (FELoadComb* lc : loadCombList) {
+		lc->printAttributes();
+	}
 }
