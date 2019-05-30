@@ -84,6 +84,9 @@
     <ClInclude Include="FEVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GenericMaterial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

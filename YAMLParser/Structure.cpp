@@ -133,7 +133,7 @@ GenericCrossSection* Structure::fetchCrossSection(int id) {
 		std::to_string(id) + " does not exist in Structure.\n");
 }
 
-FEIsoMaterial* Structure::fetchMaterial(int id) {
+GenericMaterial* Structure::fetchMaterial(int id) {
 	if (materialMap.find(id) != materialMap.end()) {
 		return materialMap[id];
 	}
@@ -184,7 +184,7 @@ bool Structure::addCrossSection(GenericCrossSection* crossSection) {
 	return true;
 }
 
-bool Structure::addMaterial(FEIsoMaterial* material) {
+bool Structure::addMaterial(GenericMaterial* material) {
 	this->materialList.push_back(material);
 	this->materialMap[material->getID()] = material;
 	return true;
@@ -222,7 +222,7 @@ void Structure::printData() {
 	for (GenericCrossSection* crossSection : crossSectionList) {
 		crossSection->printAttributes();
 	}
-	for (FEIsoMaterial* mat : materialList) {
+	for (GenericMaterial* mat : materialList) {
 		mat->printAttributes();
 	}
 	for (FENode* node : nodeList) {

@@ -5,11 +5,11 @@
 #pragma once
 #include <string>
 #include "yaml-cpp/yaml.h"
-#include "GenericFE.h"
+#include "GenericMaterial.h"
 #include "Identifiable.h"
 
 class FEIsoMaterial : 
-	public GenericFE
+	public GenericMaterial
 {
 public:
 	/**Constructor based on information from a YAML::Node*/
