@@ -13,9 +13,9 @@ public:
 	GenericCrossSection();
 	GenericCrossSection(int id);
 	~GenericCrossSection();
+	virtual void printAttributes() = 0;
 
 protected:
-	virtual void printAttributes() = 0;
 	virtual bool assignIndependentAttributes(YAML::Node & yamlNode) = 0;
 };
 

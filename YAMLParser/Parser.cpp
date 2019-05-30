@@ -43,7 +43,6 @@ void Parser::parseCoordSys(YAML::Node& yamlNode, std::string type) {
 			//Instantiate coordinate system from the YAML::Node
 			FECoordSys *feCoordSys = new FECoordSys(yamlNode);
 			structure->addCoordSys(feCoordSys);
-			feCoordSys->printAttributes();
 		}
 	}
 	catch(std::runtime_error &e){
@@ -78,8 +77,7 @@ void Parser::parseNode(YAML::Node& yamlNode, std::string type) {
 			}
 			//Instantiate FENode
 			FENode *feNode = new FENode(yamlNode, rot);
-			structure->addNode(feNode);
-			feNode->printAttributes();	
+			structure->addNode(feNode);	
 		}
 	}
 	catch(std::runtime_error &e){
@@ -101,7 +99,6 @@ void Parser::parseVector(YAML::Node& yamlNode, std::string type) {
 			type
 			);
 			structure->addElement(feVector);
-			feVector->printAttributes();
 		}
 	}
 	catch (std::runtime_error &e) {
@@ -152,8 +149,8 @@ void Parser::parseBeam(YAML::Node& yamlNode, std::string type) {
 			requiredElems["ecc2"] = yamlNode["ecc2"] ? (structure->fetchObject(yamlNode["ecc2"].as<int>(), "ECCENT")) 
 														: structure->fetchObject(-1, "ECCENT");
 		}
-		requiredElems["rotID"] = yamlNode["rotID"] ? structure->fetchCoordSys(yamlNode["rotID"].as<int>())
-														: structure->fetchCoordSys(-1);
+		requiredElems["vecID"] = yamlNode["vecID"] ? structure->fetchObject(yamlNode["vecID"].as<int>(), "VECTOR")
+														: structure->fetchObject(-1, "VECTOR");
 		
 		//Instantiate FEBeam
 		FEBeam *feBeam = new FEBeam(
@@ -164,10 +161,9 @@ void Parser::parseBeam(YAML::Node& yamlNode, std::string type) {
 			(GenericCrossSection*)requiredElems["crossSection"],
 			(FEEccentricity*)requiredElems["ecc1"],
 			(FEEccentricity*)requiredElems["ecc2"],
-			(FECoordSys*)requiredElems["rotID"]);
+			(FEVector*)requiredElems["vecID"]);
 		
 		structure->addElement(feBeam);
-		feBeam->printAttributes();
 	}
 	catch (std::runtime_error &e) {
 		std::cout << e.what() << std::endl;
@@ -238,9 +234,7 @@ void Parser::parseTrishell(YAML::Node& yamlNode, std::string type) {
 				(FEEccentricity*)requiredElems["ecc2"],
 				(FEEccentricity*)requiredElems["ecc3"]
 			);
-
 			structure->addElement(feTrishell);
-			feTrishell->printAttributes();
 		}
 	}
 	catch (std::runtime_error &e) {
@@ -321,9 +315,7 @@ void Parser::parseQuadshell(YAML::Node& yamlNode, std::string type) {
 				(FEEccentricity*)requiredElems["ecc3"],
 				(FEEccentricity*)requiredElems["ecc4"]
 			);
-
 			structure->addElement(feQuadshell);
-			feQuadshell->printAttributes();
 		}
 	}
 	catch (std::runtime_error &e) {
@@ -366,7 +358,6 @@ void Parser::parseEccentricity(YAML::Node& yamlNode, std::string type) {
 			//Instantiate FEEccentricity
 			FEEccentricity *feEccentricity = new FEEccentricity(yamlNode);
 			structure->addElement(feEccentricity);
-			feEccentricity->printAttributes();
 		}
 	}
 	catch (std::runtime_error &e) {
@@ -386,7 +377,6 @@ void Parser::ParseIsoMaterial(YAML::Node& yamlNode, std::string type) {
 			//Instantiate IsoMaterial
 			FEIsoMaterial *feIsoMaterial = new FEIsoMaterial(yamlNode);
 			structure->addMaterial(feIsoMaterial);
-			feIsoMaterial->printAttributes();
 		}
 	}
 	catch (std::runtime_error &e) {
@@ -406,7 +396,6 @@ void Parser::ParsePipe(YAML::Node& yamlNode, std::string type) {
 			//Instantiate FEPipe
 			FEPipe *fePipe = new FEPipe(yamlNode);
 			structure->addCrossSection(fePipe);
-			fePipe->printAttributes();
 		}
 	}
 	catch (std::runtime_error &e) {
@@ -453,7 +442,6 @@ void Parser::parseNodeLoad(YAML::Node& yamlNode) {
 			(FEEccentricity*) depElements["ecc"]);
 		
 		structure->addNodeLoad(feNodeLoad);
-		feNodeLoad->printAttributes();
 		nodeLoadId++;
 	}
 	catch (std::runtime_error &e){
@@ -486,7 +474,6 @@ void Parser::parseLoadComb(YAML::Node& yamlNode) {
 			);
 
 			structure->addLoadComb(feLoadComb);
-			feLoadComb->printAttributes();
 		}
 	}
 	catch (std::runtime_error &e){
@@ -572,15 +559,25 @@ void Parser::parse() {
 	parseDepenencyLevelOne();
 	parseDepenencyLevelTwo();
 	
+	std::cout << "CONTENTS OF STRUCTURE LISTS:" << std::endl;
+	structure->printData();
+	
 	//Print used while debugging:
 	std::cout << "\nSome numbers:" << std::endl;
+	std::cout << "Size of coordSysList: " << structure->coordSysList.size() << std::endl;
 	std::cout << "Size of materials list: " << structure->materialList.size() << std::endl;
 	std::cout << "Size of cross sections list: " << structure->crossSectionList.size() << std::endl;
 	std::cout << "Size of nodes list: " << structure->nodeList.size() << std::endl;
 	std::cout << "Size of elements list: " << structure->elementList.size() << std::endl;
 	std::cout << "Size of NodeLoad list: " << structure->nodeLoadList.size() << std::endl;
+	std::cout << "Size of loadCombList: " << structure->loadCombList.size() << std::endl;
 	std::cout << "Total number of objects: "
-		<< structure->elementList.size() + structure->nodeList.size()
-		+ structure->materialList.size() + structure->crossSectionList.size() 
-		+ structure->nodeLoadList.size() + structure->loadCombList.size() << std::endl;
+		<< structure-> coordSysList.size()
+		+ structure->elementList.size() 
+		+ structure->nodeList.size()
+		+ structure->materialList.size() 
+		+ structure->crossSectionList.size() 
+		+ structure->nodeLoadList.size() 
+		+ structure->loadCombList.size() 
+	<< std::endl;
 }
