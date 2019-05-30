@@ -5,12 +5,11 @@
 #pragma once
 #include "yaml-cpp/yaml.h"
 #include "Identifiable.h"
-#include "GenericFE.h"
 #include <array>
 #include <vector>
 
 class FECoordSys :
-	public GenericFE
+	public Identifiable
 {
 public:
 	/**YAML-independent constructor
@@ -30,8 +29,8 @@ public:
 
 	//---------- Functions ----------
 	// Inherited via GenericFE
-	virtual bool assignIndependentAttributes(YAML::Node & yamlNode) override;
-	virtual void printAttributes() override;
+	virtual bool assignIndependentAttributes(YAML::Node & yamlNode);
+	virtual void printAttributes();
 
 	/**Builds a coordinate system from three points, specified by the PCOORDSYS record*/
 	void BuildFromPoints(YAML::Node yamlNode);
