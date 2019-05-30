@@ -6,7 +6,6 @@
 *  \todo	checkElementExistence traverses a list. The check should be performed wrt. a map ( list search = O(n) / map search = (Olog(n)) )
 *  \todo	fetchObject traveses a list. It should rather obtain the value from the corresponding map (list search = O(n) / map search = (O(log(n)) ).
 */
-
 #pragma once
 #include "yaml-cpp/yaml.h"
 #include "FETypes.h"

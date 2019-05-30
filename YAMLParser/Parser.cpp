@@ -404,9 +404,17 @@ void Parser::ParsePipe(YAML::Node& yamlNode, std::string type) {
 	}
 }
 
-void Parser::parsePLThick(YAML::Node& yamlNode) {
+void Parser::parsePLThick(YAML::Node& yamlNode, std::string type) {
 	try {
-		//TODO:
+		bool exists = structure->checkCrossSectionExistence(yamlNode["geoID"].as<int>(), type);
+		if (exists) {
+			throw std::runtime_error("Error: A cross section object with id "
+				+ yamlNode["geoID"].as<std::string>() + " already exists.");
+		}
+		else {
+			PLThick* plThick = new PLThick(yamlNode);
+			structure->addCrossSection(plThick);
+		}
 	}
 	catch (const std::runtime_error &e) {
 		std::cout << e.what() << std::endl;
@@ -503,6 +511,10 @@ void Parser::parseDepenencyLevelNull() {
 			nextNode = structureNode[iterator][key];
 			ParsePipe(nextNode, key);
 		}
+		if (key == "PLTHICK") {
+			nextNode = structureNode[iterator][key];
+			parsePLThick(nextNode, key);
+		}
 		if (key == "UNITVEC" || key == "ZVECTOR" || key == "YVECTOR") {
 			nextNode = structureNode[iterator][key];
 			parseVector(nextNode, key);
@@ -559,9 +571,8 @@ void Parser::parse() {
 	parseDepenencyLevelOne();
 	parseDepenencyLevelTwo();
 	
-	std::cout << "CONTENTS OF STRUCTURE LISTS:" << std::endl;
+	//Print data contents in structure
 	structure->printData();
-	
 	//Print used while debugging:
 	std::cout << "\nSome numbers:" << std::endl;
 	std::cout << "Size of coordSysList: " << structure->coordSysList.size() << std::endl;
