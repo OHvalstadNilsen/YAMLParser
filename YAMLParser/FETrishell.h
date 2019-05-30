@@ -1,10 +1,7 @@
 /** \brief
-* This class represents a triangular shell element.
+*	This class represents a triangular shell element.
 */
-
-
 #pragma once
-
 #include "yaml-cpp/yaml.h"
 #include "GenericFE.h"
 #include "Identifiable.h"

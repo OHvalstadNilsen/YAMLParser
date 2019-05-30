@@ -1,5 +1,5 @@
 /** \brief
-*		This class represents a quadrilateral shell element.
+*	This class represents a quadrilateral shell element.
 */
 
 #pragma once
