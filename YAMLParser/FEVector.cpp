@@ -26,12 +26,25 @@ Identifiable::Type FEVector::getType() { return this->type; }
 std::string FEVector::getTypeAsString() { return "VECTOR"; }
 
 bool FEVector::assignIndependentAttributes(YAML::Node & yamlNode) {
+	//For vectors defined according to Formulation 1 in the 
+	//YAML based input file format for FEA documentation.
 	if (yamlNode["vecID"] && yamlNode["x"] && yamlNode["y"] && yamlNode["z"]) {
 		setID(yamlNode["vecID"].as<int>());
 		vec[0] = yamlNode["x"].as<double>();
 		vec[1] = yamlNode["y"].as<double>();
 		vec[2] = yamlNode["z"].as<double>();
 		return true;
+	}
+	//For vectors defined according to Formulation 2 in the 
+	//YAML based input file format for FEA documentation.
+	else if (yamlNode["vecID"] && yamlNode["xyz"]) {
+		if (yamlNode["xyz"].size() == 3) {
+			setID(yamlNode["vecID"].as<int>());
+			for (int i = 0; i < yamlNode["xyz"].size(); i++) {
+				vec[i] = yamlNode["xyz"][i].as<double>();
+			}
+			return true;
+		}
 	}
 	return false;
 }
