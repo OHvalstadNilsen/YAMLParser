@@ -30,9 +30,9 @@ bool FEIsoMaterial::assignIndependentAttributes(YAML::Node& yamlNode) {
 	 * If the values are defined in the node, assign them and return true.
 	 * Else, return false.
 	*/
-	if (yamlNode["id"] && yamlNode["type"] && yamlNode["Emod"]
+	if (yamlNode["matID"] && yamlNode["type"] && yamlNode["Emod"]
 		&& yamlNode["poisson"]) {
-		int id = yamlNode["id"].as<int>();
+		int id = yamlNode["matID"].as<int>();
 		setID(id);
 
 		this->type = yamlNode["type"].as<std::string>();

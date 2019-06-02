@@ -371,7 +371,7 @@ void Parser::ParseIsoMaterial(YAML::Node& yamlNode, std::string type) {
 		bool exists = structure->checkMaterialExistence(yamlNode["id"].as<int>());
 		if (exists) {
 			throw std::runtime_error("Error: A " + type + " element with id " 
-				+ yamlNode["id"].as<std::string>() + " already exists.");
+				+ yamlNode["matID"].as<std::string>() + " already exists.");
 		}
 		else {
 			//Instantiate IsoMaterial
