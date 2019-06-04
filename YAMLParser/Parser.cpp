@@ -368,7 +368,7 @@ void Parser::parseEccentricity(YAML::Node& yamlNode, std::string type) {
 
 void Parser::ParseIsoMaterial(YAML::Node& yamlNode, std::string type) {
 	try {
-		bool exists = structure->checkMaterialExistence(yamlNode["id"].as<int>());
+		bool exists = structure->checkMaterialExistence(yamlNode["matID"].as<int>());
 		if (exists) {
 			throw std::runtime_error("Error: A " + type + " element with id " 
 				+ yamlNode["matID"].as<std::string>() + " already exists.");
