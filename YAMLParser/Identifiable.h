@@ -14,7 +14,7 @@ class Identifiable
 {
 protected:
 	int id; ///< Externally defined identification number
-
+	void setID(int id);		///< Setter for the externally defined identification number
 public:
 	virtual ~Identifiable();
 	
@@ -32,7 +32,8 @@ public:
 		//Material data
 		ISOMATERIAL,
 		//Cross-sectional data
-		PIPE, BOX, IHPROFIL, LSECTION, TSECTION, CROSS_SECTION_DUMMY,
+		PIPE, BOX, IHPROFIL, LSECTION, TSECTION, 
+		PLCOMP, CROSS_SECTION_DUMMY,
 		//Load data
 		NODELOAD, LOADCOMB
 	};
@@ -49,6 +50,7 @@ public:
 	"PIPE", "BOX", "LSECTION", "TSECTION"
 	};
 
+	int getID() const;		///< Getter for the externally defined identification number
 	/**Function returning the type of the element. <br>
 	* Used to specify element types for operatins such as comparison.
 	*/
@@ -59,6 +61,5 @@ public:
 	
 	//---------- Data fields ----------
 	Type type;				///< The FEM element type (see enum definition)
-	int getID() const;		///< Getter for the externally defined identification number
-	void setID(int id);		///< Setter for the externally defined identification number
+	
 };

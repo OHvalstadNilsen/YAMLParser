@@ -168,6 +168,7 @@
     <ClInclude Include="FENodeLoad.h" />
     <ClInclude Include="FEVector.h" />
     <ClInclude Include="GenericMaterial.h" />
+    <ClInclude Include="PLComp.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="DataHolder.h" />
     <ClInclude Include="FEAFormat.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="FELoadComb.cpp" />
     <ClCompile Include="FENodeLoad.cpp" />
     <ClCompile Include="FEVector.cpp" />
+    <ClCompile Include="PLComp.cpp" />
     <ClCompile Include="Structure.cpp" />
     <ClCompile Include="DataHolder.cpp" />
     <ClCompile Include="FEAFormat.cpp" />

@@ -45,7 +45,8 @@ public:
 
 	//----- Cross-sectional data -----
 	void ParsePipe(YAML::Node & yamlNode, std::string type);		///< Instantiate a cross-sectional FEPipe object from the YAML::Node
-	void parsePLThick(YAML::Node & yamlNode, std::string type);						///< Instantiate a PLThick object from the YAML::Node
+	void parsePLThick(YAML::Node & yamlNode, std::string type);		///< Instantiate a PLThick object from the YAML::Node
+	void parsePLComp(YAML::Node & yamlNode, std::string type);		///< Instantiate a PLComp object from the YAML::Node
 
 	//----- Load data -----
 	void parseNodeLoad(YAML::Node & yamlNode);						///< Instantiate a FENodeLoad object from the YAML::Node
