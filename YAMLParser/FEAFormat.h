@@ -27,7 +27,7 @@ public:
 	// Element data:
 	std::vector<std::string> beam_template = { "elemID", "node1", "node2", "material", "geoID", "vecID", "ecc1", "ecc2" };
 	std::vector<std::string> trishell_template = { "elemID", "node1", "node2", "node3", "material", "geoID", "vecID", "ecc1", "ecc2" };
-	std::vector<std::string> quadshell_template = { "elemID", "node1", "node2", "node3", "material", "geoID", "coordID", "ecc1", "ecc2", "ecc3", "ecc4" };
+	std::vector<std::string> quadshell_template = { "elemID", "node1", "node2", "node3", "node4", "material", "geoID", "coordID", "ecc1", "ecc2", "ecc3", "ecc4" };
 	// Cross-sectinal data
 	std::vector<std::string> pipe_template = { "geoID", "d_outer", "thickness", "shearY", "shearZ" };
 	std::vector<std::string> ihprofile_template = { "geoID", "height", "T_web", "W_top", "T_top", "W_bot", "T_bot", "shearY", "shearZ" };
