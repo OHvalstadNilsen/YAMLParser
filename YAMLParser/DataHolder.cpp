@@ -6,18 +6,18 @@
 
 const std::vector<std::string> comment_signs = { "'", "#", "*", "%", "!" }; //USFOS comment signs
 
-DataHolder::DataHolder()
-{
+DataHolder::DataHolder() {
 }
 
 DataHolder::DataHolder(std::string filename) {
 	readInput(filename);
 }
 
+//Destructor
+DataHolder::~DataHolder() {
+}
+
 void DataHolder::tokenizeString(std::string s) {
-	/*
-	
-	*/
 	std::stringstream s_stream(s);
 	std::string token;
 
@@ -103,7 +103,3 @@ void DataHolder::printTokens2D() {
 	}
 }
 
-//Destructor
-DataHolder::~DataHolder()
-{
-}

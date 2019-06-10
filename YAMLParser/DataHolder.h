@@ -1,3 +1,8 @@
+/** \brief
+*	Reads the UFO file and creates the internal 
+*	representation of its content (tokenized).
+*/
+
 #pragma once
 #include <vector>
 #include <string>
@@ -12,7 +17,8 @@ public:
 	std::vector<std::string> comment_signs;
 
 	std::vector<std::string> tokens; //contains the tokens generated from the input file
-	std::vector<std::vector<std::string>> tokens2D; //Two-dimensional vector containing lines from the input with their respective sub-tokens.
+	/**Two-dimensional vector containing lines from the input with their respective sub-tokens.*/
+	std::vector<std::vector<std::string>> tokens2D;
 	
 	void readInput(std::string filename);
 	void printTokens2D();

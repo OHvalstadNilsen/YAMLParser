@@ -1,5 +1,6 @@
-/*
-The YAML-based FEAFormat is defined here.
+/** \brief
+*	Template definitions for the FEM data records in
+*	the YAML based input file format for FEA.
 */
 
 #pragma once
@@ -38,14 +39,11 @@ public:
 	std::vector<std::string> misoiep_template = { "matID", "E-module", "poisson", "yield", "density", "thermalExpansion" };
 	std::vector<std::string> nodeload_template = { "loadCaseID", "nodeID", "fx", "fy", "fz", "mx", "my", "mz", "ecc" };
 	std::vector<std::string> gravity_template = { "loadCaseID", "aX", "aY", "aZ" };
-	//TODO: ADD THE REMAINING DATA TYPES (Remember also adding to data_types).
 
 	//Mapping the templates to its corresponding data type:
 	std::map<std::string, std::vector<std::string>> data_types_m; // map<data_type, data_type_template>.
 
-	//Extract all keys from map<std::string, std::vector<std::string>>
+	/**Extract all keys from map<std::string, std::vector<std::string>>*/
 	std::vector<std::string> extract_keys();
-
-
 };
 
