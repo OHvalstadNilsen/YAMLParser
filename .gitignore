@@ -43,7 +43,7 @@ CppProperties.json
 # Input example files
 YAMLParser/Test3.usf
 YAMLParser/joint_model_sample.usf
-YAMLParser/Joint_model.usf
+YAMLParser/Joint_model.fem
 
 # Output from YAMLParser (this program)
 YAMLParser/output*
