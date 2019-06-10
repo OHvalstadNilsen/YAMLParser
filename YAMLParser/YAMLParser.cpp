@@ -1,3 +1,10 @@
+/*!
+* \brief This is the entry point of the YAMLParser program. This file contains a simple command line UI
+* that allows the user to choose between the parser and the converter part of the program.
+*
+* \author: Oskar Hvalstad-Nilsen
+*/
+
 #include "pch.h"
 #include "yaml-cpp\yaml.h"
 #include <iostream>
@@ -7,6 +14,12 @@
 #include "DataHolder.h"
 #include "Writer.h"
 #include "Parser.h"
+
+/*!
+* \brief This function contains the logic for specifying the run parameters of the parser program.
+* After the user has specified the parameters, it initializes an instance of the Parser class
+* and runs it.
+*/
 
 void runParser() {
 	std::string filename;
@@ -21,6 +34,11 @@ void runParser() {
 	}
 }
 
+/*!
+* \brief This function contains the logic for specifying the run parameters of the converter program.
+* After the user has specified the parameters, it initializes the necessary classes to run the converter
+* and runs the writeToYAMLFile function which writes the converter output to file.
+*/
 void runConverter() {
 	std::string inputFileName;
 	std::string outputFileName;
@@ -43,6 +61,11 @@ void runConverter() {
 	writer->writeToYamlFile(outputFileName);
 }
 
+/*!
+* \brief This is the entry point of the program. It comprises a simple command line UI allowing the user to
+* specify which part of the program to run. After getting user input, this function calls either 
+* runParser() or runConverter(), depending on the input given.
+*/
 int main() {
 	int runParam;
 	std::cout << "Please choose which part of the program to run (Parser = 0 | Converter = 1): ";

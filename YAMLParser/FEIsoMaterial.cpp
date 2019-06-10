@@ -3,22 +3,38 @@
 #include <iostream>
 
 FEIsoMaterial::FEIsoMaterial(YAML::Node& yamlNode) {
-	if (!setMandatoryValues(yamlNode)) {
+	if (!assignIndependentAttributes(yamlNode)) {
 		throw std::runtime_error("IsoMaterial error: Mandatory attributes missing.");
 	}
-	setOptionalValues(yamlNode);
+	this->type = ISOMATERIAL;
+}
+
+FEIsoMaterial::FEIsoMaterial(int id, std::string type, double Emod, double poiss, double density, double thermX) {
+	//Constructor non-dependent on a YAML::Node
+	setID(id);
+	this->type = type;
+	this->Emod = Emod;
+	this->poisson = poiss;
+	this->density = density;
+	this->thermX = thermX;
 }
 
 FEIsoMaterial::~FEIsoMaterial() {}
 
-bool FEIsoMaterial::setMandatoryValues(YAML::Node& yamlNode) {
+std::string FEIsoMaterial::getTypeAsString() {
+	return "ISOMATERIAL";
+}
+
+bool FEIsoMaterial::assignIndependentAttributes(YAML::Node& yamlNode) {
 	/* Assign the mandatory values (id, type, Emod, poisson, yield).
 	 * If the values are defined in the node, assign them and return true.
 	 * Else, return false.
 	*/
-	if (yamlNode["id"] && yamlNode["type"] && yamlNode["Emod"]
+	if (yamlNode["matID"] && yamlNode["type"] && yamlNode["Emod"]
 		&& yamlNode["poisson"]) {
-		this->id = yamlNode["id"].as<int>();
+		int id = yamlNode["matID"].as<int>();
+		setID(id);
+
 		this->type = yamlNode["type"].as<std::string>();
 		this->Emod = yamlNode["Emod"].as<double>();
 		this->poisson = yamlNode["poisson"].as<double>();
@@ -30,24 +46,22 @@ bool FEIsoMaterial::setMandatoryValues(YAML::Node& yamlNode) {
 		}
 		this->yield = (type == "plastic") ? yamlNode["yield"].as<double>() : -1;
 		
+		//Assign optional values
+		//TODO: Decide which value to assign when the density is not defined
+		this->density = (yamlNode["density"]) ? yamlNode["density"].as<double>() : -1;
+		this->thermX = (yamlNode["thermX"]) ? yamlNode["thermX"].as<double>() : 0;
+
 		return true;
 	}
 	return false;
 }
 
-void FEIsoMaterial::setOptionalValues(YAML::Node& yamlNode) {
-	/*Assign the optional values (density, thermX).
-	* If the value is defined in the YAML node, assign that value.
-	* Else, assign the default value.
-	*/
-	
-	//TODO: Decide which value to assign when the density is not defined
-	this->density = (yamlNode["density"]) ? yamlNode["density"].as<double>() : -1;
-	this->thermX = (yamlNode["thermX"]) ? yamlNode["thermX"].as<double>() : 0;
-}
-
 void FEIsoMaterial::printAttributes() {
-	std::cout << "IsoMaterial:   id: " << id << ", type: " << type << ", Emod: " << Emod
-		<< ", poisson: " << poisson << ", yield: " << yield << ", density: " << density
+	std::cout << "IsoMaterial:   id: " << getID() 
+		<< ", type: " << type 
+		<< ", Emod: " << Emod
+		<< ", poisson: " << poisson 
+		<< ", yield: " << yield 
+		<< ", density: " << density
 		<< ", thermX: " << thermX << std::endl;
 }

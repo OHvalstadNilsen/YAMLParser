@@ -1,20 +1,34 @@
+/** \brief
+* This class represents an isotropic material
+*/
+
 #pragma once
 #include <string>
 #include "yaml-cpp/yaml.h"
-#include "GenericFE.h"
+#include "GenericMaterial.h"
+#include "Identifiable.h"
 
-class FEIsoMaterial : public GenericFE
+class FEIsoMaterial : 
+	public GenericMaterial
 {
 public:
+	/**Constructor based on information from a YAML::Node*/
 	FEIsoMaterial(YAML::Node& yamlNode);
+	/**YAML-independent constructor*/
+	FEIsoMaterial(int id, std::string type, double Emod, double poiss, double density, double thermX);
 	~FEIsoMaterial();
 
-	bool setMandatoryValues(YAML::Node& yamlNode);
-	void setOptionalValues(YAML::Node& yamlNode);
+	//---------- Functions ----------
+	virtual std::string getTypeAsString() override;
+	bool assignIndependentAttributes(YAML::Node& yamlNode) override;
 	void printAttributes();
 
-	int id;
-	std::string type;
-	double Emod, poisson, yield, density, thermX;
+	//---------- Data fields ----------
+	std::string type;	///< Literal string identifying whether the material is elastic or plastic
+	double Emod;		///< Young's modulus
+	double poisson;		///< Poissons' ratio
+	double yield;		///< Yield stress when plastic (for elastic materials, yield = 0.0)
+	double density;		///< Material density
+	double thermX;		///< Thermal exapansion coeffiecient
 };
 
