@@ -482,16 +482,16 @@ void Parser::parseNodeLoad(YAML::Node& yamlNode) {
 
 void Parser::parseLoadComb(YAML::Node& yamlNode) {
 	try {
-		bool exists = structure->checkLoadCombExistence(yamlNode["loadCombId"].as<int>());
+		bool exists = structure->checkLoadCombExistence(yamlNode["loadCombID"].as<int>());
 		if (exists) {
 			throw std::runtime_error("LoadComb error: A LoadComb object with id "
-				+ yamlNode["nodeID"].as<std::string>() + " does not exist in Structure.");
+				+ yamlNode["loadCombID"].as<std::string>() + " does not exist in Structure.");
 		}
-		else if (!(yamlNode["loadCombId"] && yamlNode["factors"].size() > 0)) {
+		else if (!(yamlNode["loadCombID"] && yamlNode["factors"].size() > 0)) {
 				throw std::runtime_error("LoadComb error: Mandatory attributes missing");
 			}
 		else {
-			int loadCombId = yamlNode["loadCombId"].as<int>();
+			int loadCombId = yamlNode["loadCombID"].as<int>();
 			std::map<int, double> loadCaseId_to_factor; //map<loadCaseId, scaling factor>
 			for (YAML::const_iterator it = yamlNode["factors"].begin(); it != yamlNode["factors"].end(); it++) {
 				loadCaseId_to_factor[it->first.as<int>()] = it->second.as<double>();
