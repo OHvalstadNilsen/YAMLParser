@@ -166,6 +166,7 @@
     <ClInclude Include="CrossSectionDummy.h" />
     <ClInclude Include="FELoadComb.h" />
     <ClInclude Include="FENodeLoad.h" />
+    <ClInclude Include="FETsection.h" />
     <ClInclude Include="FEVector.h" />
     <ClInclude Include="GenericMaterial.h" />
     <ClInclude Include="PLComp.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="CrossSectionDummy.cpp" />
     <ClCompile Include="FELoadComb.cpp" />
     <ClCompile Include="FENodeLoad.cpp" />
+    <ClCompile Include="FETsection.cpp" />
     <ClCompile Include="FEVector.cpp" />
     <ClCompile Include="PLComp.cpp" />
     <ClCompile Include="Structure.cpp" />

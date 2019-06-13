@@ -404,6 +404,25 @@ void Parser::ParsePipe(YAML::Node& yamlNode, std::string type) {
 	}
 }
 
+void Parser::parseTsection(YAML::Node& yamlNode, std::string type) {
+	try	{
+		bool exists = structure->checkCrossSectionExistence(yamlNode["geoID"].as<int>(), type);
+		if (exists) {
+			throw std::runtime_error("Error: A " + type + " element with id "
+				+ yamlNode["geoID"].as<std::string>() + " already exists.");
+		}
+		else {
+			//Instantiate FETsection
+			FETsection* feTsection = new FETsection(yamlNode);
+			structure->addCrossSection(feTsection);
+		}
+	}
+	catch (std::runtime_error &e) {
+		std::cout << e.what() << std::endl;
+		logErrorMsg(e);
+	}
+}
+
 void Parser::parsePLThick(YAML::Node& yamlNode, std::string type) {
 	try {
 		bool exists = structure->checkCrossSectionExistence(yamlNode["geoID"].as<int>(), type);
@@ -532,6 +551,10 @@ void Parser::parseDepenencyLevelNull() {
 		if (key == "PIPE") {
 			nextNode = structureNode[iterator][key];
 			ParsePipe(nextNode, key);
+		}
+		if (key == "TSECTION") {
+			nextNode = structureNode[iterator][key];
+			parseTsection(nextNode, key);
 		}
 		if (key == "PLTHICK") {
 			nextNode = structureNode[iterator][key];
