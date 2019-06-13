@@ -29,15 +29,17 @@ bool FENode::assignIndependentAttributes(YAML::Node& yamlNode) {
 		//Mandatory attributes
 		int id = yamlNode["id"].as<int>();
 		setID(id); //Sets the ID attribute in the base class 'Identifiable'
-		return setCoordinates(yamlNode);
 	
-		//Optional attributes
+		//Set optional attributes
 		this->ix = (yamlNode["ix"]) ? yamlNode["ix"].as<int>() : 0;
 		this->iy = (yamlNode["iy"]) ? yamlNode["iy"].as<int>() : 0;
 		this->iz = (yamlNode["iz"]) ? yamlNode["iz"].as<int>() : 0;
 		this->irx = (yamlNode["irx"]) ? yamlNode["irx"].as<int>() : 0;
 		this->iry = (yamlNode["iry"]) ? yamlNode["iry"].as<int>() : 0;
 		this->irz = (yamlNode["irz"]) ? yamlNode["irz"].as<int>() : 0;
+		
+		//Set coordinates (mandatory)
+		return setCoordinates(yamlNode);
 	}
 	return false;
 }
