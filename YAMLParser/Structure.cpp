@@ -5,16 +5,16 @@
 
 Structure::Structure(int structureID) {
 	//Create default objects to assign when fields are omitted
-	FECoordSys* defCoordSys = new FECoordSys(-1, 1, 0, 0, 0, 1, 0, 0, 0, 1);
+	FECoordSys* defCoordSys = new FECoordSys(0, 1, 0, 0, 0, 1, 0, 0, 0, 1);
 	this->addCoordSys(defCoordSys);
 
-	FEEccentricity* defEcc = new FEEccentricity(-1, 0.0, 0.0, 0.0);
+	FEEccentricity* defEcc = new FEEccentricity(0, 0.0, 0.0, 0.0);
 	this->addElement(defEcc);
 
-	FEVector* defVec = new FEVector(-1, 1.0, 0.0, 0.0);
+	FEVector* defVec = new FEVector(0, 1.0, 0.0, 0.0);
 	this->addElement(defVec);
 
-	FEIsoMaterial* defMaterial = new FEIsoMaterial(-1, "elastic", 1.0, 1.0, 1.0, 1.0);
+	FEIsoMaterial* defMaterial = new FEIsoMaterial(0, "elastic", 1.0, 1.0, 1.0, 1.0);
 	this->addMaterial(defMaterial);
 
 	GenericCrossSection* defCrossSection = new CrossSectionDummy();
@@ -65,8 +65,8 @@ bool Structure::checkCrossSectionExistence(int id, std::string& type) {
 	return false;
 }
 
-bool Structure::checkSectionExistence(int id) {
-	if (sectionMap.find(id) != sectionMap.end()) {
+bool Structure::checkCompSectionExistence(int id) {
+	if (compSectionMap.find(id) != compSectionMap.end()) {
 		return true;
 	}
 	return false;
@@ -140,9 +140,9 @@ GenericCrossSection* Structure::fetchCrossSection(int id) {
 		std::to_string(id) + " does not exist in Structure.\n");
 }
 
-GenericSection * Structure::fetchSection(int id) {
-	if (sectionMap.find(id) != sectionMap.end()) {
-		return sectionMap[id];
+GenericCompSection * Structure::fetchCompSection(int id) {
+	if (compSectionMap.find(id) != compSectionMap.end()) {
+		return compSectionMap[id];
 	}
 	throw std::runtime_error("Error: A section with id "
 		+ std::to_string(id) + " does not exist in Structure.\n");
@@ -199,9 +199,9 @@ bool Structure::addCrossSection(GenericCrossSection* crossSection) {
 	return true;
 }
 
-bool Structure::addSection(GenericSection* section) {
-	this->sectionList.push_back(section);
-	this->sectionMap[section->getID()] = section;
+bool Structure::addCompSection(GenericCompSection* section) {
+	this->compSectionList.push_back(section);
+	this->compSectionMap[section->getID()] = section;
 	return true;
 }
 
@@ -243,7 +243,7 @@ void Structure::printData() {
 	for (GenericCrossSection* crossSection : crossSectionList) {
 		crossSection->printAttributes();
 	}
-	for (GenericSection* section : sectionList) {
+	for (GenericCompSection* section : compSectionList) {
 		section->printAttributes();
 	}
 	for (GenericMaterial* mat : materialList) {

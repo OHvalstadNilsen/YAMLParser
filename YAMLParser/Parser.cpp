@@ -73,7 +73,7 @@ void Parser::parseNode(YAML::Node& yamlNode, std::string type) {
 			}
 			else {
 				//Assign default coordinate system if rotID is not specified.
-				rot = structure->fetchCoordSys(-1);
+				rot = structure->fetchCoordSys(0);
 			}
 			//Instantiate FENode
 			FENode *feNode = new FENode(yamlNode, rot);
@@ -145,12 +145,12 @@ void Parser::parseBeam(YAML::Node& yamlNode, std::string type) {
 		}
 		else {
 			requiredElems["ecc1"] = yamlNode["ecc1"] ? (structure->fetchObject(yamlNode["ecc1"].as<int>(), "ECCENT")) 
-														: structure->fetchObject(-1, "ECCENT");
+														: structure->fetchObject(0, "ECCENT");
 			requiredElems["ecc2"] = yamlNode["ecc2"] ? (structure->fetchObject(yamlNode["ecc2"].as<int>(), "ECCENT")) 
-														: structure->fetchObject(-1, "ECCENT");
+														: structure->fetchObject(0, "ECCENT");
 		}
 		requiredElems["vecID"] = yamlNode["vecID"] ? structure->fetchObject(yamlNode["vecID"].as<int>(), "VECTOR")
-														: structure->fetchObject(-1, "VECTOR");
+														: structure->fetchObject(0, "VECTOR");
 		
 		//Instantiate FEBeam
 		FEBeam *feBeam = new FEBeam(
@@ -200,12 +200,20 @@ void Parser::parseTrishell(YAML::Node& yamlNode, std::string type) {
 				requiredElems["node3"] = (structure->fetchNode(yamlNode["node3"].as<int>()));
 			}
 			requiredElems["coordSys"] = yamlNode["coordID"] ? (structure->fetchCoordSys(yamlNode["coordID"].as<int>()))
-				: structure->fetchCoordSys(-1);
-
-			requiredElems["material"] = structure->fetchMaterial(yamlNode["material"].as<int>());
+				: structure->fetchCoordSys(0);
 			
-			requiredElems["crossSection"] = yamlNode["secID"] ? (structure->fetchCrossSection(yamlNode["secID"].as<int>()))
-				: structure->fetchCrossSection(-1);
+			//Assign composite section or material:
+			if ((yamlNode["material"].as<int>() == -1) && yamlNode["secID"]) {
+				requiredElems["section"] = structure->fetchCompSection(yamlNode["secID"].as<int>());
+				requiredElems["material"] = nullptr;
+			}
+			else if ((yamlNode["secID"].as<int>() == -1) && yamlNode["material"]) {
+				requiredElems["material"] = structure->fetchMaterial(yamlNode["material"].as<int>());
+				requiredElems["section"] = nullptr;
+			}
+			else {
+				throw std::runtime_error("Trishell error: No material or section specified");
+			}
 
 			if (yamlNode["eccentricities"].size() == 3) {
 				requiredElems["ecc1"] = (structure->fetchObject(yamlNode["eccentricities"][0].as<int>(), "ECCENT"));
@@ -214,11 +222,11 @@ void Parser::parseTrishell(YAML::Node& yamlNode, std::string type) {
 			}
 			else {
 				requiredElems["ecc1"] = yamlNode["ecc1"] ? (structure->fetchObject(yamlNode["ecc1"].as<int>(), "ECCENT"))
-					: structure->fetchObject(-1, "ECCENT");
+					: structure->fetchObject(0, "ECCENT");
 				requiredElems["ecc2"] = yamlNode["ecc2"] ? (structure->fetchObject(yamlNode["ecc2"].as<int>(), "ECCENT"))
-					: structure->fetchObject(-1, "ECCENT");
+					: structure->fetchObject(0, "ECCENT");
 				requiredElems["ecc3"] = yamlNode["ecc3"] ? (structure->fetchObject(yamlNode["ecc3"].as<int>(), "ECCENT"))
-					: structure->fetchObject(-1, "ECCENT");
+					: structure->fetchObject(0, "ECCENT");
 			}
 
 			//Instantiate FETrishell
@@ -229,7 +237,7 @@ void Parser::parseTrishell(YAML::Node& yamlNode, std::string type) {
 				(FENode*)requiredElems["node2"],
 				(FENode*)requiredElems["node3"],
 				(FEIsoMaterial*)requiredElems["material"],
-				(GenericCrossSection*)requiredElems["crossSection"],
+				(GenericCompSection*)requiredElems["section"],
 				(FEEccentricity*)requiredElems["ecc1"],
 				(FEEccentricity*)requiredElems["ecc2"],
 				(FEEccentricity*)requiredElems["ecc3"]
@@ -274,13 +282,13 @@ void Parser::parseQuadshell(YAML::Node& yamlNode, std::string type) {
 				requiredElems["node4"] = (structure->fetchNode(yamlNode["node4"].as<int>()));
 			}
 			requiredElems["coordSys"] = yamlNode["coordID"] ? (structure->fetchCoordSys(yamlNode["coordID"].as<int>()))
-				: structure->fetchCoordSys(-1);
+				: structure->fetchCoordSys(0);
 			requiredElems["material"] = structure->fetchMaterial(yamlNode["material"].as<int>());
 
 			//FIXME: Is this correct for the geoID? Is it supposed to be a cross section?
 			//***********
 			/*requiredElems["crossSection"] = yamlNode["geoID"] ? (structure->fetchCrossSection(yamlNode["geoID"].as<int>()))
-				: structure->fetchCrossSection(-1);*/
+				: structure->fetchCrossSection(0);*/
 			//***********
 
 			if (yamlNode["eccentricities"].size() == 3) {
@@ -291,13 +299,13 @@ void Parser::parseQuadshell(YAML::Node& yamlNode, std::string type) {
 			}
 			else {
 				requiredElems["ecc1"] = yamlNode["ecc1"] ? (structure->fetchObject(yamlNode["ecc1"].as<int>(), "ECCENT"))
-					: structure->fetchObject(-1, "ECCENT");
+					: structure->fetchObject(0, "ECCENT");
 				requiredElems["ecc2"] = yamlNode["ecc2"] ? (structure->fetchObject(yamlNode["ecc2"].as<int>(), "ECCENT"))
-					: structure->fetchObject(-1, "ECCENT");
+					: structure->fetchObject(0, "ECCENT");
 				requiredElems["ecc3"] = yamlNode["ecc3"] ? (structure->fetchObject(yamlNode["ecc3"].as<int>(), "ECCENT"))
-					: structure->fetchObject(-1, "ECCENT");
+					: structure->fetchObject(0, "ECCENT");
 				requiredElems["ecc4"] = yamlNode["ecc4"] ? (structure->fetchObject(yamlNode["ecc4"].as<int>(), "ECCENT"))
-					: structure->fetchObject(-1, "ECCENT");
+					: structure->fetchObject(0, "ECCENT");
 			}
 
 			//Instantiate FEQuadhell
@@ -443,7 +451,7 @@ void Parser::parsePLThick(YAML::Node& yamlNode, std::string type) {
 
 void Parser::parsePLComp(YAML::Node& yamlNode, std::string type) {
 	try {
-		bool exists = structure->checkSectionExistence(yamlNode["secID"].as<int>());
+		bool exists = structure->checkCompSectionExistence(yamlNode["secID"].as<int>());
 		if (exists) {
 			throw std::runtime_error("Error: A section object with id "
 				+ yamlNode["secID"].as<std::string>() + " already exists.");
@@ -454,7 +462,7 @@ void Parser::parsePLComp(YAML::Node& yamlNode, std::string type) {
 				matList.push_back(structure->fetchMaterial(ply["matID"].as<int>()));
 			}
 			PLComp* plComp = new PLComp(yamlNode, matList);
-			structure->addSection(plComp);
+			structure->addCompSection(plComp);
 		}
 	}
 	catch (const std::runtime_error &e) {
@@ -481,7 +489,7 @@ void Parser::parseNodeLoad(YAML::Node& yamlNode) {
 		}
 		// Set eccentricity
 		depElements["ecc"] = yamlNode["eccID"] ? structure->fetchObject(yamlNode["eccID"].as<int>(), "ECCENT")
-			: structure->fetchObject(-1, "ECCENT");
+			: structure->fetchObject(0, "ECCENT");
 		
 		//Instantiate FENodeLoad
 		FENodeLoad *feNodeLoad = new FENodeLoad(

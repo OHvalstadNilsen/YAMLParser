@@ -29,7 +29,7 @@ public:
 	/**Check if a specific cross-section instance exists in the structure*/
 	bool checkCrossSectionExistence(int id, std::string& type);
 	/**Check if a specific section instance exists in the structure*/
-	bool checkSectionExistence(int id);
+	bool checkCompSectionExistence(int id);
 	/**Check if a specific material instance exists in the structure*/
 	bool checkMaterialExistence(int id);
 	/**Check if a specific node instance exists in the structure*/
@@ -48,7 +48,7 @@ public:
 	/**Fetch a specific cross-section instance*/
 	GenericCrossSection* fetchCrossSection(int id);
 	/**Fetch a specific section instance*/
-	GenericSection* fetchSection(int id);
+	GenericCompSection* fetchCompSection(int id);
 	/**Fetch a specific material instance*/
 	GenericMaterial* fetchMaterial(int id);
 	/**Fetch a specific node instance*/
@@ -68,7 +68,7 @@ public:
 	/**Add a new cross-section instance to the corresponding map and vector containers*/
 	bool addCrossSection(GenericCrossSection * crossSection);
 	/**Add a new section instance to the corresponding map and vector containers*/
-	bool addSection(GenericSection * section);
+	bool addCompSection(GenericCompSection * section);
 	/**Add a new material instance to the corresponding map and vector containers*/
 	bool addMaterial(GenericMaterial * material);
 	/**Add a new node load instance to the corresponding map and vector containers*/
@@ -85,10 +85,10 @@ public:
 	std::map<int, FECoordSys*> coordSysMap;					///< Map from ID to corresponding coordSys instance ptr
 
 	std::vector<GenericCrossSection*> crossSectionList;		///< List of ptrs to cross-section instances
-	std::map<int, GenericCrossSection*> crossSectionMap;	///< Map from ID to corresponding croos-section instance
+	std::map<int, GenericCrossSection*> crossSectionMap;	///< Map from ID to corresponding cross-section instance
 
-	std::vector<GenericSection*> sectionList;				///< List of ptrs to cross-section instances
-	std::map<int, GenericSection*> sectionMap;				///< Map from ID to corresponding croos-section instance
+	std::vector<GenericCompSection*> compSectionList;		///< List of ptrs to composite section instances
+	std::map<int, GenericCompSection*> compSectionMap;		///< Map from ID to corresponding composite section instance
 	
 	std::vector<GenericMaterial*> materialList;				///< List of ptrs to material instances
 	std::map<int, GenericMaterial*> materialMap;			///< Map from ID to corresponding material instance ptr

@@ -4,10 +4,10 @@
 */
 #pragma once
 #include "yaml-cpp/yaml.h"
-#include "GenericSection.h"
+#include "GenericCompSection.h"
 #include "GenericMaterial.h"
 class PLComp :
-	public GenericSection
+	public GenericCompSection
 {
 public:
 	PLComp(YAML::Node& yamlNode, std::vector<GenericMaterial*> matList);

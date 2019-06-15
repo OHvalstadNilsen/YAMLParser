@@ -10,7 +10,7 @@
 //Forward declarations
 class FECoordSys;
 class FEIsoMaterial;
-class GenericCrossSection;
+class GenericCompSection;
 class FEEccentricity;
 
 class FETrishell : 
@@ -18,7 +18,7 @@ class FETrishell :
 {
 public:
 	FETrishell(int id, FECoordSys* coord, FENode* n1, FENode* n2, FENode* n3, 
-		FEIsoMaterial* mat, GenericCrossSection* crossSection,
+		FEIsoMaterial* mat, GenericCompSection* section,
 		FEEccentricity* ecc1, FEEccentricity* ecc2, FEEccentricity* ecc3);
 	~FETrishell();
 	
@@ -34,10 +34,8 @@ public:
 	FENode *pNode3;							///< Ptr to node defining third corner
 	//TODO: Remove coordSys
 	FECoordSys *pCoordSys;
-	GenericCrossSection *pCrossSection;		///< Ptr to object containing cross-sectional data
+	GenericCompSection *pCompSection;		///< Ptr to object containing composite sectional data
 	FEIsoMaterial* pMaterial;				///< Ptr to object containing material information
-	//TODO: Implement geoID attribute
-	//-->
 	FEEccentricity *pEcc1;					///< Ptr to eccentricity information for node1
 	FEEccentricity *pEcc2;					///< Ptr to eccentricity information for node2
 	FEEccentricity *pEcc3;					///< Ptr to eccentricity information for node3
