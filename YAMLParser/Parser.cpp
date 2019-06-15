@@ -199,8 +199,6 @@ void Parser::parseTrishell(YAML::Node& yamlNode, std::string type) {
 				requiredElems["node2"] = (structure->fetchNode(yamlNode["node2"].as<int>()));
 				requiredElems["node3"] = (structure->fetchNode(yamlNode["node3"].as<int>()));
 			}
-			requiredElems["coordSys"] = yamlNode["coordID"] ? (structure->fetchCoordSys(yamlNode["coordID"].as<int>()))
-				: structure->fetchCoordSys(0);
 			
 			//Assign composite section or material:
 			if ((yamlNode["material"].as<int>() == -1) && yamlNode["secID"]) {
@@ -214,6 +212,9 @@ void Parser::parseTrishell(YAML::Node& yamlNode, std::string type) {
 			else {
 				throw std::runtime_error("Trishell error: Material and section data either unspecified or ambiguous");
 			}
+
+			requiredElems["vector"] = yamlNode["vecID"] ? structure->fetchObject(yamlNode["vecID"].as<int>(), "VECTOR")
+				: structure->fetchObject(0, "VECTOR");
 
 			if (yamlNode["eccentricities"].size() == 3) {
 				requiredElems["ecc1"] = (structure->fetchObject(yamlNode["eccentricities"][0].as<int>(), "ECCENT"));
@@ -232,12 +233,12 @@ void Parser::parseTrishell(YAML::Node& yamlNode, std::string type) {
 			//Instantiate FETrishell
 			FETrishell *feTrishell = new FETrishell(
 				yamlNode["elemID"].as<int>(),
-				(FECoordSys*)requiredElems["coordSys"],
 				(FENode*)requiredElems["node1"],
 				(FENode*)requiredElems["node2"],
 				(FENode*)requiredElems["node3"],
 				(FEIsoMaterial*)requiredElems["material"],
 				(GenericCompSection*)requiredElems["section"],
+				(FEVector*)requiredElems["vector"],
 				(FEEccentricity*)requiredElems["ecc1"],
 				(FEEccentricity*)requiredElems["ecc2"],
 				(FEEccentricity*)requiredElems["ecc3"]
@@ -294,6 +295,9 @@ void Parser::parseQuadshell(YAML::Node& yamlNode, std::string type) {
 			else {
 				throw std::runtime_error("Quadshel error: Material and section data either unspecified or ambiguous");
 			}
+
+			requiredElems["vector"] = yamlNode["vecID"] ? structure->fetchObject(yamlNode["vecID"].as<int>(), "VECTOR")
+				: structure->fetchObject(0, "VECTOR");
 
 			if (yamlNode["eccentricities"].size() == 3) {
 				requiredElems["ecc1"] = (structure->fetchObject(yamlNode["eccentricities"][0].as<int>(), "ECCENT"));
