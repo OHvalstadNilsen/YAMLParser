@@ -325,6 +325,7 @@ void Parser::parseQuadshell(YAML::Node& yamlNode, std::string type) {
 				(FENode*)requiredElems["node4"],
 				(FEIsoMaterial*)requiredElems["material"],
 				(GenericCompSection*)requiredElems["section"],
+				(FEVector*)requiredElems["vector"],
 				(FEEccentricity*)requiredElems["ecc1"],
 				(FEEccentricity*)requiredElems["ecc2"],
 				(FEEccentricity*)requiredElems["ecc3"],

@@ -3,7 +3,7 @@
 #include <iostream>
 
 FEQuadshell::FEQuadshell(int id, FENode* n1, FENode* n2, FENode* n3, FENode* n4,
-	FEIsoMaterial* mat, GenericCompSection* compSection,
+	FEIsoMaterial* mat, GenericCompSection* compSection, FEVector* vec,
 	FEEccentricity* ecc1, FEEccentricity* ecc2, FEEccentricity* ecc3, FEEccentricity* ecc4){
 	
 	setID(id);
@@ -14,6 +14,7 @@ FEQuadshell::FEQuadshell(int id, FENode* n1, FENode* n2, FENode* n3, FENode* n4,
 	this->pNode4 = n4;
 	this->pMaterial = mat;
 	this->pCompSection = compSection;
+	this->pVec = vec;
 	this->pEcc1 = ecc1;
 	this->pEcc2 = ecc2;
 	this->pEcc3 = ecc3;
@@ -40,6 +41,7 @@ void FEQuadshell::printAttributes() {
 			<< ", node3: " << std::to_string(pNode3->getID())
 			<< ", node4: " << std::to_string(pNode4->getID())
 			<< ", material: " << std::to_string(pMaterial->getID())
+			<< ", vecID: " << std::to_string(pVec->getID())
 			<< ", ecc1: " << std::to_string(pEcc1->getID())
 			<< ", ecc2: " << std::to_string(pEcc2->getID())
 			<< ", ecc3: " << std::to_string(pEcc3->getID())
@@ -54,6 +56,7 @@ void FEQuadshell::printAttributes() {
 			<< ", node3: " << std::to_string(pNode3->getID())
 			<< ", node4: " << std::to_string(pNode4->getID())
 			<< ", secID: " << std::to_string(pCompSection->getID())
+			<< ", vecID: " << std::to_string(pVec->getID())
 			<< ", ecc1: " << std::to_string(pEcc1->getID())
 			<< ", ecc2: " << std::to_string(pEcc2->getID())
 			<< ", ecc3: " << std::to_string(pEcc3->getID())

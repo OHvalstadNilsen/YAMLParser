@@ -20,7 +20,7 @@ class FEQuadshell :
 {
 public:
 	FEQuadshell(int id, FENode* n1, FENode* n2, FENode* n3, FENode* n4,
-		FEIsoMaterial* mat, GenericCompSection* compSection,
+		FEIsoMaterial* mat, GenericCompSection* compSection, FEVector* vec,
 		FEEccentricity* ecc1, FEEccentricity* ecc2, FEEccentricity* ecc3, FEEccentricity* ecc4);
 	~FEQuadshell();
 
@@ -38,6 +38,7 @@ public:
 	FENode *pNode4;							///< Ptr to node defining fourth corner
 	GenericCompSection* pCompSection;		///< Ptr to object containing composite sectional data
 	FEIsoMaterial *pMaterial;				///< Ptr to object containing material information
+	FEVector *pVec;							///< Ptr to vector defining local X-direction
 	FEEccentricity *pEcc1;					///< Ptr to eccentricity information for node1
 	FEEccentricity *pEcc2;					///< Ptr to eccentricity information for node2
 	FEEccentricity *pEcc3;					///< Ptr to eccentricity information for node3
