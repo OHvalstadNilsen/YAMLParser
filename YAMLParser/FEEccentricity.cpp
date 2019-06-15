@@ -41,6 +41,12 @@ bool FEEccentricity::assignIndependentAttributes(YAML::Node & yamlNode)
 		this->eZ = yamlNode["eZ"].as<double>();
 		return true;
 	}
+	else if (yamlNode["eccID"] && yamlNode["eXYZ"]) {
+		setID(yamlNode["eccID"].as<int>());
+		this->eX = yamlNode["eXYZ"][0].as<double>();
+		this->eY = yamlNode["eXYZ"][1].as<double>();
+		this->eZ = yamlNode["eXYZ"][2].as<double>();
+	}
 	return false;
 }
 
