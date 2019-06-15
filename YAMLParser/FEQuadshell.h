@@ -12,15 +12,15 @@
 class FECoordSys;
 class FENode;
 class FEIsoMaterial;
-class GenericCrossSection;
+class GenericCompSection;
 class FEEccentricity;
 
 class FEQuadshell : 
 	public GenericFE
 {
 public:
-	FEQuadshell(int id, FECoordSys* coordSys, FENode* n1, FENode* n2, FENode* n3, FENode* n4,
-		FEIsoMaterial* mat, GenericCrossSection* crossSection,
+	FEQuadshell(int id, FENode* n1, FENode* n2, FENode* n3, FENode* n4,
+		FEIsoMaterial* mat, GenericCompSection* compSection,
 		FEEccentricity* ecc1, FEEccentricity* ecc2, FEEccentricity* ecc3, FEEccentricity* ecc4);
 	~FEQuadshell();
 
@@ -36,12 +36,8 @@ public:
 	FENode *pNode2;							///< Ptr to node defining second corner
 	FENode *pNode3;							///< Ptr to node defining third corner
 	FENode *pNode4;							///< Ptr to node defining fourth corner
-	GenericCrossSection* pCrossSection;		///< Ptr to object containing cross-sectional data
+	GenericCompSection* pCompSection;		///< Ptr to object containing composite sectional data
 	FEIsoMaterial *pMaterial;				///< Ptr to object containing material information
-	//TODO: Implement geoID reference
-	//-->
-	//TODO: Remove coordsys
-	FECoordSys *pCoordSys;					///< Ptr to local coordinate system
 	FEEccentricity *pEcc1;					///< Ptr to eccentricity information for node1
 	FEEccentricity *pEcc2;					///< Ptr to eccentricity information for node2
 	FEEccentricity *pEcc3;					///< Ptr to eccentricity information for node3

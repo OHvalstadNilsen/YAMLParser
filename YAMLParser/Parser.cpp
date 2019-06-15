@@ -212,7 +212,7 @@ void Parser::parseTrishell(YAML::Node& yamlNode, std::string type) {
 				requiredElems["section"] = nullptr;
 			}
 			else {
-				throw std::runtime_error("Trishell error: No material or section specified");
+				throw std::runtime_error("Trishell error: Material and section data either unspecified or ambiguous");
 			}
 
 			if (yamlNode["eccentricities"].size() == 3) {
@@ -281,15 +281,19 @@ void Parser::parseQuadshell(YAML::Node& yamlNode, std::string type) {
 				requiredElems["node3"] = (structure->fetchNode(yamlNode["node3"].as<int>()));
 				requiredElems["node4"] = (structure->fetchNode(yamlNode["node4"].as<int>()));
 			}
-			requiredElems["coordSys"] = yamlNode["coordID"] ? (structure->fetchCoordSys(yamlNode["coordID"].as<int>()))
-				: structure->fetchCoordSys(0);
-			requiredElems["material"] = structure->fetchMaterial(yamlNode["material"].as<int>());
-
-			//FIXME: Is this correct for the geoID? Is it supposed to be a cross section?
-			//***********
-			/*requiredElems["crossSection"] = yamlNode["geoID"] ? (structure->fetchCrossSection(yamlNode["geoID"].as<int>()))
-				: structure->fetchCrossSection(0);*/
-			//***********
+			
+			//Assign composite section or material:
+			if ((yamlNode["material"].as<int>() == -1) && yamlNode["secID"]) {
+				requiredElems["section"] = structure->fetchCompSection(yamlNode["secID"].as<int>());
+				requiredElems["material"] = nullptr;
+			}
+			else if ((yamlNode["secID"].as<int>() == -1) && yamlNode["material"]) {
+				requiredElems["material"] = structure->fetchMaterial(yamlNode["material"].as<int>());
+				requiredElems["section"] = nullptr;
+			}
+			else {
+				throw std::runtime_error("Quadshel error: Material and section data either unspecified or ambiguous");
+			}
 
 			if (yamlNode["eccentricities"].size() == 3) {
 				requiredElems["ecc1"] = (structure->fetchObject(yamlNode["eccentricities"][0].as<int>(), "ECCENT"));
@@ -311,13 +315,12 @@ void Parser::parseQuadshell(YAML::Node& yamlNode, std::string type) {
 			//Instantiate FEQuadhell
 			FEQuadshell *feQuadshell = new FEQuadshell(
 				yamlNode["elemID"].as<int>(),
-				(FECoordSys*)requiredElems["coordSys"],
 				(FENode*)requiredElems["node1"],
 				(FENode*)requiredElems["node2"],
 				(FENode*)requiredElems["node3"],
 				(FENode*)requiredElems["node4"],
 				(FEIsoMaterial*)requiredElems["material"],
-				(GenericCrossSection*)requiredElems["crossSection"],
+				(GenericCompSection*)requiredElems["section"],
 				(FEEccentricity*)requiredElems["ecc1"],
 				(FEEccentricity*)requiredElems["ecc2"],
 				(FEEccentricity*)requiredElems["ecc3"],
