@@ -2,11 +2,11 @@
 #include "FEBeam.h"
 #include <iostream>
 
-FEBeam::FEBeam(int id, FENode* n1, FENode* n2, FEIsoMaterial* mat,
-	GenericCrossSection* crossSection, FEEccentricity* ecc1, FEEccentricity* ecc2, FEVector* vec) {
+FEBeam::FEBeam(int id, FENode* node1, FENode* node2, GenericMaterial* mat, GenericCrossSection* crossSection,
+	FEEccentricity* ecc1, FEEccentricity* ecc2, FEVector* vec) {
 	setID(id);
-	this->pNode1 = n1;
-	this->pNode2 = n2;
+	this->pNode1 = node1;
+	this->pNode2 = node2;
 	this->pMaterial = mat;
 	this->pCrossSection = crossSection;
 	this->pEcc1 = ecc1;

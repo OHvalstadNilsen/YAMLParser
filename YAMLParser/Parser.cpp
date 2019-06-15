@@ -157,7 +157,7 @@ void Parser::parseBeam(YAML::Node& yamlNode, std::string type) {
 			yamlNode["elemID"].as<int>(), 
 			(FENode*)requiredElems["node1"], 
 			(FENode*)requiredElems["node2"], 
-			(FEIsoMaterial*)requiredElems["material"], 
+			(GenericMaterial*)requiredElems["material"], 
 			(GenericCrossSection*)requiredElems["crossSection"],
 			(FEEccentricity*)requiredElems["ecc1"],
 			(FEEccentricity*)requiredElems["ecc2"],
