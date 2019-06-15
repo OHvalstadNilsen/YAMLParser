@@ -65,6 +65,13 @@ bool Structure::checkCrossSectionExistence(int id, std::string& type) {
 	return false;
 }
 
+bool Structure::checkSectionExistence(int id) {
+	if (sectionMap.find(id) != sectionMap.end()) {
+		return true;
+	}
+	return false;
+}
+
 bool Structure::checkMaterialExistence(int id) {
 	if (materialMap.find(id) != materialMap.end()) {
 		return true;
@@ -133,6 +140,14 @@ GenericCrossSection* Structure::fetchCrossSection(int id) {
 		std::to_string(id) + " does not exist in Structure.\n");
 }
 
+GenericSection * Structure::fetchSection(int id) {
+	if (sectionMap.find(id) != sectionMap.end()) {
+		return sectionMap[id];
+	}
+	throw std::runtime_error("Error: A section with id "
+		+ std::to_string(id) + " does not exist in Structure.\n");
+}
+
 GenericMaterial* Structure::fetchMaterial(int id) {
 	if (materialMap.find(id) != materialMap.end()) {
 		return materialMap[id];
@@ -184,6 +199,12 @@ bool Structure::addCrossSection(GenericCrossSection* crossSection) {
 	return true;
 }
 
+bool Structure::addSection(GenericSection* section) {
+	this->sectionList.push_back(section);
+	this->sectionMap[section->getID()] = section;
+	return true;
+}
+
 bool Structure::addMaterial(GenericMaterial* material) {
 	this->materialList.push_back(material);
 	this->materialMap[material->getID()] = material;
@@ -221,6 +242,9 @@ void Structure::printData() {
 	}
 	for (GenericCrossSection* crossSection : crossSectionList) {
 		crossSection->printAttributes();
+	}
+	for (GenericSection* section : sectionList) {
+		section->printAttributes();
 	}
 	for (GenericMaterial* mat : materialList) {
 		mat->printAttributes();

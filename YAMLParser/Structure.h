@@ -28,6 +28,8 @@ public:
 	bool checkCoordSysExistence(int id);
 	/**Check if a specific cross-section instance exists in the structure*/
 	bool checkCrossSectionExistence(int id, std::string& type);
+	/**Check if a specific section instance exists in the structure*/
+	bool checkSectionExistence(int id);
 	/**Check if a specific material instance exists in the structure*/
 	bool checkMaterialExistence(int id);
 	/**Check if a specific node instance exists in the structure*/
@@ -45,8 +47,10 @@ public:
 	GenericFE* fetchObject(int id, std::string type);
 	/**Fetch a specific cross-section instance*/
 	GenericCrossSection* fetchCrossSection(int id);
+	/**Fetch a specific section instance*/
+	GenericSection* fetchSection(int id);
 	/**Fetch a specific material instance*/
-	GenericMaterial* fetchMaterial(int id); //TODO: Change to generic material type
+	GenericMaterial* fetchMaterial(int id);
 	/**Fetch a specific node instance*/
 	FENode* fetchNode(int id);
 	/**Fetch a specific node load instance*/
@@ -61,10 +65,12 @@ public:
 	bool addElement(GenericFE* element);
 	/**Add a new coordinate system instance to the corresponding map and vector containers*/
 	bool addCoordSys(FECoordSys * coordSys);
-	/**Add a new croos-section instance to the corresponding map and vector containers*/
+	/**Add a new cross-section instance to the corresponding map and vector containers*/
 	bool addCrossSection(GenericCrossSection * crossSection);
+	/**Add a new section instance to the corresponding map and vector containers*/
+	bool addSection(GenericSection * section);
 	/**Add a new material instance to the corresponding map and vector containers*/
-	bool addMaterial(GenericMaterial * material); //TODO: Change to generic material type
+	bool addMaterial(GenericMaterial * material);
 	/**Add a new node load instance to the corresponding map and vector containers*/
 	bool addNodeLoad(FENodeLoad * nodeLoad);
 	/**Add a new load combination instance to the corresponding map and vector containers*/
@@ -80,16 +86,18 @@ public:
 
 	std::vector<GenericCrossSection*> crossSectionList;		///< List of ptrs to cross-section instances
 	std::map<int, GenericCrossSection*> crossSectionMap;	///< Map from ID to corresponding croos-section instance
+
+	std::vector<GenericSection*> sectionList;				///< List of ptrs to cross-section instances
+	std::map<int, GenericSection*> sectionMap;				///< Map from ID to corresponding croos-section instance
 	
-	//TODO: Change to generic material type
 	std::vector<GenericMaterial*> materialList;				///< List of ptrs to material instances
-	std::map<int, GenericMaterial*> materialMap;				///< Map from ID to corresponding material instance ptr
+	std::map<int, GenericMaterial*> materialMap;			///< Map from ID to corresponding material instance ptr
 
 	std::vector<FENode*> nodeList;							///< List of ptrs to nodes
 	std::map<int, FENode*> nodeMap;							///< Map from ID to corresponding node instance ptr
 
 	std::vector<GenericFE*> elementList;					///< List of ptrs to Identifiables (used to generalize FE elements)
-	std::map<int, GenericFE*> elementMap;				///< Map from ID to corresponding Identifiable ptr for a specific FE element
+	std::map<int, GenericFE*> elementMap;					///< Map from ID to corresponding Identifiable ptr for a specific FE element
 
 	std::vector<FENodeLoad*> nodeLoadList;					///< List of ptrs to node load instances
 	std::map<int, FENodeLoad*> nodeLoadMap;					///< Map from ID to corresponding node load instance ptr

@@ -443,9 +443,9 @@ void Parser::parsePLThick(YAML::Node& yamlNode, std::string type) {
 
 void Parser::parsePLComp(YAML::Node& yamlNode, std::string type) {
 	try {
-		bool exists = structure->checkCrossSectionExistence(yamlNode["secID"].as<int>(), type);
+		bool exists = structure->checkSectionExistence(yamlNode["secID"].as<int>());
 		if (exists) {
-			throw std::runtime_error("Error: A cross section object with id "
+			throw std::runtime_error("Error: A section object with id "
 				+ yamlNode["secID"].as<std::string>() + " already exists.");
 		}
 		else {
@@ -454,7 +454,7 @@ void Parser::parsePLComp(YAML::Node& yamlNode, std::string type) {
 				matList.push_back(structure->fetchMaterial(ply["matID"].as<int>()));
 			}
 			PLComp* plComp = new PLComp(yamlNode, matList);
-			structure->addCrossSection(plComp);
+			structure->addSection(plComp);
 		}
 	}
 	catch (const std::runtime_error &e) {

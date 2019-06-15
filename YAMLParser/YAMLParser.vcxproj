@@ -169,6 +169,7 @@
     <ClInclude Include="FETsection.h" />
     <ClInclude Include="FEVector.h" />
     <ClInclude Include="GenericMaterial.h" />
+    <ClInclude Include="GenericSection.h" />
     <ClInclude Include="PLComp.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="DataHolder.h" />
